@@ -2,6 +2,6 @@
 #include "minishell.h"
 int main()
 {
-	write(1, "hello\n",6);
+	write(1, " ",1);
 	return (0);
 }

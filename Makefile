@@ -3,13 +3,13 @@ LIBFT = libft.a
 
 HEADER = ./minishell.h
 
-SRCS = ./main.c
+SRCS = ./executor/custom_commands.c
 
 OBJ = $(SRCS:%.c=%.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
