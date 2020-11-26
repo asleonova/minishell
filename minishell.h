@@ -15,25 +15,25 @@ typedef enum    e_command_list
     export = 3,
     unset = 4,
     env = 5,
-    
-
-
-
+    exit = 6,
+    bash = 7
 }               t_command_list;
+
 typedef struct          s_commands
 {
     char                *cmd; // команда (например echo)
-    int                 num_cmd; // мб потребуется, - порядковый номер команды, которые мы сами пишем, для системных один номер
     char                *cmd_dir; // директория системной команды 
     int                 count_args; // кол-во аргументов для команды (например echo hello world будет 2, так как hello - 1, world - 2 отдельно)
     int                 type_redir; // тип редиректа: < > >>
     int                 invalid; // флаг - команда невалидна
+    t_command_list      cmd_list;
     struct s_list       *lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
     struct s_commands   *redir;
     struct s_commands   *pipe;
     struct s_commands   *next; // next - это точка с запятой ;
-}
-                       t_commands;
+    
+}                       t_commands;
+     
 typedef struct          s_data
 {
     int                 fd_0;
