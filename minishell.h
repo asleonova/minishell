@@ -1,6 +1,10 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#include "../libft/libft.h"
+#include <stdlib.h>
+#include <unistd.h>
+
 #define SUCCESS 0
 #define FAIL 1
 
@@ -12,7 +16,7 @@ typedef enum    e_command_names
     export = 3,
     unset = 4,
     env = 5,
-    //exit = 6,
+    our_exit = 6,
     bash = 7
 }               t_command_names;
 
@@ -36,11 +40,11 @@ typedef struct          s_data
     int                 fd_0;
     int                 fd_1;
     char                **envp; // переменные окружения (длинный список) - type in termibal env to see how it looks like
-    int                 home_dir; // порядковый номер переменной окружения в домашней директории HOME
-    int                 current_pwd; // текущиий pwd PWD=
-    int                 old_pwd; // OLDPWD=
-    int                 env_var; // мб вновь созданные переменные окружения
-    int                 path; // PATH= 
+    char                *home; // порядковый номер переменной окружения в домашней директории HOME
+    char                *current_pwd; // текущиий pwd PWD=
+    char                *old_pwd; // OLDPWD=
+    char                *env_var; // мб вновь созданные переменные окружения
+    char                *path; // PATH= 
     int                 count_str; // кол-во строк
     char                *error_string; // текст ошибки
 }                       t_data;

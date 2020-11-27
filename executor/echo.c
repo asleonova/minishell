@@ -1,7 +1,4 @@
 #include "../minishell.h"
-#include "../libft/libft.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 int ft_echo(t_commands *command)
 {
