@@ -41,7 +41,7 @@ typedef struct          s_data
     int                 fd_1;
     char                **envp; // переменные окружения (длинный список) - type in termibal env to see how it looks like
     char                *home; // порядковый номер переменной окружения в домашней директории HOME
-    char                *current_pwd; // текущиий pwd PWD=
+    char                *cwd; // текущиий pwd PWD=
     char                *old_pwd; // OLDPWD=
     char                *env_var; // мб вновь созданные переменные окружения
     char                *path; // PATH= 

@@ -40,7 +40,7 @@ char *get_env_values(t_data *data, char *key)
 void set_env_values(t_data *data)
 {
     data->home = get_env_values(data->envp, "HOME");
-    data->current_pwd = get_env_values(data->envp, "PWD");
+    data->cwd = get_env_values(data->envp, "PWD");
     data->old_pwd = get_env_values(data->envp, "OLD_PWD");
 }
 
