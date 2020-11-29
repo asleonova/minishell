@@ -5,13 +5,12 @@ int ft_cd(t_commands *command, t_data *data)
     char *cwd;
     if (command->count_args == 0) // cd only (without args)
     {
-        set_env_values("OLDPWD", cwd = get_env_values(data->envp, "PWD")); // сохраняем текущий pwd в old_pwd в переменные окружения!!!
-		free(cwd);
+        change_env_values("OLDPWD=", data); // сохраняем текущий pwd в old_pwd в переменные окружения!!
 		cwd = get_env_values(data->envp, "HOME");
 		chdir(cwd); // здесь мы попадаем в home
 		free(cwd);
-		cwd = getcwd(NULL, 1000); // получаем новое значение для current directory
-        set_env_values("PWD", cwd); // сохраняем полученное значение в переменных окружения 
+		cwd = getcwd(NULL, 0); // получаем новое значение для current directory
+        change_env_values("PWD", cwd); // сохраняем полученное значение в переменных окружения 
     }
     else // cd with path
     {
@@ -20,12 +19,11 @@ int ft_cd(t_commands *command, t_data *data)
             error_path(command);
             return(FAIL);
         }
-	    else
+	    else // тут продумать лучше, как менять!!!!
 	    {
-            set_env_values("OLDPWD", cwd = get_env_values(data->envp, "PWD")); // сохраняем текущий pwd в old_pwd в переменные окружения!!!
-            free(cwd);
-		    cwd = getcwd(NULL, 1000);
-            set_env_values("PWD", cwd); // сохраняем полученное значение в переменных окружения  
+            change_env_values("OLDPWD=", data); // сохраняем текущий pwd в old_pwd в переменные окружения!!!
+		    cwd = getcwd(NULL, 0);
+            change_env_values("PWD=", cwd); // сохраняем полученное значение в переменных окружения  
 	    }
     }
 }
