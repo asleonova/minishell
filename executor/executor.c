@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void executor(t_commands *command)
+void executor(t_commands *command, char *cmd)
 {
     if (command->cmd_list == echo)
         ft_echo(command);
@@ -17,5 +17,5 @@ void executor(t_commands *command)
     else if (command->cmd_list == env)
         ft_env(command);
     else
-        sysfuncs(command);
+        sysfuncs(cmd);
 }

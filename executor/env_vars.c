@@ -67,52 +67,33 @@ void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void		update_pwd(t_main *main, int type)
+void	delete_env_var(char *var, t_data *data)
 {
-	char		*pwd;
-	char		*tmp;
-	char		*env;
-
-	if (!(pwd = getcwd(NULL, 0)))
-		return ;
-	if (!(env = get_env_value(main, (type == 0) ? "PWD" : "OLDPWD")))
+	char **tmp;
+	char **split;
+	int i;
+	int len;
+	int j;
+	
+	len = tab_len(data->envp);
+	i = -1;
+	j = 0;
+	tmp = (char**)malloc(sizeof(char *) * len); // делаем двумерный массив на кол-во строк
+	while (++i < len)
 	{
-		free(pwd);
-		return ;
-	}
-	unset_env(main, (type == 0) ? "PWD" : "OLDPWD");
-	tmp = pwd;
-	pwd = ft_strjoin((type == 0) ? "PWD=" : "OLDPWD=", pwd);
-	export_env(main, pwd);
-	free(env);
-	free(tmp);
-	free(pwd);
-}
-
-int			change_directory(t_command *command, t_main *main)
-{
-	int		status;
-
-	ft_get_pipe(main, command->pipe, 0);
-	check_redirect(command);
-	if (command->pipe == NULL)
-	{
-		if (command->args[1] == NULL || command->args[1][0] == '~')
-			status = get_home_path(command->args[1], main);
-		else
+		split = ft_split(data->envp[i], '='); // 1. разделили строку  
+		if (ft_strcmp(split[0], var) == 0)
 		{
-			update_pwd(main, 1);
-			status = chdir(command->args[1]);
-			if (status == 0)
-				update_pwd(main, 0);
+			free_tab(split); 
+			continue ;	// тут опять сразу идем в условие while, т.е. код ниже не отрабатывает
 		}
-		if (status == -1)
-			send_custom_error("Not a valid path");
+		free_tab(split); // 2. очистили строку сплитнутый массив
+		tmp[j++] = ft_strdup(data->envp[i]); // 3. записали в tmp строку, которую не удаляем
 	}
-	ft_get_pipe(main, command->pipe, 1);
-	return (1);
+	tmp[j] = 0;
+	free_tab(data->envp); // освободили старый массив
+	data->envp = tmp; // записали новый, с удаленным значением
 }
-
 
 void	change_env_value(char *var, t_data *data)
 {
