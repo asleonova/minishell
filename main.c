@@ -2,29 +2,6 @@
 #include "minishell.h"
 #include <stdio.h>
 
-int			ft_strcmp(char const *s1, char const *s2)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (s1 == 0 || s2 == 0)
-	{
-		if (s1 == 0 && s2 == 0)
-			return (0);
-		if (s1 != 0)
-			return (1);
-		else
-			return (-1);
-	}
-	while ((s1[i] != 0 || s2[i] != 0))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
-}
-
 void		free_tab(char **tab)
 {
 	int		i;
@@ -58,7 +35,6 @@ void	delete_env_var(char *var, t_data *data)
 	int j;
 	
 	len = tab_len(data->envp);
-	printf("~~~~~%d\n\n", len);
 	i = -1;
 	j = 0;
 	tmp = (char**)malloc(sizeof(char *) * len);
@@ -66,28 +42,19 @@ void	delete_env_var(char *var, t_data *data)
 	{
 		split = ft_split(data->envp[i], '=');
 		if (ft_strcmp(split[0], var) == 0)
+			free_tab(split);
+		else
 		{
 			free_tab(split);
-			continue ;	
-		}
-		free_tab(split);
-		tmp[j++] = ft_strdup(data->envp[i]);
+			tmp[j++] = ft_strdup(data->envp[i]);
+		} 
 	}
 	tmp[j] = 0;
 	free_tab(data->envp);
 	data->envp = tmp;
 }
 
-// void fill_tab(char ***tab, char *str, int k)
-// {
-// 	int i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		*tab[k][i] = str[i];
-// 		i++;
-// 	}
-// }
-int main()
+int main() // testing unset env func
 {
 	t_data *data;
 	char *str;

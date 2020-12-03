@@ -78,21 +78,21 @@ void	delete_env_var(char *var, t_data *data)
 	len = tab_len(data->envp);
 	i = -1;
 	j = 0;
-	tmp = (char**)malloc(sizeof(char *) * len); // делаем двумерный массив на кол-во строк
+	tmp = (char**)malloc(sizeof(char *) * len);
 	while (++i < len)
 	{
-		split = ft_split(data->envp[i], '='); // 1. разделили строку  
+		split = ft_split(data->envp[i], '=');
 		if (ft_strcmp(split[0], var) == 0)
+			free_tab(split);
+		else
 		{
-			free_tab(split); 
-			continue ;	// тут опять сразу идем в условие while, т.е. код ниже не отрабатывает
-		}
-		free_tab(split); // 2. очистили строку сплитнутый массив
-		tmp[j++] = ft_strdup(data->envp[i]); // 3. записали в tmp строку, которую не удаляем
+			free_tab(split);
+			tmp[j++] = ft_strdup(data->envp[i]);
+		} 
 	}
 	tmp[j] = 0;
-	free_tab(data->envp); // освободили старый массив
-	data->envp = tmp; // записали новый, с удаленным значением
+	free_tab(data->envp);
+	data->envp = tmp;
 }
 
 void	change_env_value(char *var, t_data *data)
