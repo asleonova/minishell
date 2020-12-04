@@ -62,7 +62,7 @@ void		add_env_var(char *var, t_data *data)
 		i++;
 	}
 	tmp[i] = ft_strdup(var);
-	tmp[i + 1] = '\0';
+	tmp[i + 1] = NULL;
 	free_tab(data->envp);
 	data->envp = tmp;
 }
@@ -93,6 +93,23 @@ void	delete_env_var(char *var, t_data *data)
 	tmp[j] = 0;
 	free_tab(data->envp);
 	data->envp = tmp;
+}
+
+// ATTENTION
+void		ft_unset_env(t_data *main, char *arg)
+{
+	char	*temp;
+
+	if (ft_strnstr(arg, "=", -1) == NULL)
+	{
+		if ((temp = get_env_value(main, arg)) != NULL)
+		{
+			free(temp);
+			delete_env_var(main, arg);
+		}
+	}
+	else
+		send_custom_error("Error argument!");
 }
 
 void	change_env_value(char *var, t_data *data)

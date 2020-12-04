@@ -12,16 +12,34 @@ void	ft_swap(char *s1, char *s2)
 void	ft_sort_list(t_data *data)
 {
 	int i;
+	int j;
+	int len;
 	int diff;
 
 	i = 0;
-	while(data->envp[i + 1])
+	len = tab_len(data->envp);
+	while(i < len - 1)
 	{
-		diff = ft_strcmp(data->envp[i], data->envp[i + 1]);
-		if (diff > 0)
-			ft_swap(data->envp[i], data->envp[i + 1]);
+		j = 0;
+		while (j < len - i - 1)
+		{
+			diff = ft_strcmp(data->envp[j], data->envp[j + 1]);
+			if (diff > 0)
+				ft_swap(&data->envp[j], &data->envp[j + 1]);
+			j++;
+		}
 		i++;
 	}
+}
+
+int ft_export_update(t_data *data, char *arg) // это поменять значение уже существующей переменной
+{
+	char	**temp;
+
+	temp = ft_split(arg, '=');
+	delete_env_var(temp[0], data);
+	free_args(temp);
+	add_env_var(arg, data);
 }
 
 void ft_print_export(t_data *data)
@@ -50,43 +68,22 @@ void ft_print_export(t_data *data)
         free_tab(split);
         i++;
     }
-
 }
 
-static void		print_vars(t_data *data)
+void	ft_export(t_data *data, t_commands *command)
 {
-	size_t		index;
-	char		**splited;
-	char		*env;
+	int i;
 
-	index = 0;
-	splited = NULL;
-	sort_vars(data->env);
-	while (data->env[index])
+	i = 0;
+	if (command->count_args == 0)
+		ft_print_export(data);
+	else
 	{
-		if (!ft_strmatch(data->env[index], "1=1"))
+		while (data->envp[i])
 		{
-			env = ft_strchr(data->env[index], '=');
-			splited = ft_split(data->env[index], '=');
-			if (ft_strncmp(splited[0], "?", 2))
-				ft_printf("declare -x %s", splited[0]);
-			if (env)
-				ft_printf("=\"%s\"\n", env + 1);
-			else
-				ft_printf("\n");
-			ft_clr_darray(splited);
-			splited = NULL;
+			ft_export_update(data, data->envp[i]);
+			i++;
 		}
-		index++;
+		ft_print_export(data);
 	}
-}
-
-int ft_export_update(t_data *data, char *arg) // это поменять значение уже существующей переменной
-{
-	char	**temp;
-
-	temp = ft_split(arg, '=');
-	delete_env_var(temp[0], data);
-	free_args(temp);
-	add_env_var(arg, data);
 }
