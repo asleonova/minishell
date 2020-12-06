@@ -95,29 +95,12 @@ void	update_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-// ATTENTION
-void		ft_unset_env(t_data *main, char *arg)
-{
-	char	*temp;
-
-	if (ft_strnstr(arg, "=", -1) == NULL)
-	{
-		if ((temp = get_env_value(main, arg)) != NULL)
-		{
-			free(temp);
-			delete_env_var(main, arg);
-		}
-	}
-	else
-		send_custom_error("Error argument!");
-}
-
 void	change_env_value(char *var, t_data *data)
 {
 	char *cwd;
 	char *tmp;
 
-	delete_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
+	update_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
 	cwd = getcwd(NULL, 0);
 	cwd = ft_strjoin(var, cwd); // не забыть, что тут нужно с PATH= соединить
 	add_env_var(cwd, data);

@@ -32,16 +32,6 @@ void	ft_sort_list(t_data *data)
 	}
 }
 
-int ft_export_update(t_data *data, char *arg) // это поменять значение уже существующей переменной
-{
-	char	**temp;
-
-	temp = ft_split(arg, '=');
-	delete_env_var(temp[0], data);
-	free_args(temp);
-	add_env_var(arg, data);
-}
-
 void ft_print_export(t_data *data)
 {
     int i;
@@ -70,20 +60,70 @@ void ft_print_export(t_data *data)
     }
 }
 
-void	ft_export(t_data *data, t_commands *command)
+void		ft_unset_env(char *str, t_data *data)
 {
-	int i;
+	char	*tmp;
 
-	i = 0;
-	if (command->count_args == 0)
-		ft_print_export(data);
-	else
-	{
-		while (data->envp[i])
+		if ((tmp = get_env_values(str, data)) != NULL)
 		{
-			ft_export_update(data, data->envp[i]);
-			i++;
+			free(tmp);
+			update_env_var(str, data);
 		}
+}
+
+void ft_export_update(t_data *data, char *str)
+{
+	char	**temp;
+
+	temp = ft_split(str, '=');
+	ft_unset_env(temp[0], data);
+	free_tab(temp);
+	add_env_var(str, data);
+}
+
+int			ft_export(t_data *data, t_commands *command)
+{
+	if (command->count_args == 0)
+	{
 		ft_print_export(data);
+		return(SUCCESS);
 	}
+	while (command->lst)
+	{
+		ft_export_update(data, command->lst->content);
+		command->lst = command->lst->next;
+	}
+	ft_print_export(data);
+	return(SUCCESS);
+}
+
+int main() // testing unset env func
+{
+	t_data *data;
+	t_commands *command;
+	
+	data = malloc(sizeof(t_data));
+	command = malloc(sizeof(t_commands));
+	command->count_args = 1;
+	data->envp = (char**)malloc(sizeof(char *) * 4 + 1);
+	data->envp[0] = ft_strdup("ZSHC=/Users/dbliss/.oh-my-zsh");
+	data->envp[1] = ft_strdup("CSERR=dbliss");
+	data->envp[2] = ft_strdup("anna=");
+	data->envp[3] = ft_strdup("sfkjsfklfsjl=flsfl");
+	data->envp[4] = NULL;
+	command->lst = ft_lstnew("dZSHC=dffsd");
+	append_lst(&command->lst, "heeeey");
+	append_lst(&command->lst, "heeeey=");
+	printf("\n\n----PRINT LST----\n\n");
+	printf("%s\n", command->lst->content);
+	printf("%s\n", command->lst->next->content);
+	printf("%s\n", command->lst->next->next->content);
+	printf("\n\n----LST END----\n\n");
+	printf("%s\n", data->envp[0]);
+	printf("%s\n", data->envp[1]);
+	printf("%s\n", data->envp[2]);
+	printf("%s\n", data->envp[3]);
+	printf("\n\n----PRINT EXPORT----\n\n");
+	ft_export(data, command);
+	return (0);
 }

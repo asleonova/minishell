@@ -2,7 +2,6 @@
 #include "minishell.h"
 #include <stdio.h>
 
-
 void append_lst(t_list **lst, void *new_content) 
 { 
     /* 1. allocate node */
@@ -58,37 +57,7 @@ int		tab_len(char **tab)
 	return(len);
 
 }
-
-int			unset_env(t_data *main, char *arg)
-{
-	char	**temp;
-	char	**ptr;
-	int		len;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	len = tab_len(main->envp);
-	temp = (char **)malloc((len) * sizeof(char *));
-	while (++i < len)
-	{
-		ptr = ft_split(main->envp[i], '=');
-		if (ft_strncmp(ptr[0], arg, -1) == 0)
-		{
-			free_tab(ptr);
-			continue ;
-		}
-		free_tab(ptr);
-		temp[j++] = ft_strdup(main->envp[i]);
-	}
-	temp[j] = 0;
-	free_tab(main->envp);
-	main->envp = temp;
-	return (1);
-}
-
-void	delete_env_var(char *var, t_data *data)
+void	update_env_var(char *var, t_data *data)
 {
 	char **tmp;
 	char **split;
@@ -116,27 +85,7 @@ void	delete_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void		add_env_var(char *str, t_data *data)
-{
-	char	**tmp;
-	int		i;
-	int		len;
-
-	len = tab_len(data->envp); 
-	i = 0;
-	tmp = (char**)malloc(sizeof(char *) * (len + 2));
-	while (i < len)
-	{
-		tmp[i] = ft_strdup(data->envp[i]);
-		i++;
-	}
-	tmp[i] = ft_strdup(str);
-	tmp[i + 1] = NULL;
-	free_tab(data->envp);
-	data->envp = tmp;
-}
-
-char *get_env_values(char *key, t_data *data)
+char *get_env_values(t_data *data, char *key)
 {
     int i;
     char **tmp;
@@ -160,101 +109,40 @@ char *get_env_values(char *key, t_data *data)
 	return (value);
 }
 
-void	ft_swap(char **s1, char **s2)
-{
-	char *tmp;
-
-	tmp = *s1;
-	*s1 = *s2;
-	*s2 = tmp;
-}
-
-void	ft_sort_list(t_data *data)
-{
-	int i;
-	int j;
-	int len;
-	int diff;
-
-	i = 0;
-	len = tab_len(data->envp);
-	while(i < len - 1)
-	{
-		j = 0;
-		while (j < len - i - 1)
-		{
-			diff = ft_strcmp(data->envp[j], data->envp[j + 1]);
-			if (diff > 0)
-				ft_swap(&data->envp[j], &data->envp[j + 1]);
-			j++;
-		}
-		i++;
-	}
-}
-
-void ft_print_export(t_data *data)
-{
-    int i;
-    char **split;
-	char *var;
-
-    i = 0;
-    ft_sort_list(data);
-    while (data->envp[i])
-    {
-		var = ft_strchr(data->envp[i], '=');
-        split = ft_split(data->envp[i], '=');
-        ft_putstr_fd("declare -x ", 1);
-        ft_putstr_fd(split[0], 1);
-        if (var)
-        {
-			ft_putchar_fd('=', 1);
-            ft_putchar_fd('"', 1);
-			if (split[1])
-            	ft_putstr_fd(split[1], 1);
-            ft_putchar_fd('"', 1);
-		}
-        ft_putchar_fd('\n', 1);
-        free_tab(split);
-        i++;
-    }
-}
-
 void		ft_unset_env(char *str, t_data *data)
 {
 	char	*tmp;
 
-		if ((tmp = get_env_values(str, data)) != NULL)
+		if ((tmp = get_env_values(data, str)) != NULL)
 		{
 			free(tmp);
-			delete_env_var(str, data);
+			update_env_var(str, data);
 		}
 }
 
-void ft_export_update(t_data *data, char *str) // это поменять значение уже существующей переменной
+int error_identifier(t_commands *command)
 {
-	char	**temp;
-
-	temp = ft_split(str, '=');
-	ft_unset_env(temp[0], data);
-	free_tab(temp);
-	add_env_var(str, data);
+	ft_putstr_fd("minishell: unset: ", 1);
+	ft_putstr_fd(command->lst->content, 1);
+	ft_putstr_fd(": not a valid identifier", 1);
+	return(FAIL);
 }
 
-int			ft_export(t_data *data, t_commands *command)
+int ft_unset(t_data *data, t_commands *command)
 {
-	if (command->count_args == 0)
-	{
-		ft_print_export(data);
-		return(SUCCESS);
-	}
-	while (command->lst)
-	{
-		ft_export_update(data, command->lst->content);
-		command->lst = command->lst->next;
-	}
-	ft_print_export(data);
-	return(SUCCESS);
+    if (command->count_args > 0)
+    {
+        while (command->lst)
+        {
+            if (ft_strchr(command->lst->content, '=') == NULL)
+                ft_unset_env(command->lst->content, data);
+            else
+                error_identifier(command);
+        command->lst = command->lst->next;
+        }
+
+    }
+    return(SUCCESS);
 }
 
 int main() // testing unset env func
@@ -262,11 +150,9 @@ int main() // testing unset env func
 	t_data *data;
 	t_commands *command;
 	
-	// char *str;
 	data = malloc(sizeof(t_data));
 	command = malloc(sizeof(t_commands));
 	command->count_args = 1;
-	// str = malloc(sizeof(char) * 4);
 	data->envp = (char**)malloc(sizeof(char *) * 4 + 1);
 	data->envp[0] = ft_strdup("ZSHC=/Users/dbliss/.oh-my-zsh");
 	data->envp[1] = ft_strdup("CSERR=dbliss");
@@ -281,15 +167,11 @@ int main() // testing unset env func
 	printf("%s\n", command->lst->next->content);
 	printf("%s\n", command->lst->next->next->content);
 	printf("\n\n----LST END----\n\n");
-	// str = "USER";
 	printf("%s\n", data->envp[0]);
 	printf("%s\n", data->envp[1]);
 	printf("%s\n", data->envp[2]);
 	printf("%s\n", data->envp[3]);
-	
-	// delete_env_var(str, data);
-	// printf("\n\n----UNSET VERSION----\n\n");
 	printf("\n\n----PRINT EXPORT----\n\n");
-	ft_export(data, command);
+	ft_unset(data, command);
 	return (0);
 }
