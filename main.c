@@ -2,6 +2,39 @@
 #include "minishell.h"
 #include <stdio.h>
 
+
+void append_lst(t_list **lst, void *new_content) 
+{ 
+    /* 1. allocate node */
+    t_list *new_node;
+	t_list *last;
+	
+	new_node = malloc(sizeof(t_list)); 
+	last = *lst;  /* used in step 5*/
+  
+    /* 2. put in the data  */
+    new_node->content  = new_content; 
+  
+    /* 3. This new node is going to be the last node, so make next of 
+          it as NULL*/
+    new_node->next = NULL; 
+  
+    /* 4. If the Linked List is empty, then make the new node as head */
+    if (*lst == NULL) 
+    { 
+       *lst = new_node; 
+       return; 
+    } 
+  
+    /* 5. Else traverse till the last node */
+    while (last->next != NULL) 
+        last = last->next; 
+  
+    /* 6. Change the next of last node */
+    last->next = new_node; 
+    return; 
+}
+
 void		free_tab(char **tab)
 {
 	int		i;
@@ -24,6 +57,35 @@ int		tab_len(char **tab)
 		len++;
 	return(len);
 
+}
+
+int			unset_env(t_data *main, char *arg)
+{
+	char	**temp;
+	char	**ptr;
+	int		len;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	len = tab_len(main->envp);
+	temp = (char **)malloc((len) * sizeof(char *));
+	while (++i < len)
+	{
+		ptr = ft_split(main->envp[i], '=');
+		if (ft_strncmp(ptr[0], arg, -1) == 0)
+		{
+			free_tab(ptr);
+			continue ;
+		}
+		free_tab(ptr);
+		temp[j++] = ft_strdup(main->envp[i]);
+	}
+	temp[j] = 0;
+	free_tab(main->envp);
+	main->envp = temp;
+	return (1);
 }
 
 void	delete_env_var(char *var, t_data *data)
@@ -54,7 +116,7 @@ void	delete_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void		add_env_var(char *var, t_data *data)
+void		add_env_var(char *str, t_data *data)
 {
 	char	**tmp;
 	int		i;
@@ -68,13 +130,13 @@ void		add_env_var(char *var, t_data *data)
 		tmp[i] = ft_strdup(data->envp[i]);
 		i++;
 	}
-	tmp[i] = ft_strdup(var);
+	tmp[i] = ft_strdup(str);
 	tmp[i + 1] = NULL;
 	free_tab(data->envp);
 	data->envp = tmp;
 }
 
-char *get_env_values(t_data *data, char *key)
+char *get_env_values(char *key, t_data *data)
 {
     int i;
     char **tmp;
@@ -158,112 +220,76 @@ void ft_print_export(t_data *data)
     }
 }
 
-void		ft_unset_env(t_data *main, char *arg)
+void		ft_unset_env(char *str, t_data *data)
 {
-	char	*temp;
+	char	*tmp;
 
-	// if (ft_strchr(arg, '=') == NULL)
-	// {
-		if ((temp = get_env_values(main, arg)) != NULL)
+		if ((tmp = get_env_values(str, data)) != NULL)
 		{
-			free(temp);
-			delete_env_var(arg, main);
+			free(tmp);
+			delete_env_var(str, data);
 		}
-	// }
-	else
-		printf("Error argument!");
 }
 
-void ft_export_update(t_data *data, char *arg) // это поменять значение уже существующей переменной
+void ft_export_update(t_data *data, char *str) // это поменять значение уже существующей переменной
 {
 	char	**temp;
 
-	temp = ft_split(arg, '=');
-	ft_unset_env(data,temp[0]);
+	temp = ft_split(str, '=');
+	ft_unset_env(temp[0], data);
 	free_tab(temp);
-	add_env_var(arg, data);
+	add_env_var(str, data);
 }
 
-void	ft_export(t_data *data, t_commands *command)
+int			ft_export(t_data *data, t_commands *command)
 {
-	int i;
-	char **tmp;
-	int len;
-
-	len = tab_len(data->envp);
-	i = 0;
 	if (command->count_args == 0)
-		ft_print_export(data);
-	else
 	{
-		while (data->envp[i])
-		{
-			tmp = ft_split(data->envp[i], "=");
-			if (ft_strcmp(tmp[0], data->envp[len]) == 0) // если последний элемент - такой же есть
-				// delete one and update!!!! НЕ ПОЛУЧТЬСЯ!!!! ТАК КАК МОЖНО МНОГО ПЕРЕМЕННЫХ ДОБАВЛЯТЬ!!!!
-			ft_strcmp(data, data->envp[i]);
-			i++;
-		}
 		ft_print_export(data);
+		return(SUCCESS);
 	}
+	while (command->lst)
+	{
+		ft_export_update(data, command->lst->content);
+		command->lst = command->lst->next;
+	}
+	ft_print_export(data);
+	return(SUCCESS);
 }
+
 int main() // testing unset env func
 {
 	t_data *data;
 	t_commands *command;
-
-	char *str;
-	data = malloc(sizeof(data));
-	command = malloc(sizeof(command));
-	str = malloc(sizeof(char) * 4);
-	data->envp = (char**)malloc(sizeof(char *) * 4 + 1);
-	data->envp[0] = (char*)malloc(sizeof(char *) * 30 + 1);
-	data->envp[1] = (char*)malloc(sizeof(char *) * 30 + 1);
-	data->envp[2] = (char*)malloc(sizeof(char *) * 30 + 1);
-	data->envp[3] = (char*)malloc(sizeof(char *) * 30 + 1);
-	data->envp[4] = NULL;
 	
-	int j = 0;
-	int i = 0;
-	command->count_args = 4;
-	char *str1 = "ZSHC=/Users/dbliss/.oh-my-zsh"; 
-	while (str1[j])
-	{
-		data->envp[0][i++] = str1[j++];
-	}
-	i = 0;
-	j = 0;
-	char *str2 = "CSERR=dbliss";
-	while (str2[j])
-	{
-		data->envp[1][i++] = str2[j++];
-	}
-	i = 0;
-	j = 0;
-	char *str3 = "abt=";
-	while (str3[j])
-	{
-		data->envp[2][i++] = str3[j++];
-	}
-	i = 0;
-	j = 0;
-	char *str4 = "abc=";
-	while (str4[j])
-	{
-		data->envp[3][i++] = str4[j++];
-	}
-	str = "USER";
+	// char *str;
+	data = malloc(sizeof(t_data));
+	command = malloc(sizeof(t_commands));
+	command->count_args = 1;
+	// str = malloc(sizeof(char) * 4);
+	data->envp = (char**)malloc(sizeof(char *) * 4 + 1);
+	data->envp[0] = ft_strdup("ZSHC=/Users/dbliss/.oh-my-zsh");
+	data->envp[1] = ft_strdup("CSERR=dbliss");
+	data->envp[2] = ft_strdup("anna=");
+	data->envp[3] = ft_strdup("sfkjsfklfsjl=flsfl");
+	data->envp[4] = NULL;
+	command->lst = ft_lstnew("dZSHC=dffsd");
+	append_lst(&command->lst, "heeeey");
+	append_lst(&command->lst, "heeeey=");
+	printf("\n\n----PRINT LST----\n\n");
+	printf("%s\n", command->lst->content);
+	printf("%s\n", command->lst->next->content);
+	printf("%s\n", command->lst->next->next->content);
+	printf("\n\n----LST END----\n\n");
+	// str = "USER";
 	printf("%s\n", data->envp[0]);
 	printf("%s\n", data->envp[1]);
 	printf("%s\n", data->envp[2]);
 	printf("%s\n", data->envp[3]);
+	
 	// delete_env_var(str, data);
 	// printf("\n\n----UNSET VERSION----\n\n");
 	printf("\n\n----PRINT EXPORT----\n\n");
 	ft_export(data, command);
-	// printf("%s\n", data->envp[0]);
-	// printf("%s\n", data->envp[1]);
-	// printf("%s\n", data->envp[2]);
-	// printf("%s\n", data->envp[3]);
 	return (0);
 }

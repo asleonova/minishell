@@ -67,7 +67,7 @@ void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void	delete_env_var(char *var, t_data *data)
+void	update_env_var(char *var, t_data *data)
 {
 	char **tmp;
 	char **split;
