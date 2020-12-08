@@ -1,8 +1,10 @@
 #include "../minishell.h"
 
-void executor(t_commands *command, char *cmd)
+int executor(t_commands *command, char *cmd)
 {
-    if (command->cmd_list == echo)
+    if (command->invalid == 1)
+        return(FAIL); // не забыть текст ошибки
+    else if (command->cmd_list == echo)
         ft_echo(command);
     else if (command->cmd_list == cd)
         ft_cd(command);
@@ -18,4 +20,5 @@ void executor(t_commands *command, char *cmd)
         ft_env(command);
     else
         sysfuncs(cmd);
+    return (SUCCESS);
 }

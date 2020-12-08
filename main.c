@@ -113,7 +113,7 @@ void		ft_unset_env(char *str, t_data *data)
 {
 	char	*tmp;
 
-		if ((tmp = get_env_values(data, str)) != NULL)
+		if ((tmp = get_env_values(data, str)) != NULL) // если у нас есть значение у п.о. PATH="hello"
 		{
 			free(tmp);
 			update_env_var(str, data);
@@ -122,27 +122,24 @@ void		ft_unset_env(char *str, t_data *data)
 
 int error_identifier(t_commands *command)
 {
-	ft_putstr_fd("minishell: unset: ", 1);
+	ft_putstr_fd("minishell: unset: `", 1);
 	ft_putstr_fd(command->lst->content, 1);
-	ft_putstr_fd(": not a valid identifier", 1);
+	ft_putstr_fd("\' : not a valid identifier", 1);
+	ft_putchar_fd('\n', 1);
 	return(FAIL);
 }
 
-int ft_unset(t_data *data, t_commands *command)
-{
-    if (command->count_args > 0)
-    {
-        while (command->lst)
-        {
-            if (ft_strchr(command->lst->content, '=') == NULL)
-                ft_unset_env(command->lst->content, data);
-            else
-                error_identifier(command);
-        command->lst = command->lst->next;
-        }
 
-    }
-    return(SUCCESS);
+void ft_unset(t_data *data, t_commands *command)
+{
+	while (command->lst)
+	{
+		if (ft_strchr(command->lst->content, '=') == NULL)
+			ft_unset_env(command->lst->content, data);
+		else
+			error_identifier(command);
+		command->lst = command->lst->next;
+	}
 }
 
 int main() // testing unset env func
@@ -159,8 +156,8 @@ int main() // testing unset env func
 	data->envp[2] = ft_strdup("anna=");
 	data->envp[3] = ft_strdup("sfkjsfklfsjl=flsfl");
 	data->envp[4] = NULL;
-	command->lst = ft_lstnew("dZSHC=dffsd");
-	append_lst(&command->lst, "heeeey");
+	command->lst = ft_lstnew("anna");
+	append_lst(&command->lst, "ZSHC");
 	append_lst(&command->lst, "heeeey=");
 	printf("\n\n----PRINT LST----\n\n");
 	printf("%s\n", command->lst->content);
@@ -171,7 +168,12 @@ int main() // testing unset env func
 	printf("%s\n", data->envp[1]);
 	printf("%s\n", data->envp[2]);
 	printf("%s\n", data->envp[3]);
-	printf("\n\n----PRINT EXPORT----\n\n");
+	printf("\n\n----PRINT UNSET----\n\n");
 	ft_unset(data, command);
+	printf("\n\n----AFTER UNSET----\n\n");
+	printf("%s\n", data->envp[0]);
+	printf("%s\n", data->envp[1]);
+	//printf("%s\n", data->envp[2]);
+	//printf("%s\n", data->envp[3]);
 	return (0);
 }
