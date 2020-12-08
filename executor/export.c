@@ -93,7 +93,7 @@ int			ft_export(t_data *data, t_commands *command)
 		ft_export_update(data, command->lst->content);
 		command->lst = command->lst->next;
 	}
-	ft_print_export(data);
+	ft_print_export(data); // вот это чекнуть. вроде печатать не нужно!!!
 	return(SUCCESS);
 }
 

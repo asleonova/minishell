@@ -141,7 +141,86 @@ void ft_unset(t_data *data, t_commands *command)
 		command->lst = command->lst->next;
 	}
 }
+void		add_env_var(char *var, t_data *data)
+{
+	char	**tmp;
+	int		i;
+	int		len;
 
+	len = tab_len(data->envp); 
+	i = 0;
+	tmp = (char**)malloc(sizeof(char *) * (len + 2));
+	while (i < len)
+	{
+		tmp[i] = ft_strdup(data->envp[i]);
+		i++;
+	}
+	tmp[i] = ft_strdup(var);
+	tmp[i + 1] = NULL;
+	free_tab(data->envp);
+	data->envp = tmp;
+}
+
+void ft_export_update(t_data *data, char *str)
+{
+	char	**temp;
+
+	temp = ft_split(str, '=');
+	ft_unset_env(temp[0], data);
+	free_tab(temp);
+	add_env_var(str, data);
+}
+
+
+
+int error_no_file_or_dir(t_commands *command)
+{
+	ft_putstr_fd("env: ", 1);
+	ft_putstr_fd(command->lst->content, 1);
+	ft_putstr_fd(": No such file or directory\n", 1);
+	return(FAIL);
+}
+
+void ft_print_env(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (data->envp[i])
+    {
+        if (ft_strchr(data->envp[i], '=') != NULL)
+        {
+            ft_putstr_fd(data->envp[i], 1);
+            ft_putchar_fd('\n', 1);
+        }
+        i++;
+    }    
+}
+int ft_env(t_data *data, t_commands *command)
+{
+    int flag;
+
+    flag = 0; // to identify whether we need to print the env or had a mistake
+    if (command->count_args == 0)
+    {
+        ft_print_env(data);
+        return(SUCCESS);
+    }
+    while(command->lst)
+    {
+        if (ft_strchr(command->lst->content, '=') == NULL)
+        {   
+            flag = 1;
+            error_no_file_or_dir(command);
+        }
+        else
+            ft_export_update(data, command->lst->content);
+        command->lst = command->lst->next;
+    }
+    if (flag == 0)
+        ft_print_env(data);
+    return (SUCCESS);
+}
 int main() // testing unset env func
 {
 	t_data *data;
@@ -156,7 +235,7 @@ int main() // testing unset env func
 	data->envp[2] = ft_strdup("anna=");
 	data->envp[3] = ft_strdup("sfkjsfklfsjl=flsfl");
 	data->envp[4] = NULL;
-	command->lst = ft_lstnew("anna");
+	command->lst = ft_lstnew("anna=");
 	append_lst(&command->lst, "ZSHC");
 	append_lst(&command->lst, "heeeey=");
 	printf("\n\n----PRINT LST----\n\n");
@@ -168,12 +247,12 @@ int main() // testing unset env func
 	printf("%s\n", data->envp[1]);
 	printf("%s\n", data->envp[2]);
 	printf("%s\n", data->envp[3]);
-	printf("\n\n----PRINT UNSET----\n\n");
-	ft_unset(data, command);
-	printf("\n\n----AFTER UNSET----\n\n");
+	printf("\n\n----PRINT ENV----\n\n");
+	ft_env(data, command);
+	printf("\n\n----AFTER ENV----\n\n");
 	printf("%s\n", data->envp[0]);
 	printf("%s\n", data->envp[1]);
-	//printf("%s\n", data->envp[2]);
-	//printf("%s\n", data->envp[3]);
+	printf("%s\n", data->envp[2]);
+	printf("%s\n", data->envp[3]);
 	return (0);
 }
