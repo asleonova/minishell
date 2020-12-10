@@ -19,6 +19,6 @@ int executor(t_commands *command, char *cmd)
     else if (command->cmd_list == env)
         ft_env(command);
     else
-        sysfuncs(cmd);
+        sysfunc_manager(command);
     return (SUCCESS);
 }

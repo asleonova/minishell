@@ -20,7 +20,7 @@ int ft_env(t_data *data, t_commands *command)
     int flag;
 
     flag = 0; // to identify whether we need to print the env or had a mistake
-    if (command->count_args == 0)
+    if (command->count_args == 0) // add case where we delete PATH!!!
     {
         ft_print_env(data);
         return(SUCCESS);

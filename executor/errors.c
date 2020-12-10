@@ -23,3 +23,11 @@ int error_no_file_or_dir(t_commands *command)
 	ft_putstr_fd(": No such file or directory\n", 1);
 	return(FAIL);
 }
+
+int command_not_found(t_commands *command)
+{
+	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd(command->cmd, 1);
+	ft_putstr_fd(": command not found\n", 1);
+	exit(126);
+}

@@ -4,6 +4,8 @@
 #include "libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 #define SUCCESS 0
 #define FAIL 1
@@ -36,6 +38,7 @@ typedef struct          s_data
 {
 
     char                **envp; // переменные окружения (длинный список) - type in termibal env to see how it looks like
+    int                 status;
     char                *home; // порядковый номер переменной окружения в домашней директории HOME
     char                *cwd; // текущиий pwd PWD=
     char                *old_pwd; // OLDPWD=
