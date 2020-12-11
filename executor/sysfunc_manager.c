@@ -6,9 +6,10 @@ char **ft_list_to_array(t_commands *command)
     int i;
     int count;
 
-    i = 0;
+    i = 1;
     count = command->count_args;
-    argv = (char**)malloc(sizeof(char *) * command->count_args + 1);
+    argv = (char**)malloc(sizeof(char *) * command->count_args + 2);
+    argv[0] = ft_strdup(command->cmd); // copy the command for the 1st element of the array
     while (count > 0)
     {
         argv[i++] = ft_strdup(command->lst->content);

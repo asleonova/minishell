@@ -20,9 +20,9 @@ int ft_exit_errors(t_commands *command)
         exit_code = 1;
     ft_putstr_fd("exit\n", 1);
     if (exit_code == 255)
-         ft_putstr_fd("Numeric argument required\n");
+         ft_putstr_fd("Numeric argument required\n", 1);
     else
-        ft_putstr_fd("Too many arguments\n");
+        ft_putstr_fd("Too many arguments\n", 1);
     return(exit_code);
 }
 ft_exit(t_commands *command)

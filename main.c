@@ -57,7 +57,7 @@ int		tab_len(char **tab)
 	return(len);
 
 }
-void	update_env_var(char *var, t_data *data)
+void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
 {
 	char **tmp;
 	char **split;
@@ -72,12 +72,12 @@ void	update_env_var(char *var, t_data *data)
 	while (++i < len)
 	{
 		split = ft_split(data->envp[i], '=');
-		if (ft_strcmp(split[0], var) == 0)
+		if (ft_strcmp(split[0], var) == 0) // if we have this env var (e.g: PATH, PATH), we don't copy this var to the new array
 			free_tab(split);
 		else
 		{
 			free_tab(split);
-			tmp[j++] = ft_strdup(data->envp[i]);
+			tmp[j++] = ft_strdup(data->envp[i]); // otherwise, we just copy the element existed
 		} 
 	}
 	tmp[j] = 0;
@@ -116,7 +116,7 @@ void		ft_unset_env(char *str, t_data *data)
 		if ((tmp = get_env_values(data, str)) != NULL) // если у нас есть значение у п.о. PATH="hello"
 		{
 			free(tmp);
-			update_env_var(str, data);
+			delete_env_var(str, data);
 		}
 }
 
@@ -275,7 +275,7 @@ int main() // testing unset env func
 	data->envp[3] = ft_strdup("sfkjsfklfsjl=flsfl");
 	data->envp[4] = NULL;
 	command->lst = ft_lstnew("anna=");
-	append_lst(&command->lst, "ZSHC");
+	append_lst(&command->lst, "ZSHC=test");
 	append_lst(&command->lst, "heeeey=");
 	append_lst(&command->lst, "blbalbalbaldksaadsjkfhsakfhalhf");
 	printf("\n\n----PRINT LST----\n\n");
@@ -283,22 +283,22 @@ int main() // testing unset env func
 	printf("%s\n", command->lst->next->content);
 	printf("%s\n", command->lst->next->next->content);
 	printf("\n\n----LST END----\n\n");
-	// printf("%s\n", data->envp[0]);
-	// printf("%s\n", data->envp[1]);
-	// printf("%s\n", data->envp[2]);
-	// printf("%s\n", data->envp[3]);
-	// printf("\n\n----PRINT ENV----\n\n");
-	// ft_env(data, command);
-	// printf("\n\n----AFTER ENV----\n\n");
-	// printf("%s\n", data->envp[0]);
-	// printf("%s\n", data->envp[1]);
-	// printf("%s\n", data->envp[2]);
-	// printf("%s\n", data->envp[3]);
-	char **argv = ft_list_to_array(command);
-	printf("%s\n", argv[0]);
-	printf("%s\n", argv[1]);
-	printf("%s\n", argv[2]);
-	printf("%s\n", argv[3]);
-	printf("%s\n", argv[4]);
+	printf("%s\n", data->envp[0]);
+	printf("%s\n", data->envp[1]);
+	printf("%s\n", data->envp[2]);
+	printf("%s\n", data->envp[3]);
+	printf("\n\n----PRINT ENV----\n\n");
+	ft_env(data, command);
+	printf("\n\n----AFTER ENV----\n\n");
+	printf("%s\n", data->envp[0]);
+	printf("%s\n", data->envp[1]);
+	printf("%s\n", data->envp[2]);
+	printf("%s\n", data->envp[3]);
+	// char **argv = ft_list_to_array(command);
+	// printf("%s\n", argv[0]);
+	// printf("%s\n", argv[1]);
+	// printf("%s\n", argv[2]);
+	// printf("%s\n", argv[3]);
+	// printf("%s\n", argv[4]);
 	return (0);	
 }

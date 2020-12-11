@@ -15,7 +15,7 @@ void ft_print_env(t_data *data)
         i++;
     }    
 }
-int ft_env(t_data *data, t_commands *command)
+int ft_env(t_commands *command, t_data *data)
 {
     int flag;
 
@@ -68,7 +68,7 @@ int main() // testing env env func
 	printf("%s\n", data->envp[2]);
 	printf("%s\n", data->envp[3]);
 	printf("\n\n----PRINT ENV----\n\n");
-	ft_env(data, command);
+	ft_env(command, data);
 	printf("\n\n----AFTER ENV----\n\n");
 	printf("%s\n", data->envp[0]);
 	printf("%s\n", data->envp[1]);

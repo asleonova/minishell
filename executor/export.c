@@ -67,7 +67,7 @@ void		ft_unset_env(char *str, t_data *data)
 		if ((tmp = get_env_values(str, data)) != NULL)
 		{
 			free(tmp);
-			update_env_var(str, data);
+			delete_env_var(str, data);
 		}
 }
 
