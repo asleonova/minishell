@@ -22,6 +22,13 @@ typedef enum    e_command_names
     bash = 7
 }               t_command_names;
 
+typedef enum    e_redirect // установить сначала -1!!!!
+{
+    redir = 1,
+    double_redir = 2,
+    back_redir = 3
+}               t_redirect;
+
 typedef struct          s_commands
 {
     int                 fd_0;
@@ -31,6 +38,7 @@ typedef struct          s_commands
     int                 type_redir; // тип редиректа: 0 for < // 1 for > // 2 for >>
     int                 invalid; // флаг - команда невалидна, 1
     t_command_names     cmd_list;
+    t_redirect          type_redir;
     struct s_list       *lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 }                       t_commands;
      

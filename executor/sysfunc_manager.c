@@ -43,6 +43,6 @@ int sysfunc_manager(t_commands *command, t_data *data)
         wait(&pid);
         data->status = WEXITSTATUS(pid);
     }
-    return(1); // the function finally returns a 1, as a signal to the calling function that we should prompt for input again
+    return (1); // the function finally returns a 1, as a signal to the calling function that we should prompt for input again
     
 }
