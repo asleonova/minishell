@@ -1,7 +1,20 @@
 #include "../minishell.h"
 
-int parse_func(t_commands *command, char *cmd)
+int		check_redirect(t_commands *command) // returns -1 if there was no redirect
 {
+    if (command->type_redir != -1)
+    {
+        if (command->type_redir == back_redir) // <
+            dup2(command->fd_0, 0);
+        else // > or >>
+            dup2(command->fd_1, 1);
+    }
+	return (command->type_redir);
+}
+
+int parse_func(t_commands *command, t_data *data)
+{   
+    check_redirect(command);
     if (command->invalid == 1)
         return(FAIL); // не забыть текст ошибки
     else if (command->cmd_list == echo)
@@ -19,7 +32,7 @@ int parse_func(t_commands *command, char *cmd)
     else if (command->cmd_list == env)
         ft_env(command);
     else
-        sysfunc_manager(command);
+        sysfunc_manager(command, data);
     return (SUCCESS);
 }
 
@@ -43,18 +56,6 @@ char **ft_list_to_array(t_commands *command)
     return(argv);
 }
 
-int		check_redirect(t_commands *command) // returns -1 if there was no redirect
-{
-    if (command->type_redir != -1)
-    {
-        if (command->type_redir == back_redir) // <
-            dup2(command->fd_0, 0);
-        else // > or >>
-            dup2(command->fd_1, 1);
-    }
-	return (command->type_redir);
-}
-
 int sysfunc_manager(t_commands *command, t_data *data)
 {
     pid_t pid;
@@ -72,7 +73,6 @@ int sysfunc_manager(t_commands *command, t_data *data)
     }
     if (pid == 0)
     {
-        check_redirect(command);
         if(execve(command->cmd, argv, data->envp) == -1)
             command_not_found(command);
         // дочерный процесс
@@ -86,7 +86,7 @@ int sysfunc_manager(t_commands *command, t_data *data)
     return (1); // the function finally returns a 1, as a signal to the calling function that we should prompt for input again
 }
 
-int executor(t_commands *command, t_list *lst) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
+void executor(t_commands *command, t_list *lst, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
 {
     int lst_count;
     
@@ -94,13 +94,47 @@ int executor(t_commands *command, t_list *lst) // предполагаю, что
     while (lst)
     {
         if (lst_count == 1)
-            parse_func(command, command->cmd);
+            parse_func(command, data);
         else
         {
+            pipe_manager(command, data);
             // значит, был пайп и у нас несколько листов.
         }
         lst = lst->next;
     }
 }
+
+int pipe_manager(t_commands *command, t_data *data)
+{
+    pid_t pid;
+    int fd[2];
+
+    pipe(fd);
+    pid = fork();
+    if (pid == -1)
+    {
+        // обработка ошибки
+        strerror(pid);
+        exit(errno);
+    }
+    if (pid == 0)
+    {
+        // command->fd_0 = fd[0];
+        // command->fd_1 = fd[1];
+        dup2(fd[1], 1); // сделали открытый файл стандартным потоком вывода
+        close(fd[0]); // закрылили "лишний" дескриптор
+        parse_func(command, data); // ????? мб переставить местами, 
+        close(fd[1]); // теперь этот дескриптор тоже не нужен.
+    }
+    else // parent process
+    {
+        dup2(fd[0], 0); // fd = fd[0] из пайпа, чтобы в след итерации программы уже читалось из fd пайпа
+        close(fd[1]);
+        wait(&pid);
+        data->status = WEXITSTATUS(pid);
+        close(fd[0]);
+    }
+}
+
 
 
