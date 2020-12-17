@@ -73,15 +73,19 @@ int sysfunc_manager(t_commands *command, t_data *data)
     }
     if (pid == 0)
     {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
         if(execve(command->cmd, argv, data->envp) == -1)
             command_not_found(command);
-        // дочерный процесс
+        // дочерний процесс
     }
     else 
     {
         // родительский процесс
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
         wait(&pid);
-        data->status = WEXITSTATUS(pid);
+        command->status = WEXITSTATUS(pid);
     }
     return (1); // the function finally returns a 1, as a signal to the calling function that we should prompt for input again
 }
@@ -121,6 +125,8 @@ int pipe_manager(t_commands *command, t_data *data)
     {
         // command->fd_0 = fd[0];
         // command->fd_1 = fd[1];
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
         dup2(fd[1], 1); // сделали открытый файл стандартным потоком вывода
         close(fd[0]); // закрылили "лишний" дескриптор
         parse_func(command, data); // ????? мб переставить местами, 
@@ -128,10 +134,12 @@ int pipe_manager(t_commands *command, t_data *data)
     }
     else // parent process
     {
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
         dup2(fd[0], 0); // fd = fd[0] из пайпа, чтобы в след итерации программы уже читалось из fd пайпа
         close(fd[1]);
         wait(&pid);
-        data->status = WEXITSTATUS(pid);
+        command->status = WEXITSTATUS(pid);
         close(fd[0]);
     }
 }

@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int ft_exit_errors(t_commands *command)
+void ft_exit_errors(t_commands *command)
 {
     int exit_code;
     int i;
@@ -8,27 +8,26 @@ int ft_exit_errors(t_commands *command)
 
    
     i = 0;
-    if (command->count_args == 1) // means we have smth after exit
+    if (command->count_args > 0) // means we have smth after exit
     {
         arg = ft_strdup(command->lst->content);
         while (arg[i])
         if(!(ft_isalnum(arg[i++])))
-            exit_code = 255;
+            command->status = 255;
         i++;
     }
     else // if there is more than 1 argument
-        exit_code = 1;
+        command->status = 1;
     ft_putstr_fd("exit\n", 1);
-    if (exit_code == 255)
+    if (command->status == 255)
          ft_putstr_fd("Numeric argument required\n", 1);
     else
         ft_putstr_fd("Too many arguments\n", 1);
-    return(exit_code);
 }
 ft_exit(t_commands *command)
 {
-    if ()
-    exit(0);
+    ft_exit_errors(command);
+    exit(command->status);
 }
 
 // custom_error (like that:)

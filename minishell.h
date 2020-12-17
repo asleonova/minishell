@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
+#include <signal.h>
 
 #define SUCCESS 0
 #define FAIL 1
@@ -35,8 +36,8 @@ typedef struct          s_commands
     int                 fd_1;
     char                *cmd; // команда (например echo)
     int                 count_args; // кол-во аргументов для команды (например echo hello world будет 2, так как hello - 1, world - 2 отдельно)
-    int                 type_redir; // тип редиректа: 0 for < // 1 for > // 2 for >>
     int                 invalid; // флаг - команда невалидна, 1
+    int                 status;
     t_command_names     cmd_list;
     t_redirect          type_redir;
     struct s_list       *lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
@@ -46,7 +47,6 @@ typedef struct          s_data
 {
 
     char                **envp; // переменные окружения (длинный список) - type in termibal env to see how it looks like
-    int                 status;
     char                *home; // порядковый номер переменной окружения в домашней директории HOME
     char                *cwd; // текущиий pwd PWD=
     char                *old_pwd; // OLDPWD=

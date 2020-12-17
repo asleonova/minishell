@@ -4,7 +4,7 @@ LIBFT = libft.a
 HEADER = ./minishell.h
 
 #SRCS = ./executor/custom_commands.c
-SRCS = main.c
+SRCS = main_old.c
 
 OBJ = $(SRCS:%.c=%.o)
 
