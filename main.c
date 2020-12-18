@@ -33,6 +33,26 @@ int done(t_var *var)
 int main(int argc, char **argv, char **envp)
 {
 	t_var	var;
+	t_list  *global_lst;
+	t_commands *commands;
+
+	commands = malloc(sizeof(t_commands));
+	global_lst = malloc(sizeof(t_list));
+	global_lst->content = commands;
+
+	commands->fd_0 = 1;
+	commands->fd_1 = 1;
+	commands->cmd = "echo";
+	commands->count_args= 0;
+	commands->invalid = 0;
+	commands->status = 1;
+	commands->cmd_list = echo;
+	commands->redir = 1;
+	commands->back_redir = 0;
+	commands->lst = malloc(sizeof(t_list));
+	commands->lst->content = "argument";
+
+	global_lst->content->
 	//t_data  data;
 	//t_commands command;
 	//t_list lst_global;
@@ -54,6 +74,7 @@ int main(int argc, char **argv, char **envp)
 		get_next_line(0, &var.str);
 		parser(&var);
 		analysis_list(&var, &envp);
+		
 		//executor(&command, &lst_global, &data);
 		i = done(&var);
 	}

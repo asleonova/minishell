@@ -80,7 +80,7 @@ typedef struct          s_commands
 	int					back_redir;
     struct s_list       *lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 }                       t_commands;
-     
+
 typedef struct          s_data
 {
 

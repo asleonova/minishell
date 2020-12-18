@@ -50,6 +50,7 @@ int		analysis_list(t_var *var, char ***env)
 {
 	t_syntax syntax;
 	t_commands *cmd;
+	
 
 	cmd = malloc(sizeof(t_commands));
 	init_syntax(&syntax);
