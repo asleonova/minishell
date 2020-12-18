@@ -1,15 +1,14 @@
 #include "../minishell.h"
 
-int		check_redirect(t_commands *command) // returns -1 if there was no redirect
+void    check_redirect(t_commands *command) // changes the fd value if there is a redir
 {
-    if (command->type_redir != -1)
+    if (command->redir != 0 || command->back_redir != 0)
     {
-        if (command->type_redir == back_redir) // <
+        if (command->back_redir == 1)
             dup2(command->fd_0, 0);
-        else // > or >>
+        if (command->redir == 1)
             dup2(command->fd_1, 1);
     }
-	return (command->type_redir);
 }
 
 int parse_func(t_commands *command, t_data *data)
