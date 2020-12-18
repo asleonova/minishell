@@ -2,6 +2,7 @@
 #define MINISHELL_H
 
 #include "libft.h"
+#include "get_next_line.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -126,9 +127,10 @@ int parser_on_lexer(t_var *var);
 int analysis(t_var *var);
 int create_lexer(t_var *var, int i);
 int create_argument(t_var *var);
-int		analysis_list(t_var *var, char ***env, t_commands *cmd);
+int		analysis_list(t_var *var, char ***env);
 void processing_fd(char *str, t_syntax *syntax);
 void parsing_env(char ***env, char **str);
 int	distribution(char *str, t_syntax *syntax, int i);
+void intro(void);
 
 #endif

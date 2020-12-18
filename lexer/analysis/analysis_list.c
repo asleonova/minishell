@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 15:32:58 by monie             #+#    #+#             */
-/*   Updated: 2020/12/17 19:14:57 by monie            ###   ########.fr       */
+/*   Updated: 2020/12/18 16:24:15 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ int		write_cmd(char *str, t_syntax *syntax, t_commands *cmd, int i)
 	return (0);
 }
 
-int		analysis_list(t_var *var, char ***env, t_commands *cmd)
+int		analysis_list(t_var *var, char ***env)
 {
 	t_syntax syntax;
-	
+	t_commands *cmd;
+
+	cmd = malloc(sizeof(t_commands));
 	init_syntax(&syntax);
 	t_list *tmp = var->list;
 	while (tmp != NULL)
