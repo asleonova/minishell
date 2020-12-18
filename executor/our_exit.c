@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void ft_exit_errors(t_commands *command)
+static void ft_exit_errors(t_commands *command)
 {
     int exit_code;
     int i;
@@ -24,7 +24,7 @@ void ft_exit_errors(t_commands *command)
     else
         ft_putstr_fd("Too many arguments\n", 1);
 }
-ft_exit(t_commands *command)
+void ft_exit(t_commands *command)
 {
     ft_exit_errors(command);
     exit(command->status);

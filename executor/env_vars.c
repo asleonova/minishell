@@ -23,7 +23,7 @@ int		tab_len(char **tab)
 	return(len);
 
 }
-char *get_env_values(t_data *data, char *key)
+static char *get_env_values(t_data *data, char *key)
 {
     int i;
     char **tmp;
@@ -47,7 +47,7 @@ char *get_env_values(t_data *data, char *key)
 	return (value);
 }
 
-void		add_env_var(char *var, t_data *data)
+static void		add_env_var(char *var, t_data *data)
 {
 	char	**tmp;
 	int		i;
@@ -67,7 +67,7 @@ void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
+static void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
 {
 	char **tmp;
 	char **split;
@@ -108,10 +108,10 @@ void	change_env_value(char *var, t_data *data)
 }
 
 
-void set_env_values(t_data *data)
-{
-    data->home = get_env_values(data->envp, "HOME"); // это нужно куда-то в начало, в иниты
-    data->cwd = get_env_values(data->envp, "PWD");
-    data->old_pwd = get_env_values(data->envp, "OLD_PWD");
-}
+// void set_env_values(t_data *data)
+// {
+//     data->home = get_env_values(data->envp, "HOME"); // это нужно куда-то в начало, в иниты
+//     // data->cwd = get_env_values(data->envp, "PWD");
+//     // data->old_pwd = get_env_values(data->envp, "OLD_PWD");
+// }
 

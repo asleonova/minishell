@@ -20,17 +20,17 @@ int parse_func(t_commands *command, t_data *data)
     else if (command->cmd_list == echo)
         ft_echo(command);
     else if (command->cmd_list == cd)
-        ft_cd(command);
+        ft_cd(command, data);
     else if (command->cmd_list == pwd)
         ft_pwd(command);
     else if (command->cmd_list == export)
-        ft_export(command);
+        ft_export(command, data);
     else if (command->cmd_list == unset)
         ft_unset(command);
     else if (command->cmd_list == our_exit)
         ft_exit(command);
     else if (command->cmd_list == env)
-        ft_env(command);
+        ft_env(command, data);
     else
         sysfunc_manager(command, data);
     return (SUCCESS);
@@ -90,24 +90,6 @@ int sysfunc_manager(t_commands *command, t_data *data)
     return (1); // the function finally returns a 1, as a signal to the calling function that we should prompt for input again
 }
 
-void executor(t_commands *command, t_list *lst, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
-{
-    int lst_count;
-    
-    lst_count = ft_lstsize(lst);
-    while (lst)
-    {
-        if (lst_count == 1)
-            parse_func(command, data);
-        else
-        {
-            pipe_manager(command, data);
-            // значит, был пайп и у нас несколько листов.
-        }
-        lst = lst->next;
-    }
-}
-
 int pipe_manager(t_commands *command, t_data *data)
 {
     pid_t pid;
@@ -144,5 +126,22 @@ int pipe_manager(t_commands *command, t_data *data)
     }
 }
 
+void executor(t_commands *command, t_list *lst, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
+{
+    int lst_count;
+    
+    lst_count = ft_lstsize(lst);
+    while (lst)
+    {
+        if (lst_count == 1)
+            parse_func(command, data);
+        else
+        {
+            pipe_manager(command, data);
+            // значит, был пайп и у нас несколько листов.
+        }
+        lst = lst->next;
+    }
+}
 
 

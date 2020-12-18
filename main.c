@@ -1,7 +1,8 @@
 #include "minishell.h"
 
-void ijk_zero(t_var *var)
+void ijk_zero(t_var *var, t_data *data)
 {
+
 	var->i = 0;
 	var->j = 0;
 	var->k = 0;
@@ -13,6 +14,8 @@ void ijk_zero(t_var *var)
 	var->quote = 0;
 	var->env = NULL;
 	var->list = NULL;
+	data->home = get_env_values(data->envp, "HOME");
+	
 }
 
 void intro(void)
@@ -30,23 +33,28 @@ int done(t_var *var)
 int main(int argc, char **argv, char **envp)
 {
 	t_var	var;
+	t_data  data;
+	t_commands command;
+	t_list lst_global;
 	int 	i;
 	
 	i = 1;
 	argc = 0;
 	argv = NULL;
+	data.envp = envp;
 	//parsing_env(&envp, "HOME");
-	ijk_zero(&var);
+	ijk_zero(&var, &data);
 	
 	while(i && !var.error)
 	{
         signal(SIGINT, handler);
         signal(SIGQUIT, handler);
-		ijk_zero(&var);
+		ijk_zero(&var, &data);
 		intro();
 		get_next_line(0, &var.str);
 		parser(&var);
-		analysis_list(&var, &envp);
+		analysis_list(&var, &envp, &command);
+		executor(&command, &lst_global, &data);
 		i = done(&var);
 	}
 	if(var.error)
