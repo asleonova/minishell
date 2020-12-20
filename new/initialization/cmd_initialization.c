@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   cmd_initialization.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/29 14:47:14 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 20:01:22 by monie            ###   ########.fr       */
+/*   Created: 2020/12/20 15:47:55 by monie             #+#    #+#             */
+/*   Updated: 2020/12/20 17:38:25 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int create_list(t_var *var)
-{	
-	ft_lstadd_back(&(var->list), ft_lstnew(ft_strdup(var->arr)));
-	return (0);
-}
-
-int create_lexer(t_var *var, int i)
+void cmd_initialization(t_commands *cmd)
 {
-	int quote;
-
-	quote = 0;
-	var->arr = malloc(var->j - var->k + 1);
-	if(var->arr == NULL)
-		var->error = 1;
-	while(var->k < var->j)
-	{
-		var->arr[i++] = var->str[var->k++];
-	}
-	var->arr[i] = '\0';
-	create_list(var);
-	var->ef = 0;
-	free(var->arr);
-	var->arr = NULL;
-	return (0);
+	cmd->cmd = NULL;
+	cmd->arg_list = NULL;
+	cmd->end = 0;
+	cmd->next = NULL;
+	cmd->prev = NULL;
 }

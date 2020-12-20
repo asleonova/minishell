@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 15:32:58 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 16:24:15 by monie            ###   ########.fr       */
+/*   Updated: 2020/12/18 19:53:22 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		analysis_list(t_var *var, char ***env)
 	t_list *tmp = var->list;
 	while (tmp != NULL)
 	{
+		printf("%s\n", tmp->content);
 		if (!distribution(tmp->content, &syntax, 0) && syntax.f == 0)
 		{
 			if (syntax.envf)

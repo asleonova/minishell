@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/15 11:21:10 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/16 11:02:11 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
+	if (lst)
+	{
+		del(lst->content);
+		free(lst);
+	}
 }
-

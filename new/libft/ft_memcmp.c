@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/08 13:40:47 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/21 12:51:57 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
+	size_t i;
+
+	i = 0;
+	while (i < n)
+	{
+		if (((unsigned char *)s1)[i] != ((unsigned char *)s2)[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
+	}
 	return (0);
 }
-

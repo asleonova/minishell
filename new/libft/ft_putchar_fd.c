@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/13 00:01:41 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/14 01:02:34 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+void	ft_putchar_fd(char c, int fd)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
+	write(fd, &c, 1);
 }
-

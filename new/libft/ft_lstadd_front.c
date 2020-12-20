@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/14 22:53:43 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/14 23:36:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
+	if (lst && new)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
 }
-

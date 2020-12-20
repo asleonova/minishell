@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/07 21:30:56 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/21 12:53:22 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
-}
+	unsigned char	*ptr;
 
+	ptr = (unsigned char *)b;
+	while (len > 0)
+	{
+		*ptr++ = (unsigned char)c;
+		len--;
+	}
+	return (b);
+}

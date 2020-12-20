@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/07/21 18:57:57 by monie             #+#    #+#             */
+/*   Updated: 2020/11/26 17:00:44 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "get_next_line.h"
 
-int parser(t_var *var)
+char	*ft_strdup_mod(const char *str, size_t n)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
-}
+	char	*res;
+	char	*check_mem;
 
+	check_mem = malloc(n * sizeof(char) + 1);
+	if (!(check_mem))
+		return (NULL);
+	res = check_mem;
+	while (n-- > 0)
+	{
+		*check_mem++ = *(char*)str++;
+	}
+	*check_mem = '\0';
+	return (res);
+}

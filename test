@@ -28,3 +28,6 @@ VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks
 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
 COLORTERM=truecolor
 _=/usr/bin/env
+
+
+alias mm="make && ./minishell" && alias md="make debag"

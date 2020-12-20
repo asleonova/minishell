@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/07/21 17:08:18 by monie             #+#    #+#             */
+/*   Updated: 2020/11/26 16:59:49 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft.h"
 
-int parser(t_var *var)
-{
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
+char	*ft_strdup_mod(const char *str, size_t n);
+int		get_next_line(int fd, char **line);
+
+#endif

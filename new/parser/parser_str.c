@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   analysis.c                                         :+:      :+:    :+:   */
+/*   parser_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/28 20:26:12 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:52:03 by monie            ###   ########.fr       */
+/*   Created: 2020/12/20 13:02:47 by monie             #+#    #+#             */
+/*   Updated: 2020/12/20 17:34:46 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,34 @@ int pass_space(t_var *var, int i)
 	return (i);
 }
 
-int analysis_end_cmd(t_var *var)
+void know_end_word(t_var *var)
 {
-	if(var->str[var->j] == '>' || var->str[var->j] == '<')
+	if(var->str[var->j] == '>' || var->str[var->j] == '<' || \
+		var->str[var->j] == ';' || var->str[var->j] == '|' )
 	{
 		if(var->str[var->j] == '>' && var->str[var->j + 1] == '>')
 			var->j += 2;
 		var->j++;
-		return (0);
+		return ;
 	}
 	while(var->j < var->i)
 	{
-		if(var->str[var->j] == '\'' && var->quote == 0)
-			var->quote = 1;
-		else if(var->str[var->j] == '"' && var->quote == 0)
-			var->quote = 2;
-		else if(var->str[var->j] == '\'' && var->quote == 1)
-			var->quote = 0;
-		else if(var->str[var->j] == '"' && var->quote == 2)
-			var->quote = 0;
-		else if(var->str[var->j] == '|')
-			var->pip = 1;
-		else if(var->str[var->j] == ';')
-			var->semicolon = 1;
-		if((var->str[var->j] == '>' || var->str[var->j] == '<' || \
-			var->str[var->j] == ' ' || var->str[var->j] == '|') && var->quote == 0)
+		if(var->str[var->j] == ' ' || var->str[var->j] == '>' || \
+			var->str[var->j] == '<' || var->str[var->j] == '|' || \
+			var->str[var->j] == ';')
 			break;
 		var->j++;
 	}
-	return (0);
 }
 
-int analysis(t_var *var)
+void parser_str(t_var *var)
 {
+	var->i = ft_strlen(var->str);
 	while(var->j < var->i)
 	{
 		var->j = pass_space(var, var->j);
-		analysis_end_cmd(var);
+		know_end_word(var);
 		var->k = pass_space(var, var->k);
-		if(var->k == var->j)
-			return (0);
 		create_lexer(var, 0);
 	}
-	printf("%d\n", var->i);
-	return (0);
 }

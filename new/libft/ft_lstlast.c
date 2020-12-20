@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/14 23:46:06 by dbliss            #+#    #+#             */
+/*   Updated: 2020/05/17 19:23:24 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+t_list	*ft_lstlast(t_list *lst)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
-}
+	t_list *temp;
 
+	temp = lst;
+	while (temp)
+	{
+		if (temp->next == NULL)
+			return (temp);
+		temp = temp->next;
+	}
+	return (temp);
+}

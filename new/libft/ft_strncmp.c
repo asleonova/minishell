@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:57:16 by monie             #+#    #+#             */
-/*   Updated: 2020/12/18 19:48:21 by monie            ###   ########.fr       */
+/*   Created: 2020/05/07 13:23:57 by dbliss            #+#    #+#             */
+/*   Updated: 2020/11/26 16:29:04 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int parser(t_var *var)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	var->i = ft_strlen(var->str);
-	analysis(var);
-	return (0);
-}
+	size_t i;
 
+	i = 0;
+	while ((s1[i] && s2[i]) && (unsigned char)s1[i] == (unsigned char)s2[i]
+			&& i < n)
+		i++;
+	if (i == n)
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
