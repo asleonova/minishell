@@ -2,7 +2,6 @@
 
 static void ft_exit_errors(t_commands *command)
 {
-    int exit_code;
     int i;
     char *arg;
 
@@ -10,16 +9,16 @@ static void ft_exit_errors(t_commands *command)
     i = 0;
     if (command->count_args > 0) // means we have smth after exit
     {
-        arg = ft_strdup(command->lst->content);
+        arg = ft_strdup(command->arg_lst->content);
         while (arg[i])
         if(!(ft_isalnum(arg[i++])))
-            command->status = 255;
+            g_error = 255;
         i++;
     }
     else // if there is more than 1 argument
-        command->status = 1;
+        g_error = 1;
     ft_putstr_fd("exit\n", 1);
-    if (command->status == 255)
+    if (g_error == 255)
          ft_putstr_fd("Numeric argument required\n", 1);
     else
         ft_putstr_fd("Too many arguments\n", 1);
@@ -27,7 +26,7 @@ static void ft_exit_errors(t_commands *command)
 void ft_exit(t_commands *command)
 {
     ft_exit_errors(command);
-    exit(command->status);
+    exit(g_error);
 }
 
 // custom_error (like that:)

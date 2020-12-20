@@ -23,7 +23,8 @@ int		tab_len(char **tab)
 	return(len);
 
 }
-static char *get_env_values(t_data *data, char *key)
+
+char *get_env_values(t_data *data, char *key)
 {
     int i;
     char **tmp;
@@ -47,7 +48,7 @@ static char *get_env_values(t_data *data, char *key)
 	return (value);
 }
 
-static void		add_env_var(char *var, t_data *data)
+void		add_env_var(char *var, t_data *data)
 {
 	char	**tmp;
 	int		i;
@@ -67,7 +68,7 @@ static void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-static void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
+void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
 {
 	char **tmp;
 	char **split;
@@ -98,7 +99,6 @@ static void	delete_env_var(char *var, t_data *data) // deletes the env var and c
 void	change_env_value(char *var, t_data *data)
 {
 	char *cwd;
-	char *tmp;
 
 	delete_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
 	cwd = getcwd(NULL, 0);

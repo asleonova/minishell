@@ -1,20 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
+/*   Updated: 2020/12/20 17:48:09 by monie            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-void ijk_zero(t_var *var)//, t_data *data)
-{
-
-	var->i = 0;
-	var->j = 0;
-	var->k = 0;
-	var->error = 0;
-	var->cf = 0;
-	var->ef = 0;
-	var->sf = 0;
-	var->df = 0;
-	var->quote = 0;
-	var->env = NULL;
-	var->list = NULL;	
-}
 
 void intro(void)
 {
@@ -31,30 +27,31 @@ int done(t_var *var)
 int main(int argc, char **argv, char **envp)
 {
 	t_var	var;
-	
+	t_commands cmd;
+	t_data	data;
 	int 	i;
-	envp =NULL;
+	
 	i = 1;
 	argc = 0;
 	argv = NULL;
-	//data.envp = envp;
-	//parsing_env(&envp, "HOME");
-	ijk_zero(&var);//, &data);
-	
-	while(i && !var.error)
+	data.envp = envp;
+	//cmd = malloc(sizeof(t_commands));
+	while(i)
 	{
-        signal(SIGINT, handler);
-        signal(SIGQUIT, handler);
-		ijk_zero(&var);//, &data);
+		var_initialization(&var);
 		intro();
 		get_next_line(0, &var.str);
-		parser(&var);
-		analysis_list(&var, &envp);
-		
-		//executor(&command, &lst_global, &data);
+		parser_str(&var);
+		/* здесь буддет готовые листы полученные из строки */
+		analysis_list(&var, &cmd);
+		/* Анены функции */
+		executor(&cmd, &data);
 		i = done(&var);
+		var_clear(&var);
+		// free(cmd);
+		// cmd = NULL;
 	}
-	if(var.error)
+	if(!i)
 		write(1, "Error program", 14);
 	return(0);
 }

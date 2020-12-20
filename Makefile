@@ -3,33 +3,26 @@ LIBFT = libft.a
 
 HEADER = ./minishell.h
 
-# SRCS = ./main.c \
-# 		./lexer/parser/parser.c \
-# 		./lexer/parser/analysis.c \
-# 		./lexer/parser/create.c \
-# 		./lexer/analysis/analysis_list.c \
-# 		./lexer/analysis/processing_fd.c \
-# 		./lexer/env/env.c \
-# 		./lexer/analysis/distribution.c \
-# 		./executor/cd.c \
-# 		./executor/echo.c \
-# 		./executor/env_vars.c \
-# 		./executor/env.c \
-# 		./executor/errors.c \
-# 		./executor/our_exit.c \
-# 		./executor/pwd.c \
-# 		./executor/unset.c \
-# 		./signals/signals.c
-
 SRCS = ./main.c \
-		./lexer/parser/parser.c \
-		./lexer/parser/analysis.c \
-		./lexer/parser/create.c \
-		./lexer/analysis/analysis_list.c \
-		./lexer/analysis/processing_fd.c \
-		./lexer/env/env.c \
-		./lexer/analysis/distribution.c \
-		./signals/signals.c
+	./parser/parser_str.c \
+	./initialization/var_initialization_clear.c  \
+	./parser/create_lexer.c \
+	./parser/analysis_list.c \
+	./initialization/cmd_initialization.c \
+	./parser/print_list.c \
+	./signals/signals.c \
+	./executor/cmd.c \
+	./executor/echo.c \
+	./executor/env_vars.c \
+	./executor/env.c \
+	./executor/errors.c \
+	./executor/executor.c \
+	./executor/export.c \
+	./executor/our_exit.c \
+	./executor/pipes.c \
+	./executor/pwd.c \
+	./executor/unset.c \
+
 
 OBJ = $(SRCS:%.c=%.o)
 
@@ -59,6 +52,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-debag: 
+debug: 
 	clang -Iheaders libft/*.c $(SRCS) -o $(NAME) -g
 .PHONY: all clean flean re

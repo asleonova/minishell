@@ -1,12 +1,12 @@
 #include "../minishell.h"
 
-static void	ft_swap(char *s1, char *s2)
+static void	ft_swap(char **s1, char **s2)
 {
 	char *tmp;
 
-	*tmp = *s1;
+	tmp = *s1;
 	*s1 = *s2;
-	*s2 = *tmp;
+	*s2 = tmp;
 }
 
 static void	ft_sort_list(t_data *data)
@@ -31,6 +31,7 @@ static void	ft_sort_list(t_data *data)
 		i++;
 	}
 }
+
 
 static void ft_print_export(t_data *data)
 {
@@ -60,11 +61,11 @@ static void ft_print_export(t_data *data)
     }
 }
 
-static void		ft_unset_env(char *str, t_data *data)
+void		ft_unset_env(char *str, t_data *data)
 {
 	char	*tmp;
 
-		if ((tmp = get_env_values(str, data)) != NULL)
+		if ((tmp = get_env_values(data, str)) != NULL)
 		{
 			free(tmp);
 			delete_env_var(str, data);
@@ -88,10 +89,10 @@ int			ft_export(t_data *data, t_commands *command)
 		ft_print_export(data);
 		return(SUCCESS);
 	}
-	while (command->lst)
+	while (command->arg_lst)
 	{
-		ft_export_update(data, command->lst->content);
-		command->lst = command->lst->next;
+		ft_export_update(data, command->arg_lst->content);
+		command->arg_lst = command->arg_lst->next;
 	}
 	ft_print_export(data); // вот это чекнуть. вроде печатать не нужно!!!
 	return(SUCCESS);

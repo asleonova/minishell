@@ -54,16 +54,16 @@ int ft_env(t_data *data, t_commands *command)
         ft_print_env(data, command);
         return(SUCCESS);
     }
-    while(command->lst)
+    while(command->arg_lst)
     {
-        if (ft_strchr(command->lst->content, '=') == NULL)
+        if (ft_strchr(command->arg_lst->content, '=') == NULL)
         {   
             flag = 1;
             error_no_file_or_dir(command);
         }
         else
-            ft_export_update(data, command->lst->content);
-        command->lst = command->lst->next;
+            ft_export_update(data, command->arg_lst->content);
+        command->arg_lst = command->arg_lst->next;
     }
     if (flag == 0)
         ft_print_env(data, command);

@@ -114,7 +114,7 @@ void		ft_unset_env(char *str, t_data *data)
 	char	*tmp;
 
 		if ((tmp = get_env_values(data, str)) != NULL) // если у нас есть значение у п.о. PATH="hello"
-		{
+		{s
 			free(tmp);
 			delete_env_var(str, data);
 		}
@@ -123,7 +123,7 @@ void		ft_unset_env(char *str, t_data *data)
 int error_identifier(t_commands *command)
 {
 	ft_putstr_fd("minishell: unset: `", 1);
-	ft_putstr_fd(command->lst->content, 1);
+	ft_putstr_fd(command->arg_lst->content, 1);
 	ft_putstr_fd("\' : not a valid identifier", 1);
 	ft_putchar_fd('\n', 1);
 	return(FAIL);

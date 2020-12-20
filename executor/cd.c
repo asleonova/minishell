@@ -17,7 +17,7 @@ int ft_cd(t_commands *command, t_data *data)
     else // cd with path
     {
         change_env_values("OLDPWD=", data);
-        status = chdir(command->lst);
+        status = chdir(command->arg_lst);
         if (status < 0)
            error_path(command);
 	    else
