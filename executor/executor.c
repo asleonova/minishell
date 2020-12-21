@@ -66,7 +66,7 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
 {
     int lst_count;
     
-    lst_count = print_list(command);
+    lst_count = count_list(command);
     while (command)
     {
         if (lst_count == 1)

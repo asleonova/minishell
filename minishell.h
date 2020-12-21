@@ -66,8 +66,8 @@ typedef struct          s_data
 }                       t_data;
 
 void ft_exit(t_commands *command);
-int ft_cd(t_commands *command, t_data *data);
 int ft_echo(t_commands *command);
+void ft_cd(t_commands *command, t_data *data);
 void		free_tab(char **tab);
 int		tab_len(char **tab);
 int ft_env(t_data *data, t_commands *command);
@@ -79,7 +79,7 @@ int ft_pwd();
 // executor: maybe delete some static 
 void    check_redirect(t_commands *command);
 int parse_func(t_commands *command, t_data *data);
-void	change_env_value(char *var, t_data *data);
+void	change_env_values(char *var, t_data *data);
 char **ft_list_to_array(t_commands *command);
 int sysfunc_manager(t_commands *command, t_data *data);
 void executor(t_commands *command, t_data *data);
@@ -105,6 +105,6 @@ void	var_clear(t_var *var);
 void	create_lexer(t_var *var, int i);
 void	analysis_list(t_var *var, t_commands *cmd);
 void	cmd_initialization(t_commands *cmd);
-int     print_list(t_commands *cmd);
+int     count_list(t_commands *cmd);
 void intro(void);
 #endif

@@ -96,7 +96,7 @@ void	delete_env_var(char *var, t_data *data) // deletes the env var and copies t
 	data->envp = tmp;
 }
 
-void	change_env_value(char *var, t_data *data)
+void	change_env_values(char *var, t_data *data)
 {
 	char *cwd;
 

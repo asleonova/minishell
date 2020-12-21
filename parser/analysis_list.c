@@ -52,5 +52,4 @@ void	analysis_list(t_var *var, t_commands *cmd)
 			write_cmd(var, cmd, 0);
 		var->list = var->list->next;
 	}
-	print_list(cmd); /* DELETE */
 }

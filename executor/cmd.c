@@ -29,8 +29,8 @@ int parse_func(t_commands *command, t_data *data)
         return(FAIL); // не забыть текст ошибки
     else if (command->command == echo)
         ft_echo(command);
-    // else if (command->command == cd)
-    //     ft_cd(command, data);
+    else if (command->command == cd)
+        ft_cd(command, data);
     else if (command->command == pwd)
         ft_pwd();
     else if (command->command == export)

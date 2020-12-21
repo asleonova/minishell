@@ -12,6 +12,7 @@ SRCS = ./main.c \
 	./parser/print_list.c \
 	./signals/signals.c \
 	./executor/cmd.c \
+	./executor/cd.c \
 	./executor/echo.c \
 	./executor/env_vars.c \
 	./executor/env.c \
@@ -33,7 +34,7 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER) $(LIBFT)
-	$(CC) $(CFLAGS) -Iheaders libft/$(LIBFT) $(OBJ) -o $(NAME)
+	$(CC) -g $(CFLAGS) -Iheaders libft/$(LIBFT) $(OBJ) -o $(NAME)
 
 $(GNL):
 	$(MAKE) -C ./libft all

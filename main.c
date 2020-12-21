@@ -28,13 +28,17 @@ int main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 	t_commands cmd;
-	t_data	data;
+	t_data	*data;
 	int 	i;
+	int len;
 	
+	len = tab_len(envp);
 	i = 1;
 	argc = 0;
 	argv = NULL;
-	data.envp = envp;
+	data = malloc(sizeof(t_data));
+	data->envp = (char**)malloc(sizeof(char *) * (len + 1));
+	data->envp = envp;
 	//cmd = malloc(sizeof(t_commands));
 	while(i)
 	{
@@ -45,7 +49,7 @@ int main(int argc, char **argv, char **envp)
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_list(&var, &cmd);
 		/* Анены функции */
-		executor(&cmd, &data);
+		executor(&cmd, data);
 		i = done(&var);
 		var_clear(&var);
 		// free(cmd);
