@@ -24,32 +24,44 @@ int done(t_var *var)
  	return (1);
 }
 
+void		copy_env(char **envp, t_data *data)
+{
+	int		len;
+	int		i;
+
+	i = 0;
+	len = tab_len(envp);
+	data->envp = (char **)malloc(sizeof(char *) * (len + 1));
+	while (i < len)
+	{
+		data->envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	data->envp[i] = 0;
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_var	var;
 	t_commands cmd;
-	t_data	*data;
+	t_data	data;
 	int 	i;
-	int len;
 	
-	len = tab_len(envp);
 	i = 1;
 	argc = 0;
 	argv = NULL;
-	data = malloc(sizeof(t_data));
-	data->envp = (char**)malloc(sizeof(char *) * (len + 1));
-	data->envp = envp;
 	//cmd = malloc(sizeof(t_commands));
 	while(i)
 	{
 		var_initialization(&var);
 		intro();
+		copy_env(envp, &data);
 		get_next_line(0, &var.str);
 		parser_str(&var);
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_list(&var, &cmd);
 		/* Анены функции */
-		executor(&cmd, data);
+		executor(&cmd, &data);
 		i = done(&var);
 		var_clear(&var);
 		// free(cmd);
