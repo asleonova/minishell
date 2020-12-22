@@ -54,6 +54,8 @@ int main(int argc, char **argv, char **envp)
 	//cmd = malloc(sizeof(t_commands));
 	while(i)
 	{
+		signal(SIGINT, handler);
+        signal(SIGQUIT, handler);
 		var_initialization(&var);
 		intro();
 		get_next_line(0, &var.str);

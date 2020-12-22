@@ -46,29 +46,36 @@ static int ft_print_env(t_data *data, t_commands *command) // переписат
 }
 int ft_env(t_data *data, t_commands *command)
 {
-    int flag;
-
-    flag = 0; // to identify whether we need to print the env or had a mistake
-    if (command->count_args == 0)
-    {
-        ft_print_env(data, command);
-        return(SUCCESS);
-    }
-    while(command->arg_lst)
-    {
-        if (ft_strchr(command->arg_lst->content, '=') == NULL)
-        {   
-            flag = 1;
-            error_no_file_or_dir(command);
-        }
-        else
-            ft_export_update(data, command->arg_lst->content);
-        command->arg_lst = command->arg_lst->next;
-    }
-    if (flag == 0)
-        ft_print_env(data, command);
-    return (SUCCESS);
+    ft_print_env(data, command);
+    return(SUCCESS);
 }
+// int ft_env(t_data *data, t_commands *command) // old version of env
+// {
+//     int flag;
+
+//     flag = 0; // to identify whether we need to print the env or had a mistake
+//     if (command->count_args == 0)
+//     {
+//         ft_print_env(data, command);
+//         return(SUCCESS);
+//     }
+//     while(command->arg_lst)
+//     {
+//         if (ft_strchr(command->arg_lst->content, '=') == NULL)
+//         {   
+//             flag = 1;
+//             error_no_file_or_dir(command);
+//         }
+//         else
+//             ft_export_update(data, command->arg_lst->content);
+//         command->arg_lst = command->arg_lst->next;
+//     }
+//     if (flag == 0)
+//         ft_print_env(data, command);
+//     return (SUCCESS);
+// }
+
+
 // int main() // testing env env func
 // {
 // 	t_data *data;
