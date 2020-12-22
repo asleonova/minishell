@@ -41,6 +41,7 @@ char *get_env_values(t_data *data, char *key)
 				value = ft_strdup(" ");
 			else
 				value = ft_strdup(tmp[1]);
+			free_tab(tmp);
 			break ;
 		}
 		free_tab(tmp);
@@ -63,7 +64,7 @@ void		add_env_var(char *var, t_data *data)
 		i++;
 	}
 	tmp[i] = ft_strdup(var);
-	tmp[i + 1] = "\0";
+	tmp[i + 1] = 0;
 	free_tab(data->envp);
 	data->envp = tmp;
 }
@@ -100,14 +101,23 @@ void	change_env_values(char *var, t_data *data)
 {
 	char *cwd;
 
-	delete_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
+	// delete_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
+	// cwd = getcwd(NULL, 0);
+	// cwd = ft_strjoin(var, cwd); // не забыть, что тут нужно с PATH= соединить
+	// add_env_var(cwd, data);
+	// printf("CD: %s\n", cwd);
+	// free(cwd);
+
+	char **temp;
+	temp = ft_split(var, '=');
+	ft_unset_env(temp[0], data);
+	free_tab(temp);
 	cwd = getcwd(NULL, 0);
-	cwd = ft_strjoin(var, cwd); // не забыть, что тут нужно с PATH= соединить
+	cwd = ft_strjoin(var, cwd);
 	add_env_var(cwd, data);
 	free(cwd);
+	
 }
-
-
 // void set_env_values(t_data *data)
 // {
 //     data->home = get_env_values(data->envp, "HOME"); // это нужно куда-то в начало, в иниты

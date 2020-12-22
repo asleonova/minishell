@@ -1,14 +1,15 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include "libft.h"
-#include "get_next_line.h"
+#include "headers/libft.h"
+#include "headers/get_next_line.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <stdio.h>  //------------DELETE------------//
 
 #define SUCCESS 0
@@ -88,6 +89,8 @@ char *get_env_values(t_data *data, char *key);
 void		add_env_var(char *var, t_data *data);
 void	delete_env_var(char *var, t_data *data);
 void		ft_unset_env(char *str, t_data *data);
+int sysfunc_manager(t_commands *command, t_data *data);
+void command_for_exec(t_commands *command, t_data *data);
 
 
 void handler(int signal);

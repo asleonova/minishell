@@ -32,7 +32,6 @@ static void	ft_sort_list(t_data *data)
 	}
 }
 
-
 static void ft_print_export(t_data *data)
 {
     int i;
@@ -94,7 +93,6 @@ int			ft_export(t_data *data, t_commands *command)
 		ft_export_update(data, command->arg_lst->content);
 		command->arg_lst = command->arg_lst->next;
 	}
-	ft_print_export(data); // вот это чекнуть. вроде печатать не нужно!!!
 	return(SUCCESS);
 }
 

@@ -42,6 +42,6 @@ int parse_func(t_commands *command, t_data *data)
     else if (command->command == env)
         ft_env(data, command);
     else
-        sysfunc_manager(command, data);
+        command_for_exec(command, data);
     return (SUCCESS);
 }

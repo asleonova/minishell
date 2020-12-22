@@ -23,18 +23,19 @@ SRCS = ./main.c \
 	./executor/pipes.c \
 	./executor/pwd.c \
 	./executor/unset.c \
+	./executor/sysfuncs.c
 
 
 OBJ = $(SRCS:%.c=%.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER) $(LIBFT)
-	$(CC) -g $(CFLAGS) -Iheaders libft/$(LIBFT) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) -Iheaders libft/$(LIBFT) $(OBJ) -o $(NAME)
 
 $(GNL):
 	$(MAKE) -C ./libft all

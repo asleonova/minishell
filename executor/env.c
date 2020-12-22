@@ -21,7 +21,7 @@ static int path_exist(t_data *data, char *key) // need to check if the $PATH exi
 	return(found);
 }
 
-static int ft_print_env(t_data *data, t_commands *command)
+static int ft_print_env(t_data *data, t_commands *command) // переписать без аргументов!
 {
     int i;
 

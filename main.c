@@ -50,12 +50,12 @@ int main(int argc, char **argv, char **envp)
 	i = 1;
 	argc = 0;
 	argv = NULL;
+	copy_env(envp, &data);
 	//cmd = malloc(sizeof(t_commands));
 	while(i)
 	{
 		var_initialization(&var);
 		intro();
-		copy_env(envp, &data);
 		get_next_line(0, &var.str);
 		parser_str(&var);
 		/* здесь буддет готовые листы полученные из строки */

@@ -9,10 +9,11 @@ void ft_cd(t_commands *command, t_data *data)
     {
         change_env_values("OLDPWD=", data); // сохраняем текущий pwd в old_pwd в переменные окружения!!
 		cwd = get_env_values(data, "HOME");
+        printf("HOME: %s\n", cwd);
 		chdir(cwd); // здесь мы попадаем в home
-		//free(cwd);
-		//cwd = getcwd(NULL, 0); // получаем новое значение для current directory
-        change_env_values("PWD", data); // сохраняем полученное значение в переменных окружения 
+		free(cwd);
+		cwd = getcwd(NULL, 0); // получаем новое значение для current directory
+        change_env_values("PWD=", data); // сохраняем полученное значение в переменных окружения 
     }
     else // cd with path
     {
@@ -22,8 +23,8 @@ void ft_cd(t_commands *command, t_data *data)
            error_path(command);
 	    else
 	    {
-		   // cwd = getcwd(NULL, 0);
-            change_env_values("PWD=", data); // сохраняем полученное значение в переменных окружения  
+		   cwd = getcwd(NULL, 0);
+           change_env_values("PWD=", data); // сохраняем полученное значение в переменных окружения  
 	    }
     }
 }

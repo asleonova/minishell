@@ -25,7 +25,7 @@ int count_list(t_commands *cmd)
 		//printf("\nour cmd - %s\n", cmd->cmd);
 		// while(cmd->arg_lst != NULL)
 		// {
-		// 	// printf("our argv - %s\n", cmd->arg_lst->content);
+			//printf("our argv - %s\n", cmd->arg_lst->content);
 		// 	cmd->arg_lst = cmd->arg_lst->next;
 		// }
 		lst_count++;
