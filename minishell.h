@@ -23,14 +23,23 @@ typedef struct  s_var
 	int		i; /* end string */
 	int		j; /*  */  // позиция конца слова
 	int		k; // позиция в токене
+	char	q; /* quotes flag */
+	int		sq; /* single quotes flag */
+	int		dq; /* double quotes flag */
+	int		r; /* > >> < */
+	int		sr; /* > */
+	int		dr; /* >> */
+	int		ri; /* < */
+    char    *env;
+	int		env_start; /* env flag*/
+    int     env_end;
 	char	*str; // array in
 	char	*arr; /* array write list */
 	int		error; /* errors */
-	int		rf; /* > */
-	int		df; /* >> */
-	int		rif; /* < */
+    int     exception; /* помечаю лист для того что бы не записать его в аргументы */
+    t_list  *head;	
 	t_list	*list;
-}               t_var;
+}               t_var;;
 
 typedef enum    e_command_names
 {
@@ -53,6 +62,8 @@ typedef struct          s_commands
     int                 invalid; // флаг - команда невалидна, 1
     t_command_names     command;
     int                 count_args;
+    int                 save_1;
+    int                 save_0;
     struct s_list       *arg_lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 	struct s_commands	*next;
 	struct s_commands	*prev;
@@ -102,12 +113,16 @@ int error_no_file_or_dir(t_commands *command);
 int command_not_found(t_commands *command);
 
 // Den: 
-void	parser_str(t_var *var);
+void	parser_str(t_var *var, char **env);
 void	var_initialization(t_var *var);
 void	var_clear(t_var *var);
-void	create_lexer(t_var *var, int i);
+void	create_lexer(t_var *var, int i, char **evn);
 void	analysis_list(t_var *var, t_commands *cmd);
 void	cmd_initialization(t_commands *cmd);
+void	print_list(t_commands *cmd);
+void	distribution(char *str, t_var *var, t_commands *cmd, int i);
+void	parsing_env(t_var *var, char **env, char **str);
+void    processing_fd(t_var *var, t_commands *cmd);
 int     count_list(t_commands *cmd);
 void intro(void);
 #endif

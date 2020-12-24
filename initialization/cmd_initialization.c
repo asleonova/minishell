@@ -19,4 +19,6 @@ void cmd_initialization(t_commands *cmd)
 	cmd->end = 0;
 	cmd->next = NULL;
 	cmd->prev = NULL;
+	cmd->fd_0 = -1;
+	cmd->fd_1 = -1;
 }

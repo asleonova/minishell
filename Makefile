@@ -10,6 +10,9 @@ SRCS = ./main.c \
 	./parser/analysis_list.c \
 	./initialization/cmd_initialization.c \
 	./parser/print_list.c \
+	./parser/distribution.c \
+	./parser/parsing_env.c \
+	./parser/processing_fd.c \
 	./signals/signals.c \
 	./executor/cmd.c \
 	./executor/cd.c \

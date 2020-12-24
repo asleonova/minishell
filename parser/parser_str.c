@@ -19,6 +19,17 @@ int pass_space(t_var *var, int i)
 	return (i);
 }
 
+void parser_quotes(t_var *var, char c)
+{
+	var->q = c;
+	while(var->j < var->i)
+	{
+		var->j++;
+		if(var->str[var->j] == c)
+			return;
+	}
+}
+
 void know_end_word(t_var *var)
 {
 	if(var->str[var->j] == '>' || var->str[var->j] == '<' || \
@@ -31,6 +42,8 @@ void know_end_word(t_var *var)
 	}
 	while(var->j < var->i)
 	{
+		if(var->str[var->j] == '\'' || var->str[var->j] == '"')
+			parser_quotes(var,var->str[var->j]);
 		if(var->str[var->j] == ' ' || var->str[var->j] == '>' || \
 			var->str[var->j] == '<' || var->str[var->j] == '|' || \
 			var->str[var->j] == ';')
@@ -39,7 +52,7 @@ void know_end_word(t_var *var)
 	}
 }
 
-void parser_str(t_var *var)
+void parser_str(t_var *var, char **env)
 {
 	var->i = ft_strlen(var->str);
 	while(var->j < var->i)
@@ -47,6 +60,7 @@ void parser_str(t_var *var)
 		var->j = pass_space(var, var->j);
 		know_end_word(var);
 		var->k = pass_space(var, var->k);
-		create_lexer(var, 0);
+		if(var->k != var->j)
+			create_lexer(var, 0, env);
 	}
 }

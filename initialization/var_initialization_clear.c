@@ -18,13 +18,19 @@ void var_initialization(t_var *var)
 	var->j = 0;
 	var->k = 0;
 	var->error = 0;
-	var->rf = 0;
-	var->df = 0;
-	var->rif = 0;
+	var->q = 0;
+	var->sq = 0;
+	var->dq = 0;
+	var->exception = 0;
+	var->env_start = -1;
+	var->env_end = -1;
+	var->list = NULL;
+	var->str = NULL;
 }
 
 void var_clear(t_var *var)
 {
 	free(var->str);
 	var->str = NULL;
+	free(var);
 }

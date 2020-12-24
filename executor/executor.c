@@ -2,10 +2,18 @@
 
 void    check_redirect(t_commands *command) // changes the fd value if there is a redir
 {
-        if (command->fd_0 != -1)
-            dup2(command->fd_0, 0);
-        if (command->fd_1 != -1)
-            dup2(command->fd_1, 1);
+    command->save_1 = dup(1);
+    command->save_0 = dup(0);
+    if (command->fd_0 != -1)
+    {
+        dup2(command->fd_0, 0);
+        close(command->fd_0);
+    }
+    if (command->fd_1 != -1)
+    {
+        dup2(command->fd_1, 1);
+        close(command->fd_1);
+    }           
 }
 
 char **ft_list_to_array(t_commands *command)
@@ -32,17 +40,28 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
 {
     int lst_count;
     
+        //     printf("FD_0: %d\n", command->fd_0);
+        // printf("FD_1: %d\n", command->fd_1);
     lst_count = count_list(command);
     while (command)
     {
         if (lst_count == 1)
+        {
             parse_func(command, data);
+            dup2(command->save_1, 1);
+            dup2(command->save_0, 0);
+            close(command->save_1);
+            close(command->save_0);
+        }
+           
         else
         {
             pipe_manager(command, data);
             // значит, был пайп и у нас несколько листов.
         }
         command = command->next;
+    //    close(command->fd_0);
+    //    close(command->fd_1);
     }
 }
 
