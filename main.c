@@ -17,12 +17,12 @@ void intro(void)
 	write(1, "minishell: ", 11);
 }
 
-int done(t_var *var)
-{
-	if(!(ft_strncmp(var->str, "exit", 4)))
-		return (0);
- 	return (1);
-}
+// int done(t_var *var)
+// {
+// 	if(!(ft_strncmp(var->str, "exit", 4)))
+// 		return (0);
+//  	return (1);
+// }
 
 void		copy_env(char **envp, t_data *data)
 {
@@ -64,7 +64,7 @@ int main(int argc, char **argv, char **envp)
 		analysis_list(&var, &cmd);
 		/* Анены функции */
 		executor(&cmd, &data);
-		i = done(&var);
+		//i = done(&var);
 		var_clear(&var);
 		// free(cmd);
 		// cmd = NULL;

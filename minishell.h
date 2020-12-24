@@ -15,8 +15,8 @@
 #define SUCCESS 0
 #define FAIL 1
 
-int g_error;
-char **envp;
+int      g_error;
+// char **envp;
 
 typedef struct  s_var
 {
