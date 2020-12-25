@@ -64,6 +64,7 @@ typedef struct          s_commands
     int                 count_args;
     int                 save_1;
     int                 save_0;
+    int                 fd[2];
     struct s_list       *arg_lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 	struct s_commands	*next;
 	struct s_commands	*prev;
@@ -102,8 +103,8 @@ void	delete_env_var(char *var, t_data *data);
 void		ft_unset_env(char *str, t_data *data);
 int sysfunc_manager(t_commands *command, t_data *data);
 void command_for_exec(t_commands *command, t_data *data);
-
-
+void pipe_manager(t_commands *command, t_data *data);
+void add_path_to_commands(t_commands *command, t_data *data);
 void handler(int signal);
 
 // custom errors:

@@ -39,30 +39,27 @@ char **ft_list_to_array(t_commands *command)
 void executor(t_commands *command, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
 {
     int lst_count;
-    
-        //     printf("FD_0: %d\n", command->fd_0);
-        // printf("FD_1: %d\n", command->fd_1);
+
     lst_count = count_list(command);
-    while (command)
+    check_redirect(command);
+    if (lst_count == 1)
     {
-        if (lst_count == 1)
-        {
-            parse_func(command, data);
-            dup2(command->save_1, 1);
-            dup2(command->save_0, 0);
-            close(command->save_1);
-            close(command->save_0);
+        parse_func(command, data);
+        // dup2(command->save_1, 1);
+        // dup2(command->save_0, 0);
+        // close(command->save_1);
+        // close(command->save_0);
         }
-           
-        else
-        {
+    else  // значит, был пайп и у нас несколько листов.
+    {
+        //while (command)
+        //{
             pipe_manager(command, data);
-            // значит, был пайп и у нас несколько листов.
-        }
-        command = command->next;
-    //    close(command->fd_0);
-    //    close(command->fd_1);
+          //  command = command->next;
+       // }
     }
+    dup2(command->save_1, 1);
+    dup2(command->save_0, 0);
+    close(command->save_1);
+    close(command->save_0);
 }
-
-

@@ -22,8 +22,7 @@ static void    cmd_identifier(t_commands *command)
 
 int parse_func(t_commands *command, t_data *data)
 {
-    cmd_identifier(command);
-    check_redirect(command);
+    cmd_identifier(command);   
     command->count_args = ft_lstsize(command->arg_lst);
     if (command->invalid == 1)
         return(FAIL); // не забыть текст ошибки

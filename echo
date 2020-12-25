@@ -3,9 +3,12 @@ a.out
 af
 af1
 check.c
+echo
 executor
 headers
+hello
 initialization
+jello
 libft
 main.c
 main.o
@@ -17,3 +20,5 @@ parser
 signals
 test
 test.c
+test1
+tets1
