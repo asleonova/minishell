@@ -2,8 +2,6 @@
 
 void    check_redirect(t_commands *command) // changes the fd value if there is a redir
 {
-    command->save_1 = dup(1);
-    command->save_0 = dup(0);
     if (command->fd_0 != -1)
     {
         dup2(command->fd_0, 0);
@@ -42,6 +40,8 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
 
     lst_count = count_list(command);
     check_redirect(command);
+    command->save_1 = dup(1);
+    command->save_0 = dup(0);
     if (lst_count == 1)
     {
         parse_func(command, data);
@@ -60,6 +60,6 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
     }
     dup2(command->save_1, 1);
     dup2(command->save_0, 0);
-    close(command->save_1);
-    close(command->save_0);
+    // close(command->save_1);
+    // close(command->save_0);
 }
