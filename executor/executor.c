@@ -53,13 +53,18 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
     else  // значит, был пайп и у нас несколько листов.
     {
         //while (command)
-        //{
+        {
             pipe_manager(command, data);
-          //  command = command->next;
-       // }
+           
+           // command = command->next;
+
+       }
+        dup2(command->save_1, 1);
+        dup2(command->save_0, 0);
+
+
     }
-    dup2(command->save_1, 1);
-    dup2(command->save_0, 0);
+
     // close(command->save_1);
     // close(command->save_0);
 }

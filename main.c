@@ -98,6 +98,8 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		// printf("CMD1: %s\n", cmd->cmd);
 		// printf("CMD2: %s\n", cmd->next->cmd);
 		executor(cmd, &data);
+		// printf("%d\n", cmd->end);
+		// printf("%d\n", cmd->next->end);
 		// clear_struct(&cmd);
 		//i = done(&var);
 		var_clear(var);
