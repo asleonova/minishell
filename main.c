@@ -93,6 +93,10 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		parser_str(var, envp);
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_list(var, cmd);
+		// cmd->next->cmd = "grep";
+		// cmd->next->next->cmd = "grep";
+		// cmd->next->arg_lst->content = "a";
+		// cmd->next->next->arg_lst->content = "b";
 		// clear_list(var);
 		/* Анены функции */
 		// printf("CMD1: %s\n", cmd->cmd);

@@ -22,7 +22,7 @@ char **ft_list_to_array(t_commands *command)
 
     i = 1;
     count = ft_lstsize(command->arg_lst);
-    argv = (char**)malloc(sizeof(char *) * count + 2);
+    argv = (char**)malloc(sizeof(char *) * (count + 2));
     argv[0] = ft_strdup(command->cmd); // copy the command for the 1st element of the array
     while (count > 0)
     {
@@ -39,6 +39,7 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
     int lst_count;
 
     lst_count = count_list(command);
+    //printf("LST COUNT: %d\n", lst_count);
     check_redirect(command);
     command->save_1 = dup(1);
     command->save_0 = dup(0);
@@ -52,16 +53,19 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
         }
     else  // значит, был пайп и у нас несколько листов.
     {
-        //while (command)
-        {
-            pipe_manager(command, data);
-           
-           // command = command->next;
-
-       }
-        dup2(command->save_1, 1);
+        execute_another_function(data, command);
+        // while (command)
+        // {
+        //     pipe_manager(command, data);
+        //    // printf("CMD: %s\n", command->cmd);
+        //     //dup2(command->save_0, 0);
+        //    // dup2(command->save_1, 1);
+        //     printf("CMD: %s\n", command->cmd);
+        //     command = command->next;
+      
+        // }
         dup2(command->save_0, 0);
-
+		dup2(command->save_1, 1);
 
     }
 

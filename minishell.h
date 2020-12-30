@@ -64,6 +64,8 @@ typedef struct          s_commands
     int                 count_args;
     int                 save_1;
     int                 save_0;
+    int                 fd_in;
+    int                 fd_out;
     int                 fd[2];
     struct s_list       *arg_lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 	struct s_commands	*next;
@@ -106,6 +108,11 @@ void command_for_exec(t_commands *command, t_data *data);
 void pipe_manager(t_commands *command, t_data *data);
 void add_path_to_commands(t_commands *command, t_data *data);
 void handler(int signal);
+int fork_pipes (t_commands *cmd, t_data *data);
+int		execute_another_function(t_data *data, t_commands *command);
+int		exec_first_command(t_commands *command, t_data *data, int pfd[2]);
+
+int		check_pipe(t_data *data, t_commands *command, int pfd[2]);
 
 // custom errors:
 int error_path(t_commands *command);
