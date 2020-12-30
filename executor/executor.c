@@ -38,6 +38,7 @@ char **ft_list_to_array(t_commands *command)
 
 void execute_one_func(t_commands *command, t_data *data)
 {
+        check_redirect(command);
         cmd_identifier(command);
         if (command->command == bash)
             execute(command, data);
