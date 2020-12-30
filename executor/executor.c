@@ -2,6 +2,8 @@
 
 void    check_redirect(t_commands *command) // changes the fd value if there is a redir
 {
+    command->save_1 = dup(1);
+    command->save_0 = dup(0);
     if (command->fd_0 != -1)
     {
         dup2(command->fd_0, 0);
@@ -48,26 +50,14 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
     int lst_count;
 
     lst_count = count_list(command);
-    check_redirect(command);
     command->save_1 = dup(1);
     command->save_0 = dup(0);
     if (lst_count == 1)
-        execute_one_func(command, data);
+            execute_one_func(command, data);  
     else  // значит, был пайп или ; и у нас несколько листов.
-    {
-        // if (command->end == 2) // если встретили ;
-        // {
-        //     execute_one_func(command, data);
-        //     execute_one_func(command->next, data);
-        // }
-
-        //     else // если пайпы
-        //     {
-               execute(command, data);
-               //dup2(command->save_0, 0);
-	    	   //dup2(command->save_1, 1);
-           // }
-            dup2(command->save_0, 0);
-	    	dup2(command->save_1, 1);
-    }
+        execute(command, data);
+    dup2(command->save_0, 0);
+    dup2(command->save_1, 1);
+    close(command->save_1);
+    close(command->save_0);
 }

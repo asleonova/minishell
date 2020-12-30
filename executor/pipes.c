@@ -110,6 +110,7 @@ void		execute(t_commands *command, t_data *data)
 	pid_t	pid;
 	int		pfd[2];
 
+    check_redirect(command);
     if (command != NULL && command->cmd != NULL)
         pipe(pfd);
 	pid = fork();
@@ -165,11 +166,13 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
 	if (command->next != NULL && command->next->cmd != NULL)
 	{
         if (command->end != 2)
-        {   
+        {
             close(pfd[1]);
 	        dup2(pfd[0], 0);
+		    execute(command->next, data);
         }
-        execute(command->next, data);
+        else
+            execute_one_func(command->next, data);
 	}
 	return (0);
 }
