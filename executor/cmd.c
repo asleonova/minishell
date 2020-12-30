@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-static void    cmd_identifier(t_commands *command)
+void    cmd_identifier(t_commands *command)
 {
     if (ft_strcmp(command->cmd, "echo") == 0)
         command->command = echo;
@@ -22,11 +22,9 @@ static void    cmd_identifier(t_commands *command)
 
 int parse_func(t_commands *command, t_data *data)
 {
-    cmd_identifier(command);   
+    cmd_identifier(command);  
     command->count_args = ft_lstsize(command->arg_lst);
-    if (command->invalid == 1)
-        return(FAIL); // не забыть текст ошибки
-    else if (command->command == echo)
+    if (command->command == echo)
         ft_echo(command);
     else if (command->command == cd)
         ft_cd(command, data);
@@ -41,6 +39,6 @@ int parse_func(t_commands *command, t_data *data)
     else if (command->command == env)
         ft_env(data, command);
     else
-        command_for_exec(command, data);
+        command->command = bash;
     return (SUCCESS);
 }

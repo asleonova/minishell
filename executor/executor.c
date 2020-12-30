@@ -34,41 +34,40 @@ char **ft_list_to_array(t_commands *command)
     return(argv);
 }
 
+void execute_one_func(t_commands *command, t_data *data)
+{
+        cmd_identifier(command);
+        if (command->command == bash)
+            execute(command, data);
+        else
+        parse_func(command, data);
+}
+
 void executor(t_commands *command, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
 {
     int lst_count;
 
     lst_count = count_list(command);
-    //printf("LST COUNT: %d\n", lst_count);
     check_redirect(command);
     command->save_1 = dup(1);
     command->save_0 = dup(0);
     if (lst_count == 1)
+        execute_one_func(command, data);
+    else  // значит, был пайп или ; и у нас несколько листов.
     {
-        parse_func(command, data);
-        // dup2(command->save_1, 1);
-        // dup2(command->save_0, 0);
-        // close(command->save_1);
-        // close(command->save_0);
-        }
-    else  // значит, был пайп и у нас несколько листов.
-    {
-        execute_another_function(data, command);
-        // while (command)
+        // if (command->end == 2) // если встретили ;
         // {
-        //     pipe_manager(command, data);
-        //    // printf("CMD: %s\n", command->cmd);
-        //     //dup2(command->save_0, 0);
-        //    // dup2(command->save_1, 1);
-        //     printf("CMD: %s\n", command->cmd);
-        //     command = command->next;
-      
+        //     execute_one_func(command, data);
+        //     execute_one_func(command->next, data);
         // }
-        dup2(command->save_0, 0);
-		dup2(command->save_1, 1);
 
+        //     else // если пайпы
+        //     {
+               execute(command, data);
+               //dup2(command->save_0, 0);
+	    	   //dup2(command->save_1, 1);
+           // }
+            dup2(command->save_0, 0);
+	    	dup2(command->save_1, 1);
     }
-
-    // close(command->save_1);
-    // close(command->save_0);
 }

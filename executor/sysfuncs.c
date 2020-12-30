@@ -67,6 +67,7 @@ int sysfunc_manager(t_commands *command, t_data *data)
         signal(SIGQUIT, SIG_DFL);
         if(execve(argv[0], argv, data->envp) == -1)
             command_not_found(command);
+        free(argv);
         // дочерний процесс
     }
     else 
