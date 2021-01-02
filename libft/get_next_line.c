@@ -76,7 +76,7 @@ int				get_next_line(int fd, char **line)
 	{
 		*line = ft_strdup_mod(remain, ft_strlen(remain));
 		free_it(&remain);
-		return (0);
+		return (666); // changed, used to be 0
 	}
 	*line = ft_strdup_mod(remain, readed);
 	remain_and_free(&remain, readed);

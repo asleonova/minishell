@@ -23,4 +23,4 @@
 char	*ft_strdup_mod(const char *str, size_t n);
 int		get_next_line(int fd, char **line);
 
-#endif
+# endif

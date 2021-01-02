@@ -75,6 +75,7 @@ typedef struct          s_data
     char                **envp; // переменные окружения (длинный список) - type in termibal env to see how it looks like
     char                *path; // PATH= 
     char                *home;
+    char                *status;
 }                       t_data;
 
 void ft_exit(t_commands *command);

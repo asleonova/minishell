@@ -76,6 +76,7 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 	t_commands *cmd;
 	t_data	data;
 	int 	i;
+	int		ret;
 	
 	i = 1;
 	argc = 0;
@@ -89,7 +90,12 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		cmd = malloc(sizeof(t_commands));
 		var_initialization(var);
 		intro();
-		get_next_line(0, &var->str);
+		ret = get_next_line(0, &var->str);
+		if (ret == 666)
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit(g_error);
+		}
 		parser_str(var, envp);
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_list(var, cmd);

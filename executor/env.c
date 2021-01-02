@@ -29,7 +29,8 @@ static int ft_print_env(t_data *data, t_commands *command) // переписат
 	if (!path_exist(data, "PATH"))
 	{
 		ft_putstr_fd("minishell: env: No such file or directory\n", 1);
-		return (FAIL);
+		g_error = 127;
+		return (g_error);
 	}
     while (data->envp[i])
     {
