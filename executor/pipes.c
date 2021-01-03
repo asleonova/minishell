@@ -110,6 +110,7 @@ void		execute(t_commands *command, t_data *data)
 	pid_t	pid;
 	int		pfd[2];
 
+    
     check_redirect(command);
     if (command != NULL && command->cmd != NULL)
         pipe(pfd);
@@ -173,6 +174,7 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
         }
         else
             execute_one_func(command->next, data);
+        dup2(command->save_0, 0);
 	}
 	return (0);
 }

@@ -21,6 +21,7 @@ int close_fd(int fd)
 
 void processing_fd(t_var *var, t_commands *cmd)
 {
+	errno = 0;
 	if(var->list->next != NULL)
 	{
 		var->list = var->list->next;
@@ -34,7 +35,8 @@ void processing_fd(t_var *var, t_commands *cmd)
 			cmd->fd_1 = open(var->list->content, O_RDWR | O_CREAT | O_APPEND, S_IWRITE | S_IREAD);
 		else if(var->ri == 1)
 			cmd->fd_0 = open(var->list->content, O_RDONLY);
+		permission_denied(cmd);
 	}
 	else
-		printf("syntax error near unexpected token `newline'"); // error
+		 printf("syntax error near unexpected token `newline'"); // error
 }

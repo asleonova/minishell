@@ -89,6 +89,7 @@ int			ft_export(t_data *data, t_commands *command);
 void ft_unset(t_data *data, t_commands *command);
 int ft_pwd();
 
+
 // executor: maybe delete some static 
 void    check_redirect(t_commands *command);
 int parse_func(t_commands *command, t_data *data);
@@ -117,6 +118,7 @@ int error_path(t_commands *command);
 int error_identifier(t_commands *command);
 int error_no_file_or_dir(t_commands *command);
 int command_not_found(t_commands *command);
+void permission_denied(t_commands *command);
 
 // Den: 
 void	parser_str(t_var *var, char **env);

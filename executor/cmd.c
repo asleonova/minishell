@@ -2,6 +2,7 @@
 
 void    cmd_identifier(t_commands *command)
 {
+    command->count_args = ft_lstsize(command->arg_lst);
     if (ft_strcmp(command->cmd, "echo") == 0)
         command->command = echo;
     else if (ft_strcmp(command->cmd, "cd") == 0)
@@ -24,7 +25,6 @@ int parse_func(t_commands *command, t_data *data)
 {
     cmd_identifier(command);
     check_redirect(command); 
-    command->count_args = ft_lstsize(command->arg_lst);
     if (command->command == echo)
         ft_echo(command);
     else if (command->command == cd)
@@ -37,9 +37,10 @@ int parse_func(t_commands *command, t_data *data)
         ft_unset(data, command);
     else if (command->command == our_exit)
         ft_exit(command);
-    else if (command->command == env)
-        ft_env(data, command);
+    // else if (command->command == env)
     else
-        command->command = bash;
+        ft_env(data, command);
+    //else
+       // command->command = bash;
     return (SUCCESS);
 }

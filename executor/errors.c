@@ -35,3 +35,15 @@ int command_not_found(t_commands *command)
 	g_error = 127;
 	return(g_error);
 }
+
+void	permission_denied(t_commands *command)
+{
+	if (errno != 0)
+	{
+		ft_putstr_fd("minishell: ", 1);
+		ft_putstr_fd(strerror(errno), 1);
+		ft_putchar_fd('\n', 1);
+		command->cmd = NULL;
+		g_error = 1;
+	}
+}
