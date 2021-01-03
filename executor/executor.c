@@ -4,16 +4,21 @@ void    check_redirect(t_commands *command) // changes the fd value if there is 
 {
     //command->save_1 = dup(1);
     //command->save_0 = dup(0);
-    if (command->fd_0 != -1)
+    if (command != NULL && command->cmd != NULL)
     {
-        dup2(command->fd_0, 0);
-       /// close(command->fd_0);
+        if (command->fd_0 != -1)
+        {
+            dup2(command->fd_0, 0);
+            close(command->fd_0);
+        }
+        if (command->fd_1 != -1)
+        {
+            dup2(command->fd_1, 1);
+            close(command->fd_1);
+        }
+        //check_redirect(command->next);
     }
-    if (command->fd_1 != -1)
-    {
-        dup2(command->fd_1, 1);
-     //   close(command->fd_1);
-    }           
+        
 }
 
 char **ft_list_to_array(t_commands *command)
@@ -63,8 +68,6 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
         execute(command, data);
     dup2(command->save_0, 0);
     dup2(command->save_1, 1);
-    close(command->fd_0);
-    close(command->fd_1);
     close(command->save_1);
     close(command->save_0);
 }

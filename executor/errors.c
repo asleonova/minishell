@@ -45,7 +45,6 @@ void	permission_denied(t_commands *command)
 		ft_putchar_fd('\n', 1);
 		command->cmd = NULL;
 		g_error = 1;
-		close(command->fd_0);
-    	close(command->fd_1);
+		//exit(g_error);
 	}
 }

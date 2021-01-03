@@ -27,7 +27,7 @@ void processing_fd(t_var *var, t_commands *cmd)
 		var->list = var->list->next;
 		if(cmd->fd_1 != -1)
 			cmd->fd_1 = close_fd(cmd->fd_1);
-	 	else if(cmd->fd_0 != -1)
+	 	if(cmd->fd_0 != -1)
 			cmd->fd_1 = close_fd(cmd->fd_1);
 		if(var->sr == 1)
 			cmd->fd_1 = open(var->list->content, O_RDWR | O_CREAT | O_TRUNC, S_IWRITE | S_IREAD);
@@ -35,9 +35,8 @@ void processing_fd(t_var *var, t_commands *cmd)
 			cmd->fd_1 = open(var->list->content, O_RDWR | O_CREAT | O_APPEND, S_IWRITE | S_IREAD);
 		else if(var->ri == 1)
 			cmd->fd_0 = open(var->list->content, O_RDONLY);
+			//ft_putstr_fd(strerror(errno), 1);
 		permission_denied(cmd);
-		
-
 	}
 	else
 		 printf("syntax error near unexpected token `newline'"); // error
