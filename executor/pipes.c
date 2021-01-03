@@ -119,7 +119,7 @@ void		execute(t_commands *command, t_data *data)
 	int		pfd[2];
 
     
-    check_redirect(command);
+    //check_redirect(command);
     if (command != NULL && command->cmd != NULL)
         pipe(pfd);
 	pid = fork();
@@ -161,6 +161,7 @@ int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
         // if(execve(argv[0], argv, data->envp) == -1)
         //     command_not_found(command);
         // free_tab(argv);
+        check_redirect(command);
         cmd_identifier(command);
         if (command->command == bash)
             execute_execve(command, data);

@@ -43,7 +43,7 @@ char **ft_list_to_array(t_commands *command)
 
 void execute_one_func(t_commands *command, t_data *data)
 {
-        check_redirect(command);
+       // check_redirect(command);
         if (command->cmd != NULL)
         {
             cmd_identifier(command);
