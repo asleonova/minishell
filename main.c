@@ -105,7 +105,9 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		// cmd->next->next->arg_lst->content = "b";
 		// clear_list(var);
 		/* Анены функции */
-		// printf("CMD1: %s\n", cmd->cmd);
+		printf("CMD1: %s\n", cmd->cmd);
+		printf("REDIR 0: %d\n", cmd->fd_0);
+		printf("REDIR 1: %d\n", cmd->fd_1);
 		// printf("CMD2: %s\n", cmd->next->cmd);
 		executor(cmd, &data);
 		// printf("%d\n", cmd->end);

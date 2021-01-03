@@ -174,7 +174,7 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
         }
         else
             execute_one_func(command->next, data);
-        dup2(command->save_0, 0);
+       //dup2(command->save_0, 0);
 	}
 	return (0);
 }
