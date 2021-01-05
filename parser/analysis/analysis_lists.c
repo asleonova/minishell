@@ -30,48 +30,42 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 	cmd->cmd[i] = '\0';
 }
 
-int		analysis_lists_utils(t_var *var, t_commands *cmd, char **env, t_commands *tmp)
+void analysis_lists(t_var *var, t_commands *cmd, char **env)
 {
-	if (distribution(var->list->content, var, cmd, 0))
-	{
-		if (var->r)
-			processing_fd(var, cmd);
-		if (var->q == 2)
-			parsing_env_quote(var, env, &var->list->content);
-		if (cmd->end)
-		{
-			if (var->list->next)
-			{
-				cmd_initialization(tmp = malloc(sizeof(t_commands)));
-				tmp->prev = cmd;
-				cmd->next = tmp;
-				cmd = tmp;
-			}
-			else
-				return (1);
-		}
-	}
-	return (0);
-}
-void	analysis_lists(t_var *var, t_commands *cmd, char **env)
-{
-	t_commands *tmp;
+ t_commands *tmp;
 
-	tmp = NULL;
-	cmd_initialization(cmd);
-	while (var->list)
-	{
-		if(analysis_lists_utils(var, cmd, env, tmp))
-			break ;
-		if (var->list->content[0] == '$')
-			parsing_env(var, env, &var->list->content);
-		if (!cmd->cmd && !var->exception)
-			write_cmd(var->list->content, cmd, 0);
-		else if (cmd->cmd && !var->exception)
-			write_argv(var, cmd);
-		if (var->list->next != NULL)
-			var->list = var->list->next;
-		else
-			break ;
-	}
+ tmp = NULL;
+ cmd_initialization(cmd);
+ while (var->list)
+ {
+  if (distribution(var->list->content, var, cmd, 0))
+  {
+   if (var->r)
+    processing_fd(var, cmd);
+   if (var->q == 2)
+    parsing_env_quote(var, env, &var->list->content);
+   if (cmd->end)
+   {
+    if (var->list->next)
+    {
+     cmd_initialization(tmp = malloc(sizeof(t_commands)));
+     tmp->prev = cmd;
+     cmd->next = tmp;
+     cmd = tmp;
+    }
+    else
+     break ;
+   }
+  }
+  if (var->list->content[0] == '$')
+   parsing_env(var, env, &var->list->content);
+  if (!cmd->cmd && !var->exception)
+   write_cmd(var->list->content, cmd, 0);
+  else if (cmd->cmd && !var->exception)
+   write_argv(var, cmd);
+  if (var->list->next != NULL)
+   var->list = var->list->next;
+  else
+   break ;
+ }
 }

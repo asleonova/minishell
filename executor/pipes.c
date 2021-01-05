@@ -121,6 +121,7 @@ void		execute(t_commands *command, t_data *data)
     
     //check_redirect(command);
     if (command != NULL && command->cmd != NULL)
+    {
         pipe(pfd);
 	pid = fork();
     if (pid == -1) // in case of error
@@ -142,6 +143,7 @@ void		execute(t_commands *command, t_data *data)
 		g_error = WEXITSTATUS(pid);
 		check_pipe(data, command, pfd);
 	}
+    }
 }
 
 int		exec_first_command(t_commands *command, t_data *data, int pfd[2])

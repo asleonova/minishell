@@ -124,15 +124,15 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		parser_str(var);
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_lists(var, cmd, envp);
-		see_input_lists(var);
-		while (cmd)
-		{
-			see_analysis_lists(cmd);
-			if (cmd->next)
-				cmd = cmd->next;
-			else
-				break ;
-		}
+		// see_input_lists(var);
+		// while (cmd)
+		// {
+		// 	see_analysis_lists(cmd);
+		// 	if (cmd->next)
+		// 		cmd = cmd->next;
+		// 	else
+		// 		break ;
+		// }
 		/* Анены функции */
 		// printf("CMD1: %s\n", cmd->cmd);
 		// printf("REDIR 0: %d\n", cmd->fd_0);
@@ -140,8 +140,8 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		// printf("CMD2: %s\n", cmd->next->cmd);
 		executor(cmd, &data);
 		// i = done(var);
-		clear_input_list(var);
-		clear_struct(cmd);
+		// clear_input_list(var);
+		// clear_struct(cmd);
 	}
 	return(0);
 }
