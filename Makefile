@@ -3,37 +3,44 @@ LIBFT = libft.a
 
 HEADER = ./minishell.h
 
-SRCS = ./main.c \
-	./parser/parser_str.c \
-	./initialization/var_initialization_clear.c  \
-	./parser/create_lexer.c \
-	./parser/analysis_list.c \
-	./initialization/cmd_initialization.c \
-	./parser/print_list.c \
-	./parser/distribution.c \
-	./parser/parsing_env.c \
-	./parser/processing_fd.c \
-	./signals/signals.c \
-	./executor/cmd.c \
-	./executor/cd.c \
-	./executor/echo.c \
-	./executor/env_vars.c \
-	./executor/env.c \
-	./executor/errors.c \
-	./executor/executor.c \
-	./executor/export.c \
-	./executor/our_exit.c \
-	./executor/pipes.c \
-	./executor/pwd.c \
-	./executor/unset.c \
-	./executor/sysfuncs.c
+DBLISS = ./executor/cmd.c \
+		./executor/cd.c \
+		./executor/echo.c \
+		./executor/env_vars.c \
+		./executor/env.c \
+		./executor/errors.c \
+		./executor/executor.c \
+		./executor/export.c \
+		./executor/our_exit.c \
+		./executor/pipes.c \
+		./executor/pwd.c \
+		./executor/unset.c \
+		./executor/sysfuncs.c \
+		./executor/count_lists.c \
+		./signals/signals.c
 
+MONIE = ./initialization/var_initialization_clear.c  \
+		./initialization/cmd_initialization.c \
+		./initialization/env_initialization.c \
+		./parser/input_lists/create_lexer.c \
+		./parser/input_lists/parser_str.c \
+		./parser/input_lists/clear_input_list.c \
+		./parser/analysis/analysis_lists.c \
+		./parser/analysis/clear_struct.c \
+		./parser/analysis/distribution.c \
+		./parser/analysis/processing_fd.c \
+		./parser/analysis/parsing_env.c \
+		./parser/analysis/parsing_env_quote.c
+		
+SRCS = ./main.c \
+	$(MONIE) \
+	$(DBLISS)
 
 OBJ = $(SRCS:%.c=%.o)
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

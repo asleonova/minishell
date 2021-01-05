@@ -21,7 +21,7 @@ typedef	struct	s_list
 {
 	char			*content;
 	struct s_list	*next;
-	// struct s_list	*prev;
+	struct s_list	*prev;
 }				t_list;
 
 void			*ft_memset(void *b, int c, size_t len);

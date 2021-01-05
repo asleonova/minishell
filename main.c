@@ -53,6 +53,30 @@ void intro(void)
 // 		cmd->arg_lst = NULL;
 // 	}
 // }
+void	see_input_lists(t_var *var)
+{
+	if (var->list)
+	{
+		while (var->list->prev)
+			var->list = var->list->prev;
+		while (var->list->next)
+			var->list = var->list->next;
+	}
+}
+void	see_analysis_lists(t_commands *cmd)
+{
+	printf("cmd->cmd\t%s\n", cmd->cmd);
+	printf("cmd->fd_1\t%d\ncmd->fd_0\t%d\n", cmd->fd_1, cmd->fd_0);
+	if (cmd->arg_lst)
+	{
+		while (cmd->arg_lst->next)
+		{
+			printf("cmd->arg_list\t%s\n", cmd->arg_lst->content);
+			cmd->arg_lst = cmd->arg_lst->next;
+		}
+		printf("cmd->arg_list\t%s\n", cmd->arg_lst->content);
+	}
+}
 
 void		copy_env(char **envp, t_data *data)
 {
@@ -89,6 +113,7 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		var = malloc(sizeof(t_var));
 		cmd = malloc(sizeof(t_commands));
 		var_initialization(var);
+		cmd_initialization(cmd);
 		intro();
 		ret = get_next_line(0, &var->str);
 		if (ret == 666)
@@ -96,30 +121,27 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 			ft_putstr_fd("exit\n", 1);
 			exit(g_error);
 		}
-		parser_str(var, envp);
+		parser_str(var);
 		/* здесь буддет готовые листы полученные из строки */
-		analysis_list(var, cmd);
-		// cmd->next->cmd = "grep";
-		// cmd->next->next->cmd = "grep";
-		// cmd->next->arg_lst->content = "a";
-		// cmd->next->next->arg_lst->content = "b";
-		// clear_list(var);
+		analysis_lists(var, cmd, envp);
+		see_input_lists(var);
+		while (cmd)
+		{
+			see_analysis_lists(cmd);
+			if (cmd->next)
+				cmd = cmd->next;
+			else
+				break ;
+		}
 		/* Анены функции */
-		printf("CMD1: %s\n", cmd->cmd);
-		printf("REDIR 0: %d\n", cmd->fd_0);
-		printf("REDIR 1: %d\n", cmd->fd_1);
+		// printf("CMD1: %s\n", cmd->cmd);
+		// printf("REDIR 0: %d\n", cmd->fd_0);
+		// printf("REDIR 1: %d\n", cmd->fd_1);
 		// printf("CMD2: %s\n", cmd->next->cmd);
 		executor(cmd, &data);
-		// printf("%d\n", cmd->end);
-		// printf("%d\n", cmd->next->end);
-		// clear_struct(&cmd);
-		//i = done(&var);
-		var_clear(var);
-		var = NULL;
-		// free(cmd);
-		// cmd = NULL;
+		// i = done(var);
+		clear_input_list(var);
+		clear_struct(cmd);
 	}
-	if(!i)
-		write(1, "Error program", 14);
 	return(0);
 }

@@ -5,32 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/20 19:27:35 by monie             #+#    #+#             */
-/*   Updated: 2020/12/22 22:57:36 by monie            ###   ########.fr       */
+/*   Created: 2020/12/30 20:56:43 by monie             #+#    #+#             */
+/*   Updated: 2021/01/03 18:47:20 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	create_str(char *str, char **content, int i)
 {
 	int	j;
-	
+
 	free(*content);
 	*content = NULL;
 	j = ft_strlen(str);
-	while(str[i] != '=')
+	while (str[i] != '=')
 	{
 		i++;
 	}
-	*content = malloc(j - i +1);
-	if(*content == NULL)
-		g_error = 10;
+	*content = malloc(j - i + 1);
+	if (*content == NULL)
+		printf("no memmory\n");
 	j = 0;
-	while(str[i++])
-	{
+	while (str[i++])
 		(*content)[j++] = str[i];
-	}
 	(*content)[j] = '\0';
 }
 
@@ -39,17 +37,17 @@ int		search_str(char *str, char *my_env, int k)
 	int	i;
 
 	i = 0;
-	while(my_env[k])
+	while (my_env[k])
 	{
-		if(my_env[k] == str[i])
+		if (my_env[k] == str[i])
 		{
 			k++;
 			i++;
 		}
-		else if(my_env[k] != str[i])
+		else if (my_env[k] != str[i])
 			return (1);
 	}
-	if(str[i] == '=')
+	if (str[i] == '=')
 	{
 		k++;
 		return (0);
@@ -57,30 +55,33 @@ int		search_str(char *str, char *my_env, int k)
 	return (1);
 }
 
-void	replices_arr()
+void	parsing_question(char **str)
 {
-	
+	free(*str);
+	*str = NULL;
+	*str = ft_itoa(g_error);
 }
 
 void	parsing_env(t_var *var, char **env, char **str)
 {
 	int	j;
 	int	i;
-	
+
 	i = 0;
 	j = 0;
-	while(env[i])
+	if (str[0][1] == '?' && (str[0][2] == ' ' || \
+		str[0][2] == '\0'))
+		parsing_question(str);
+	else
 	{
-		if(!search_str(env[i], *str, 0))
-			create_str(env[i], str, 0);
-		i++;
-	}
-	if(!var->q) // исправить на одинарные и если без кавычек
-	{
-		free(var->arr);
-		var->arr = NULL;
-		var->arr = ft_strdup(var->env);
-		free(var->env);
-		var->env = NULL;
+		while (env[i])
+		{
+			if (!search_str(env[i], *str, 1))
+			{
+				create_str(env[i], str, 0);
+				var->envf = 1;
+			}
+			i++;
+		}
 	}
 }

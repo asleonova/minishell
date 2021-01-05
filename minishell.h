@@ -18,28 +18,39 @@
 int      g_error;
 // char **envp;
 
-typedef struct  s_var
+typedef struct			s_env 
 {
-	int		i; /* end string */
-	int		j; /*  */  // позиция конца слова
-	int		k; // позиция в токене
-	char	q; /* quotes flag */
-	int		sq; /* single quotes flag */
-	int		dq; /* double quotes flag */
-	int		r; /* > >> < */
-	int		sr; /* > */
-	int		dr; /* >> */
-	int		ri; /* < */
-    char    *env;
-	int		env_start; /* env flag*/
-    int     env_end;
-	char	*str; // array in
-	char	*arr; /* array write list */
-	int		error; /* errors */
-    int     exception; /* помечаю лист для того что бы не записать его в аргументы */
-    t_list  *head;	
-	t_list	*list;
-}               t_var;;
+	int					i;
+	int					k;
+	int					j;
+	int					end;
+	int					dollar;
+	char				*env;
+	char				*str;
+}						t_env;
+
+typedef struct			s_var
+{
+	int					j;/* позиция конца слова */
+	int					k;/* позиция в токене */
+	int					i;/* end string */
+	int					q;/* quotes flag */
+	int					sq;/* single quotes flag */
+	int					dq;/* double quotes flag */
+	int					r;/* > = 1; >> = 2; <  = 3*/
+	char				*env;
+	int					env_start; /* env flag*/
+	int					env_end;
+	int					envf; /* env flag */
+	char				*str; // array in
+	char				*arr; /* array write list */
+	int					error; /* errors */
+	int					exception; /* помечаю лист для того что бы не записать его в аргументы */
+    char                oq;
+	t_list				*head;
+	
+	t_list				*list;
+}						t_var;
 
 typedef enum    e_command_names
 {
@@ -110,7 +121,7 @@ void		execute(t_commands *command, t_data *data);
 int parse_func(t_commands *command, t_data *data);
 void    cmd_identifier(t_commands *command);
 int		check_pipe(t_data *data, t_commands *command, int pfd[2]);
-
+int     count_list(t_commands *cmd);
 void execute_one_func(t_commands *command, t_data *data);
 
 // custom errors:
@@ -121,16 +132,20 @@ int command_not_found(t_commands *command);
 void permission_denied(t_commands *command);
 
 // Den: 
-void	parser_str(t_var *var, char **env);
+void	parser_str(t_var *var);
 void	var_initialization(t_var *var);
-void	var_clear(t_var *var);
-void	create_lexer(t_var *var, int i, char **evn);
-void	analysis_list(t_var *var, t_commands *cmd);
 void	cmd_initialization(t_commands *cmd);
-void	print_list(t_commands *cmd);
-void	distribution(char *str, t_var *var, t_commands *cmd, int i);
+void	create_lexer(t_var *var, int i);
+void	clear_input_list(t_var *var);
+void	analysis_lists(t_var *var, t_commands *cmd, char **env);
+void	clear_struct(t_commands *cmd);
+int		distribution(char *str, t_var *var, t_commands *cmd, int i);
+void	processing_fd(t_var *var, t_commands *cmd);
 void	parsing_env(t_var *var, char **env, char **str);
-void    processing_fd(t_var *var, t_commands *cmd);
-int     count_list(t_commands *cmd);
+void	parsing_env_quote(t_var *var, char **env, char **str);
+void	parsing_env_quote(t_var *var, char **env, char **str);
+void	env_initialization(t_env *tmp);
+void	env_initialization_step(t_env *tmp);
+
 void intro(void);
 #endif

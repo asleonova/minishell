@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   var_initialization_clear.c                         :+:      :+:    :+:   */
+/*   env_initialization.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/20 13:14:14 by monie             #+#    #+#             */
-/*   Updated: 2020/12/20 17:20:55 by monie            ###   ########.fr       */
+/*   Created: 2021/01/02 12:10:27 by monie             #+#    #+#             */
+/*   Updated: 2021/01/03 17:02:08 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	var_initialization(t_var *var)
+void	env_initialization(t_env *tmp)
 {
-	var->i = 0;
-	var->j = 0;
-	var->k = 0;
-	var->error = 0;
-	var->q = 0;
-	var->sq = 0;
-	var->dq = 0;
-	var->env = NULL;
-	var->envf = 0;
-	var->env_start = -1;
-	var->env_end = -1;
-	var->list = NULL;
-	var->str = NULL;
+	tmp->i = 0;
+	tmp->j = 0;
+	tmp->k = 0;
+	tmp->end = 0;
+	tmp->env = NULL;
+	tmp->str = NULL;
 }
 
-void	var_clear(t_var *var)
+void	env_initialization_step(t_env *tmp)
 {
-	free(var->str);
-	var->str = NULL;
-	free(var);
+	tmp->end = tmp->i;
+	tmp->i = 0;
+	tmp->j = 0;
+	tmp->k = 0;
 }

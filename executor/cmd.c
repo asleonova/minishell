@@ -3,6 +3,7 @@
 void    cmd_identifier(t_commands *command)
 {
     command->count_args = ft_lstsize(command->arg_lst);
+    printf("ARGS: %d\n", command->count_args);
     if (ft_strcmp(command->cmd, "echo") == 0)
         command->command = echo;
     else if (ft_strcmp(command->cmd, "cd") == 0)
