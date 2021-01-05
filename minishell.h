@@ -68,7 +68,7 @@ typedef struct          s_commands
 {
     int                 fd_0;
     int                 fd_1;
-	int					end; /* ;=1 or | = 2 if 0 = '\0' */
+	int					end; /* | = 1 or ; = 2 if 0 = '\0' */
     char				*cmd; /* command */
     int                 invalid; // флаг - команда невалидна, 1
     t_command_names     command;
@@ -123,6 +123,7 @@ void    cmd_identifier(t_commands *command);
 int		check_pipe(t_data *data, t_commands *command, int pfd[2]);
 int     count_list(t_commands *cmd);
 void execute_one_func(t_commands *command, t_data *data);
+void execute_execve(t_commands *command, t_data *data);
 
 // custom errors:
 int error_path(t_commands *command);
