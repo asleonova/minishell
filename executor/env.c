@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-static int path_exist(t_data *data, char *key) // need to check if the $PATH exists
+int path_exist(t_data *data, char *key) // need to check if the $PATH exists
 {
     int i;
     char **tmp;

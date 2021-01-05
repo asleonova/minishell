@@ -23,10 +23,8 @@ void execute_execve(t_commands *command, t_data *data)
             command_not_found(command);
             exit(g_error);
         }
-
     }
-    free(argv);
-        
+    free(argv);        
 }
 
 void		execute(t_commands *command, t_data *data)

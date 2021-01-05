@@ -31,6 +31,7 @@ static void ft_exit_errors(t_commands *command)
 }
 void ft_exit(t_commands *command)
 {
+    printf("G_ERROR: %d\n", g_error);
     ft_exit_errors(command);
     exit(g_error);
 }

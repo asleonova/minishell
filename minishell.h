@@ -102,6 +102,7 @@ int ft_pwd();
 
 
 // executor: maybe delete some static 
+int path_exist(t_data *data, char *key);
 void    check_redirect(t_commands *command);
 int parse_func(t_commands *command, t_data *data);
 void	change_env_values(char *var, t_data *data);
@@ -131,6 +132,7 @@ int error_identifier(t_commands *command);
 int error_no_file_or_dir(t_commands *command);
 int command_not_found(t_commands *command);
 void permission_denied(t_commands *command);
+int path_no_file_or_dir(t_commands *command);
 
 // Den: 
 void	parser_str(t_var *var);

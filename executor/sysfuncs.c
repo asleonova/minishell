@@ -1,13 +1,21 @@
 #include "../minishell.h"
 
-char **get_paths(t_data *data)
+char **get_paths(t_data *data, t_commands *command)
 {
     char *path;
     char **paths;
 
-    path = get_env_values(data, "PATH");
-    paths = ft_split(path, ':');
-    free(path);
+    if (!path_exist(data, "PATH"))
+    {
+        path_no_file_or_dir(command);
+        paths = NULL;
+    }
+    else
+    {
+        path = get_env_values(data, "PATH");
+        paths = ft_split(path, ':');
+        free(path);
+    }
     return (paths);    
 }
 
@@ -21,7 +29,7 @@ void add_path_to_commands(t_commands *command, t_data *data)
 
     i = 0;
     cmd = NULL;
-    paths = get_paths(data);
+    paths = get_paths(data, command);
     while(paths[i])
     {
         join = ft_strjoin(paths[i], "/");
