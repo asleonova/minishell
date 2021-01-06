@@ -5,17 +5,19 @@ char **get_paths(t_data *data, t_commands *command)
     char *path;
     char **paths;
 
-    if (!path_exist(data, "PATH"))
-    {
-        path_no_file_or_dir(command);
-        paths = NULL;
-    }
-    else
-    {
+    (void)command->cmd;
+
+    //if (!path_exist(data, "PATH"))
+    //{
+      //  path_no_file_or_dir(command);
+        //paths = NULL;
+   // }
+    //else
+    //{
         path = get_env_values(data, "PATH");
         paths = ft_split(path, ':');
         free(path);
-    }
+    //}
     return (paths);    
 }
 
@@ -74,7 +76,7 @@ int sysfunc_manager(t_commands *command, t_data *data)
         signal(SIGINT, SIG_DFL);
         signal(SIGQUIT, SIG_DFL);
         if(execve(argv[0], argv, data->envp) == -1)
-            command_not_found(command);
+            command_not_found(argv[0]);
         free(argv);
         // дочерний процесс
     }

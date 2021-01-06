@@ -36,10 +36,10 @@ int path_no_file_or_dir(t_commands *command)
 	return (g_error);
 }
 
-int command_not_found(t_commands *command)
+int command_not_found(char *command)
 {
 	ft_putstr_fd("minishell: ", 1);
-	ft_putstr_fd(command->cmd, 1);
+	ft_putstr_fd(command, 1);
 	ft_putstr_fd(": command not found\n", 1);
 	g_error = 127;
 	return(g_error);

@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void execute_execve(t_commands *command, t_data *data)
+int execute_execve(t_commands *command, t_data *data)
 {
     char **argv;
     
@@ -9,7 +9,7 @@ void execute_execve(t_commands *command, t_data *data)
         argv = ft_list_to_array(command);
         if(execve(argv[0], argv, data->envp) == -1)
         {
-            command_not_found(command);
+            command_not_found(argv[0]);
             exit(g_error);
         }
             
@@ -20,11 +20,12 @@ void execute_execve(t_commands *command, t_data *data)
         argv = ft_list_to_array(command);
         if(execve(argv[0], argv, data->envp) == -1)
         {
-            command_not_found(command);
-            exit(g_error);
+            command_not_found(argv[0]);
+                exit(g_error);
         }
     }
-    free(argv);        
+    free(argv);
+    return(g_error);        
 }
 
 void		execute(t_commands *command, t_data *data)
@@ -47,6 +48,7 @@ void		execute(t_commands *command, t_data *data)
     {
         signal(SIGINT, SIG_DFL);
         signal(SIGQUIT, SIG_DFL);
+        path_does_not_exist(command, data);
         exec_first_command(command, data, pfd);
     }
 	else

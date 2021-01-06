@@ -21,26 +21,26 @@ void    cmd_identifier(t_commands *command)
         command->command = bash;
 }
 
-int parse_func(t_commands *command, t_data *data)
+void parse_func(t_commands *command, t_data *data)
 {
+    int ret;
+
+    ret = 0;
     cmd_identifier(command);
     check_redirect(command); 
     if (command->command == echo)
-        ft_echo(command);
+        ret = ft_echo(command);
     else if (command->command == cd)
-        ft_cd(command, data);
+        ret = ft_cd(command, data);
     else if (command->command == pwd)
-        ft_pwd();
+        ret = ft_pwd();
     else if (command->command == export)
-        ft_export(data, command);
+        ret = ft_export(data, command);
     else if (command->command == unset)
-        ft_unset(data, command);
+        ret = ft_unset(data, command);
     else if (command->command == our_exit)
         ft_exit(command);
-    // else if (command->command == env)
     else
-        ft_env(data, command);
-    //else
-       // command->command = bash;
-    return (SUCCESS);
+        ret = ft_env(command, data);
+    g_error = ret;
 }

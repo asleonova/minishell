@@ -12,73 +12,31 @@
 
 #include "../../minishell.h"
 
-void	clear_arg_list(t_commands *cmd)
+void clear_arg_list(t_commands *cmd)
 {
 	t_list *tmp;
 
-	tmp = NULL;
 	free(cmd->cmd);
 	cmd->cmd = NULL;
-	if (cmd->arg_lst)
+	while (cmd->arg_lst)
 	{
-		while (cmd->arg_lst->prev != NULL)
-		{
-			free(cmd->arg_lst->content);
-			cmd->arg_lst->content = NULL;
-			tmp = cmd->arg_lst;
-			cmd->arg_lst = cmd->arg_lst->prev;
-			free(tmp);
-		}
+		tmp = cmd->arg_lst->next;
 		free(cmd->arg_lst->content);
 		free(cmd->arg_lst);
-		cmd->arg_lst = NULL;
+		cmd->arg_lst = tmp;
 	}
 }
 
-void	see_analysis_lists(t_commands *cmd)
+void clear_struct(t_commands *cmd)
 {
-	printf("cmd->cmd\t%s\n", cmd->cmd);
-	printf("cmd->fd_1\t%d\ncmd->fd_0\t%d\n", cmd->fd_1, cmd->fd_0);
-	if (cmd->arg_lst)
-	{
-		while (cmd->arg_lst->next)
-		{
-			printf("cmd->arg_list\t%s\n", cmd->arg_lst->content);
-			cmd->arg_lst = cmd->arg_lst->next;
-		}
-		printf("cmd->arg_list\t%s\n", cmd->arg_lst->content);
-	}
-}
+	t_commands *tmp;
 
-void	struct_end(t_commands *cmd)
-{
-	while (cmd)
-	{
-		// see_analysis_lists(cmd);
-		if (cmd->next)
-			cmd = cmd->next;
-		else
-			break ;
-	}
-}
-
-void	clear_struct(t_commands *cmd)
-{
-	struct_end(cmd);
 	while (cmd)
 	{
 		clear_arg_list(cmd);
-		free(cmd->cmd);
-		cmd->cmd = NULL;
-		if (cmd->prev)
-		{
-			cmd = cmd->prev;
-			free(cmd->next);
-			cmd->next = NULL;
-		}
-		else
-			break ;
+		tmp = cmd->next;
+		free(cmd);
+		cmd = NULL;
+		cmd = tmp;
 	}
-	free(cmd);
-	cmd = NULL;
 }

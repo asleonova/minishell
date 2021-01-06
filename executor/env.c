@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int path_exist(t_data *data, char *key) // need to check if the $PATH exists
+int path_exist(t_commands *command, t_data *data) // need to check if the $PATH exists
 {
     int i;
     char **tmp;
@@ -11,27 +11,31 @@ int path_exist(t_data *data, char *key) // need to check if the $PATH exists
     while (data->envp[++i])
 	{
 		tmp = ft_split(data->envp[i], '=');
-		if (ft_strcmp(tmp[0], key) == 0) // PATH == PATH
+		if (ft_strcmp(tmp[0], "PATH") == 0) // PATH == PATH
 		{
 			found = 1;
 			break;
 		}
 		free_tab(tmp);
 	}
+	if (data->envp[i] == NULL)
+		path_no_file_or_dir(command);
 	return(found);
 }
 
-static int ft_print_env(t_data *data, t_commands *command) // переписать без аргументов!
+void path_does_not_exist(t_commands *command, t_data *data)
+{
+	path_exist(command, data);
+	exit(g_error);
+}
+
+int ft_env(t_commands *command, t_data *data) // переписать без аргументов!
 {
     int i;
 
     i = 0;
-	if (!path_exist(data, "PATH"))
-	{
-		ft_putstr_fd("minishell: env: No such file or directory\n", 1);
-		g_error = 127;
-		return (g_error);
-	}
+	if (!path_exist(command, data))
+		return(g_error);
     while (data->envp[i])
     {
         if (ft_strchr(data->envp[i], '=') != NULL)
@@ -40,16 +44,12 @@ static int ft_print_env(t_data *data, t_commands *command) // переписат
             ft_putchar_fd('\n', 1);
         }
 		else 
-			error_no_file_or_dir(command);	
+			error_no_file_or_dir(command);
         i++;
     }
 	return(SUCCESS);   
 }
-int ft_env(t_data *data, t_commands *command)
-{
-    ft_print_env(data, command);
-    return(SUCCESS);
-}
+
 // int ft_env(t_data *data, t_commands *command) // old version of env
 // {
 //     int flag;

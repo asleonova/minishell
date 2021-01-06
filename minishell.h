@@ -91,20 +91,20 @@ typedef struct          s_data
 
 void ft_exit(t_commands *command);
 int ft_echo(t_commands *command);
-void ft_cd(t_commands *command, t_data *data);
+int ft_cd(t_commands *command, t_data *data);
 void		free_tab(char **tab);
 int		tab_len(char **tab);
-int ft_env(t_data *data, t_commands *command);
+int ft_env(t_commands *command, t_data *data);
 void ft_export_update(t_data *data, char *str);
 int			ft_export(t_data *data, t_commands *command);
-void ft_unset(t_data *data, t_commands *command);
+int ft_unset(t_data *data, t_commands *command);
 int ft_pwd();
 
 
 // executor: maybe delete some static 
-int path_exist(t_data *data, char *key);
+int path_exist(t_commands *command, t_data *data);
 void    check_redirect(t_commands *command);
-int parse_func(t_commands *command, t_data *data);
+void parse_func(t_commands *command, t_data *data);
 void	change_env_values(char *var, t_data *data);
 char **ft_list_to_array(t_commands *command);
 int sysfunc_manager(t_commands *command, t_data *data);
@@ -119,20 +119,20 @@ void add_path_to_commands(t_commands *command, t_data *data);
 void handler(int signal);
 int		exec_first_command(t_commands *command, t_data *data, int pfd[2]);
 void		execute(t_commands *command, t_data *data);
-int parse_func(t_commands *command, t_data *data);
 void    cmd_identifier(t_commands *command);
 int		check_pipe(t_data *data, t_commands *command, int pfd[2]);
 int     count_list(t_commands *cmd);
 void execute_one_func(t_commands *command, t_data *data);
-void execute_execve(t_commands *command, t_data *data);
+int execute_execve(t_commands *command, t_data *data);
 
 // custom errors:
 int error_path(t_commands *command);
 int error_identifier(t_commands *command);
 int error_no_file_or_dir(t_commands *command);
-int command_not_found(t_commands *command);
+int command_not_found(char *command);
 void permission_denied(t_commands *command);
 int path_no_file_or_dir(t_commands *command);
+void path_does_not_exist(t_commands *command, t_data *data);
 
 // Den: 
 void	parser_str(t_var *var);

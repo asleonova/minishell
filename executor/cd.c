@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void ft_cd(t_commands *command, t_data *data)
+int ft_cd(t_commands *command, t_data *data)
 {
     char *cwd;
     int status;
@@ -9,7 +9,6 @@ void ft_cd(t_commands *command, t_data *data)
     {
         change_env_values("OLDPWD=", data); // сохраняем текущий pwd в old_pwd в переменные окружения!!
 		cwd = get_env_values(data, "HOME");
-        printf("HOME: %s\n", cwd);
 		chdir(cwd); // здесь мы попадаем в home
 		free(cwd);
 		cwd = getcwd(NULL, 0); // получаем новое значение для current directory
@@ -27,4 +26,5 @@ void ft_cd(t_commands *command, t_data *data)
            change_env_values("PWD=", data); // сохраняем полученное значение в переменных окружения  
 	    }
     }
+    return (SUCCESS);
 }
