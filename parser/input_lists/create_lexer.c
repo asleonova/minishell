@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 13:29:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/06 12:49:37 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/06 14:16:02 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	create_lexer(t_var *var, int i)
 				var->oq = (var->str[var->k] == '\'') ? '\'' : '"';
 			if(var->oq == var->str[var->k])
 				var->k++;
+			continue ;
 		}
 		var->arr[i++] = var->str[var->k++];
 	}
