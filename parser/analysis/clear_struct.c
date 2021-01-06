@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:23:58 by monie             #+#    #+#             */
-/*   Updated: 2021/01/06 11:47:56 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/06 14:24:43 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	struct_end(t_commands *cmd)
 {
 	while (cmd)
 	{
-		see_analysis_lists(cmd);
+		// see_analysis_lists(cmd);
 		if (cmd->next)
 			cmd = cmd->next;
 		else
