@@ -8,6 +8,7 @@
 /*   Created: 2020/12/30 20:21:30 by monie             #+#    #+#             */
 /*   Updated: 2021/01/02 12:53:22 by monie            ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minishell.h"
 
@@ -36,6 +37,7 @@ void	processing_fd(t_var *var, t_commands *cmd)
 		else if (var->r == 3)
 			cmd->fd_0 = open(var->list->content, O_RDONLY);
 		var->exception = 1;
-		permission_denied(cmd);
 	}
+	else
+		printf("syntax error near unexpected token `newline'\n");
 }

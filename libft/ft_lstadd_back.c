@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/15 10:59:33 by dbliss            #+#    #+#             */
-/*   Updated: 2020/05/16 11:29:38 by dbliss           ###   ########.fr       */
+/*   Updated: 2020/12/24 16:45:49 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 				temp = temp->next;
 			}
 			temp->next = new;
+			new->prev = temp;
 		}
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:47:55 by monie             #+#    #+#             */
-/*   Updated: 2020/12/20 17:38:25 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/02 13:10:51 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void cmd_initialization(t_commands *cmd)
+void	cmd_initialization(t_commands *cmd)
 {
 	cmd->cmd = NULL;
 	cmd->arg_lst = NULL;

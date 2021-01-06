@@ -35,6 +35,7 @@ typedef struct			s_var
 	int					k;/* позиция в токене */
 	int					i;/* end string */
 	int					q;/* quotes flag */
+	char				oq;/* one quotes */
 	int					sq;/* single quotes flag */
 	int					dq;/* double quotes flag */
 	int					r;/* > = 1; >> = 2; <  = 3*/
@@ -46,7 +47,6 @@ typedef struct			s_var
 	char				*arr; /* array write list */
 	int					error; /* errors */
 	int					exception; /* помечаю лист для того что бы не записать его в аргументы */
-    char                oq;
 	t_list				*head;
 	
 	t_list				*list;

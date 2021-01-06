@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 19:02:33 by dbliss            #+#    #+#             */
-/*   Updated: 2020/05/16 00:00:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2020/12/24 15:51:37 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_list	*ft_lstnew(char *content)
 	{
 		begin->content = content;
 		begin->next = NULL;
+		begin->prev = NULL;
 	}
 	return (begin);
 }
