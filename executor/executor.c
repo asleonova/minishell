@@ -2,8 +2,6 @@
 
 void    check_redirect(t_commands *command) // changes the fd value if there is a redir
 {
-    //command->save_1 = dup(1);
-    //command->save_0 = dup(0);
     if (command != NULL && command->cmd != NULL)
     {
         if (command->fd_0 != -1)
@@ -16,7 +14,6 @@ void    check_redirect(t_commands *command) // changes the fd value if there is 
             dup2(command->fd_1, 1);
             close(command->fd_1);
         }
-        //check_redirect(command->next);
     }
         
 }
@@ -43,7 +40,6 @@ char **ft_list_to_array(t_commands *command)
 
 void execute_one_func(t_commands *command, t_data *data)
 {
-       // check_redirect(command);
         if (command->cmd != NULL)
         {
             cmd_identifier(command);
@@ -52,14 +48,12 @@ void execute_one_func(t_commands *command, t_data *data)
             else
             parse_func(command, data);
         }
-
 }
 
 void executor(t_commands *command, t_data *data) // предполагаю, что хотя бы 1 лист существует (Денис выходит из программы, если в лист ничего не записалось)
 {
     int lst_count;
 
-    //printf("CMD ARGS: %s\n", command->next->arg_lst->content);
     lst_count = count_list(command);
     command->save_1 = dup(1);
     command->save_0 = dup(0);

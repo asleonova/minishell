@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int execute_execve(t_commands *command, t_data *data)
+int execute_execve(t_commands *command, t_data *data) // func to execute execve commands
 {
     char **argv;
     
@@ -44,14 +44,14 @@ void		execute(t_commands *command, t_data *data)
         strerror(pid);
         exit(errno);
     }
-	if (pid == 0)
+	if (pid == 0) // in the child process
     {
         signal(SIGINT, SIG_DFL);
         signal(SIGQUIT, SIG_DFL);
         path_does_not_exist(command, data);
         exec_first_command(command, data, pfd);
     }
-	else
+	else // in parent process
 	{
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);
@@ -81,9 +81,6 @@ int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
              parse_func(command, data);
              exit(g_error);
         }
-           
-           
-
     }
 	return (0);
 }
@@ -99,11 +96,7 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
 		    execute(command->next, data);
         }
         else
-        {
-             execute_one_func(command->next, data);
-        }
-           
-       //dup2(command->save_0, 0);
+            execute_one_func(command->next, data);
 	}
 	return (0);
 }

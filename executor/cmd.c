@@ -26,10 +26,8 @@ void parse_func(t_commands *command, t_data *data)
     int ret;
 
     ret = 0;
-    //cmd_identifier(command);
-    //printf("HAAHHHAHA\n");
-    //printf("CMD2: %s\n", command->cmd);
-    // printf("CMD ARGS: %s\n", command->arg_lst->content);
+    printf("ARGS: %s\n",command->arg_lst->content);
+    command->count_args = ft_lstsize(command->arg_lst);
     check_redirect(command); 
     if (command->command == echo)
         ret = ft_echo(command);

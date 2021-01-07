@@ -10,12 +10,13 @@ DBLISS = ./executor/cmd.c \
 		./executor/env.c \
 		./executor/errors.c \
 		./executor/executor.c \
+		./executor/utils.c \
 		./executor/export.c \
 		./executor/our_exit.c \
 		./executor/pipes.c \
 		./executor/pwd.c \
 		./executor/unset.c \
-		./executor/sysfuncs.c \
+		./executor/paths.c \
 		./executor/count_lists.c \
 		./signals/signals.c
 
