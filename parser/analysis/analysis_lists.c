@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 13:12:55 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 14:23:20 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 		i++;
 	}
 	cmd->cmd[i] = '\0';
+}
+
+void	add_env(t_commands *cmd, t_data *data)
+{
+	if (ft_strcmp(cmd->cmd, "export"))
+	{
+		while (cmd->arg_lst)
+		{
+			ft_export_update(data, cmd->arg_lst->content);
+			cmd->arg_lst = cmd->arg_lst->next;
+		}
+	}
 }
 
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
@@ -68,18 +80,5 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 		else
 			break ;
 	}
-	if(cmd->cmd[0] == 'e')
-	{
-		while(cmd->arg_lst)
-		{
-			ft_export_update(data, cmd->arg_lst->content);
-			cmd->arg_lst = cmd->arg_lst->next;
-		}
-	}
-	int w = 0;
-	while(env[0][w])
-	{
-		//printf("%s\n", env[0][w]);
-		w++;
-	}
+	add_env(cmd, data);
 }

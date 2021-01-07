@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 13:29:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 11:22:56 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 14:25:13 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	create_list(t_var *var)
 {
 	ft_lstadd_back(&(var->list), ft_lstnew(ft_strdup(var->arr)));
+	free(var->arr);
+	var->arr = NULL;
 }
 
 void	create_lexer(t_var *var, int i)
@@ -27,9 +29,9 @@ void	create_lexer(t_var *var, int i)
 		if ((var->str[var->k] == '\'' || var->str[var->k] == '"') && \
 			(var->oq == var->str[var->k] || var->oq == ' '))
 		{
-			if(var->oq != '\'' && var->oq != '"')
+			if (var->oq != '\'' && var->oq != '"')
 				var->oq = (var->str[var->k] == '\'') ? '\'' : '"';
-			if(var->oq == var->str[var->k])
+			if (var->oq == var->str[var->k])
 				var->k++;
 		}
 		else
@@ -37,6 +39,4 @@ void	create_lexer(t_var *var, int i)
 	}
 	var->arr[i] = '\0';
 	create_list(var);
-	free(var->arr);
-	var->arr = NULL;
 }
