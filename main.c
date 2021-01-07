@@ -93,16 +93,16 @@ int main(int argc, char **argv, char **envp)
 		parser_str(var);
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_lists(var, cmd, &data, &data.envp);
-		//executor(cmd, &data);
-		see_input_lists(var);
-		while (cmd)
-		{
-			see_analysis_lists(cmd);
-			if (cmd->next)
-				cmd = cmd->next;
-			else
-				break ;
-		}
+		executor(cmd, &data);
+		// see_input_lists(var);
+		// while (cmd)
+		// {
+		// 	see_analysis_lists(cmd);
+		// 	if (cmd->next)
+		// 		cmd = cmd->next;
+		// 	else
+		// 		break ;
+		// }
 		clear_input_list(var);
 		clear_struct(cmd);
 	}
