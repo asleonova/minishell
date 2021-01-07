@@ -140,7 +140,7 @@ void	var_initialization(t_var *var);
 void	cmd_initialization(t_commands *cmd);
 void	create_lexer(t_var *var, int i);
 void	clear_input_list(t_var *var);
-void	analysis_lists(t_var *var, t_commands *cmd, char **env);
+void	analysis_lists(t_var *var, t_commands *cmd, char ***env);
 void	clear_struct(t_commands *cmd);
 int		distribution(char *str, t_var *var, t_commands *cmd, int i);
 void	processing_fd(t_var *var, t_commands *cmd);
