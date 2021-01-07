@@ -66,6 +66,7 @@ int main(int argc, char **argv, char **envp) // мб потом выделить
 		executor(cmd, &data);
 		clear_input_list(var);
 		clear_struct(cmd);
+		printf("aaaaaaa");
 	}
 	return(0);
 }

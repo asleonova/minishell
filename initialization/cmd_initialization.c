@@ -21,4 +21,5 @@ void	cmd_initialization(t_commands *cmd)
 	cmd->prev = NULL;
 	cmd->fd_0 = -1;
 	cmd->fd_1 = -1;
+	cmd->fd_error = 0;
 }

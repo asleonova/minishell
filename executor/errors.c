@@ -50,9 +50,10 @@ void	permission_denied(t_commands *command)
 	if (errno != 0)
 	{
 		ft_putstr_fd("minishell: ", 1);
-		ft_putstr_fd(strerror(errno), 1);
+		ft_putstr_fd(strerror(errno), 2);
 		ft_putchar_fd('\n', 1);
-		command->cmd = NULL;
+		//command->cmd = NULL;
+		command->fd_error = 1;
 		g_error = 1;
 		//exit(g_error);
 	}
