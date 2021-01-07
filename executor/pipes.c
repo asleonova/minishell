@@ -64,9 +64,6 @@ void		execute(t_commands *command, t_data *data)
 
 int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 {
-    // char **argv;
-    // argv = NULL;
-
 	if (command != NULL && command->cmd != NULL)
 	{
 		if (command->end == 1)
@@ -74,17 +71,19 @@ int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 			close(pfd[0]);
 			dup2(pfd[1], 1);
 		}
-        // add_path_to_commands(command, data);
-        // argv = ft_list_to_array(command);
-        // if(execve(argv[0], argv, data->envp) == -1)
-        //     command_not_found(command);
-        // free_tab(argv);
+        
         check_redirect(command);
         cmd_identifier(command);
-        // if (command->command == bash)
+        if (command->command == bash)
             execute_execve(command, data);
-        // else
-        //     parse_func(command, data);
+        else
+        {
+             parse_func(command, data);
+             exit(g_error);
+        }
+           
+           
+
     }
 	return (0);
 }
@@ -100,7 +99,10 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
 		    execute(command->next, data);
         }
         else
-            execute_one_func(command->next, data);
+        {
+             execute_one_func(command->next, data);
+        }
+           
        //dup2(command->save_0, 0);
 	}
 	return (0);

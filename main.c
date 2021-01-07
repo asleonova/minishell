@@ -66,8 +66,6 @@ int main(int argc, char **argv, char **envp)
 		executor(cmd, &data);
 		clear_input_list(var);
 		clear_struct(cmd);
-		printf("aaaaaaa");
 	}
-	printf("i");
 	return(0);
 }

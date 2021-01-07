@@ -59,6 +59,7 @@ void executor(t_commands *command, t_data *data) // предполагаю, чт
 {
     int lst_count;
 
+    //printf("CMD ARGS: %s\n", command->next->arg_lst->content);
     lst_count = count_list(command);
     command->save_1 = dup(1);
     command->save_0 = dup(0);
