@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 13:04:23 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 13:17:36 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int main(int argc, char **argv, char **envp)
 		clear_input_list(var);
 		clear_struct(cmd);
 	}
+	printf("i");
 	return(0);
 }
