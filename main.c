@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 12:37:30 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 13:04:23 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		parser_str(var);
 		/* здесь буддет готовые листы полученные из строки */
-		analysis_lists(var, cmd, &data.envp);
+		analysis_lists(var, cmd, &data, &data.envp);
 		executor(cmd, &data);
 		clear_input_list(var);
 		clear_struct(cmd);
