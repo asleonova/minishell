@@ -52,7 +52,7 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	{
 		if (distribution(var->list->content, var, cmd, 0))
 		{
-			if (var->r && g_error == 0)
+			if (var->r && cmd->fd_error != 1)
 				processing_fd(var, cmd);
 			if (var->q == 2)
 				parsing_env_quote(var, *env, &var->list->content);

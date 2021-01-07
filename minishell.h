@@ -75,6 +75,7 @@ typedef struct          s_commands
     int                 count_args; 
     int                 save_1;
     int                 save_0;
+	int					fd_error;
     struct s_list       *arg_lst; // лист с аргументами команды, то есть echo hello world, hello - лсит№1, world лист #2
 	struct s_commands	*next;
 	struct s_commands	*prev;
