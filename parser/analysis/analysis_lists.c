@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/06 11:39:56 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 13:12:55 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 	cmd->cmd[i] = '\0';
 }
 
-void	analysis_lists(t_var *var, t_commands *cmd, char **env)
+void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
 
@@ -43,7 +43,7 @@ void	analysis_lists(t_var *var, t_commands *cmd, char **env)
 			if (var->r && cmd->fd_error != 1)
 				processing_fd(var, cmd);
 			if (var->q == 2)
-				parsing_env_quote(var, env, &var->list->content);
+				parsing_env_quote(var, *env, &var->list->content);
 			if (cmd->end)
 			{
 				if (var->list->next)
@@ -58,7 +58,7 @@ void	analysis_lists(t_var *var, t_commands *cmd, char **env)
 			}
 		}
 		if (var->list->content[0] == '$')
-			parsing_env(var, env, &var->list->content);
+			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
 			write_cmd(var->list->content, cmd, 0);
 		else if (cmd->cmd && !var->exception)
@@ -67,5 +67,19 @@ void	analysis_lists(t_var *var, t_commands *cmd, char **env)
 			var->list = var->list->next;
 		else
 			break ;
+	}
+	if(cmd->cmd[0] == 'e')
+	{
+		while(cmd->arg_lst)
+		{
+			ft_export_update(data, cmd->arg_lst->content);
+			cmd->arg_lst = cmd->arg_lst->next;
+		}
+	}
+	int w = 0;
+	while(env[0][w])
+	{
+		//printf("%s\n", env[0][w]);
+		w++;
 	}
 }
