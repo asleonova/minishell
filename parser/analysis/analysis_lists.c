@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 17:50:57 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 20:23:09 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 				parsing_env_quote(var, *env, &var->list->content);
 			if (cmd->end)
 			{
+				if(cmd->end == 2)
+					executor(cmd, data);
 				if (var->list->next)
 				{
 					cmd_initialization(tmp = malloc(sizeof(t_commands)));
@@ -78,10 +80,13 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	}
 	if(!ft_strcmp(cmd->cmd, "export"))
 		my_export(cmd, data);
-	//int w = 0;
-	// while(env[0][w])
-	// {
-	// 	printf("%s\n", env[0][w]);
-	// 	w++;
-	// }
+	if(cmd->end != 2)
+		executor(cmd, data);
 }
+
+/* продумать логику функции analysis_lists
+есть ошибки при |
+ls -la | grep a
+export a=3; echo $a
+ls;
+ */

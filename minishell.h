@@ -39,6 +39,7 @@ typedef struct			s_var
 	int					sq;/* single quotes flag */
 	int					dq;/* double quotes flag */
 	int					r;/* > = 1; >> = 2; <  = 3*/
+	int					executor;
 	char				*env;
 	int					env_start; /* env flag*/
 	int					env_end;
