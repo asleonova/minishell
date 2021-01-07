@@ -6,28 +6,16 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:27:32 by monie             #+#    #+#             */
-/*   Updated: 2021/01/06 11:48:18 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 11:28:18 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	see_input_lists(t_var *var)
-{
-	if (var->list)
-	{
-		while (var->list->prev)
-			var->list = var->list->prev;
-		while (var->list->next)
-			var->list = var->list->next;
-	}
-}
-
 void	clear_input_list(t_var *var)
 {
 	t_list *tmp;
 
-	see_input_lists(var);
 	if (var->list)
 	{
 		while (var->list->prev)
