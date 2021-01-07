@@ -25,8 +25,8 @@ int path_exist(t_commands *command, t_data *data) // need to check if the $PATH 
 
 void path_does_not_exist(t_commands *command, t_data *data)
 {
-	path_exist(command, data);
-	exit(g_error);
+	if(!path_exist(command, data))
+		exit(g_error);
 }
 
 int ft_env(t_commands *command, t_data *data) // переписать без аргументов!
