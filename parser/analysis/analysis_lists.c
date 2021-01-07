@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 13:12:55 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 16:34:26 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
 
+	(void)data;
 	tmp = NULL;
 	cmd_initialization(cmd);
 	while (var->list)
 	{
 		if (distribution(var->list->content, var, cmd, 0))
 		{
-			if (var->r && cmd->fd_error != 1)
+			if (var->r)
 				processing_fd(var, cmd);
 			if (var->q == 2)
 				parsing_env_quote(var, *env, &var->list->content);
@@ -67,19 +68,5 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 			var->list = var->list->next;
 		else
 			break ;
-	}
-	if(cmd->cmd[0] == 'e')
-	{
-		while(cmd->arg_lst)
-		{
-			ft_export_update(data, cmd->arg_lst->content);
-			cmd->arg_lst = cmd->arg_lst->next;
-		}
-	}
-	int w = 0;
-	while(env[0][w])
-	{
-		//printf("%s\n", env[0][w]);
-		w++;
 	}
 }

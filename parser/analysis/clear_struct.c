@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:23:58 by monie             #+#    #+#             */
-/*   Updated: 2021/01/06 14:24:43 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/07 14:22:58 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void clear_arg_list(t_commands *cmd)
+void	clear_arg_list(t_commands *cmd)
 {
 	t_list *tmp;
 
@@ -27,7 +27,7 @@ void clear_arg_list(t_commands *cmd)
 	}
 }
 
-void clear_struct(t_commands *cmd)
+void	clear_struct(t_commands *cmd)
 {
 	t_commands *tmp;
 
