@@ -18,15 +18,6 @@ int error_identifier(t_commands *command)
 	return(g_error);
 }
 
-int error_no_file_or_dir(t_commands *command)
-{
-	ft_putstr_fd("env: ", 1);
-	ft_putstr_fd(command->arg_lst->content, 1);
-	ft_putstr_fd(": No such file or directory\n", 1);
-	g_error = 127;
-	return(g_error);
-}
-
 int path_no_file_or_dir(t_commands *command)
 {
 	ft_putstr_fd("minishell: ", 1);

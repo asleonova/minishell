@@ -125,6 +125,8 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2]);
 int     count_list(t_commands *cmd);
 void execute_one_func(t_commands *command, t_data *data);
 int execute_execve(t_commands *command, t_data *data);
+void	ft_swap(char **s1, char **s2);
+void	ft_sort_list(t_data *data);
 
 // custom errors:
 int error_path(t_commands *command);

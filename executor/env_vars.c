@@ -1,29 +1,5 @@
 #include "../minishell.h"
 
-void		free_tab(char **tab)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-int		tab_len(char **tab)
-{
-	int	len;
-	
-	len = 0;
-	while (tab[len])
-		len++;
-	return(len);
-
-}
-
 char *get_env_values(t_data *data, char *key)
 {
     int i;
@@ -101,13 +77,6 @@ void	change_env_values(char *var, t_data *data)
 {
 	char *cwd;
 
-	// delete_env_var(var, data); // в var будет храниться либо PATH либо OLDPATH
-	// cwd = getcwd(NULL, 0);
-	// cwd = ft_strjoin(var, cwd); // не забыть, что тут нужно с PATH= соединить
-	// add_env_var(cwd, data);
-	// printf("CD: %s\n", cwd);
-	// free(cwd);
-
 	char **temp;
 	temp = ft_split(var, '=');
 	ft_unset_env(temp[0], data);
@@ -118,10 +87,3 @@ void	change_env_values(char *var, t_data *data)
 	free(cwd);
 	
 }
-// void set_env_values(t_data *data)
-// {
-//     data->home = get_env_values(data->envp, "HOME"); // это нужно куда-то в начало, в иниты
-//     // data->cwd = get_env_values(data->envp, "PWD");
-//     // data->old_pwd = get_env_values(data->envp, "OLD_PWD");
-// }
-
