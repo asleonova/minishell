@@ -26,7 +26,7 @@ void parse_func(t_commands *command, t_data *data)
     int ret;
 
     ret = 0;
-    printf("ARGS: %s\n",command->arg_lst->content);
+    
     command->count_args = ft_lstsize(command->arg_lst);
     check_redirect(command); 
     if (command->command == echo)

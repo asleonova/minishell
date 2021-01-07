@@ -33,8 +33,6 @@ void		execute(t_commands *command, t_data *data)
 	pid_t	pid;
 	int		pfd[2];
 
-    
-    //check_redirect(command);
     if (command != NULL && command->cmd != NULL)
     {
         pipe(pfd);
@@ -64,6 +62,7 @@ void		execute(t_commands *command, t_data *data)
 
 int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 {
+    
 	if (command != NULL && command->cmd != NULL)
 	{
 		if (command->end == 1)
@@ -96,7 +95,7 @@ int		check_pipe(t_data *data, t_commands *command, int pfd[2])
 		    execute(command->next, data);
         }
         else
-            execute_one_func(command->next, data);
+            execute(command->next, data);
 	}
 	return (0);
 }
