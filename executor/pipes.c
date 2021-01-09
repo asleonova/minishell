@@ -39,24 +39,22 @@ int			execute_execve(t_commands *command, t_data *data)
 	return (g_error);
 }
 
-void		check_env_func(t_commands *cmd, t_data *data)
-{
-	if (cmd != NULL && cmd->cmd != NULL)
-	cmd_identifier(cmd);
-	if ((cmd->command == export && cmd->count_args > 0) || cmd->command == unset || cmd->command == cd)
-		{
-			parse_func(cmd, data);
-			cmd = cmd->next;
-		}		
-}
-
-void		execute(t_commands *command, t_data *data)
+void		execute(t_commands *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		pfd[2];
 
-	check_env_func(command, data);
-	if (command != NULL && command->cmd != NULL)
+	if (cmd != NULL && cmd->cmd != NULL)
+	{
+		cmd_identifier(cmd);
+		if ((cmd->count_args > 0 && cmd->command == export) || cmd->command == unset || cmd->command == cd)
+		{
+			parse_func(cmd, data);
+			cmd = cmd->next;
+		}
+	
+	}
+	if (cmd != NULL && cmd->cmd != NULL)
 	{
 		pipe(pfd);
 		pid = fork();
@@ -69,8 +67,8 @@ void		execute(t_commands *command, t_data *data)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			path_does_not_exist(command, data);
-			exec_first_command(command, data, pfd);
+			path_does_not_exist(cmd, data);
+			exec_first_command(cmd, data, pfd);
 		}
 		else
 		{
@@ -78,7 +76,7 @@ void		execute(t_commands *command, t_data *data)
 			signal(SIGQUIT, SIG_IGN);
 			wait(&pid);
 			g_error = WEXITSTATUS(pid);
-			check_pipe(data, command, pfd);
+			check_pipe(data, cmd, pfd);
 		}
 	}
 }

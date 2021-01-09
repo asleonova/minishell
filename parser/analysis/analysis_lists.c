@@ -29,16 +29,6 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 	}
 	cmd->cmd[i] = '\0';
 }
-
-void	my_export(t_commands *cmd, t_data *data)
-{
-	while(cmd->arg_lst)
-	{
-		ft_export_update(data, cmd->arg_lst->content);
-		cmd->arg_lst = cmd->arg_lst->next;
-	}
-}
-
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
@@ -79,7 +69,6 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 			break ;
 	}
 }
-	
 
 /* продумать логику функции analysis_lists
 есть ошибки при |
