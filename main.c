@@ -94,7 +94,7 @@ int main(int argc, char **argv, char **envp)
 		/* здесь буддет готовые листы полученные из строки */
 		analysis_lists(var, cmd, &data, &data.envp);
 		//if(!var->executor)
-		//executor(cmd, &data);
+		executor(cmd, &data);
 		//see_input_lists(var);
 		// while (cmd)
 		// {

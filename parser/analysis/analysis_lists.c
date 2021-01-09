@@ -42,7 +42,9 @@ void	my_export(t_commands *cmd, t_data *data)
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
-	
+
+	(void)data;
+	tmp = NULL;
 	cmd_initialization(cmd);
 	while (var->list)
 	{
@@ -54,8 +56,6 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 				parsing_env_quote(var, *env, &var->list->content);
 			if (cmd->end)
 			{
-				if(cmd->end == 2)
-					executor(cmd, data);
 				if (var->list->next)
 				{
 					cmd_initialization(tmp = malloc(sizeof(t_commands)));
@@ -78,11 +78,8 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 		else
 			break ;
 	}
-	if(!ft_strcmp(cmd->cmd, "export"))
-		my_export(cmd, data);
-	if(cmd->end != 2)
-		executor(cmd, data);
 }
+	
 
 /* продумать логику функции analysis_lists
 есть ошибки при |

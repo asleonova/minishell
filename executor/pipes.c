@@ -39,11 +39,23 @@ int			execute_execve(t_commands *command, t_data *data)
 	return (g_error);
 }
 
+void		check_env_func(t_commands *cmd, t_data *data)
+{
+	if (cmd != NULL && cmd->cmd != NULL)
+	cmd_identifier(cmd);
+	if ((cmd->command == export && cmd->count_args > 0) || cmd->command == unset || cmd->command == cd)
+		{
+			parse_func(cmd, data);
+			cmd = cmd->next;
+		}		
+}
+
 void		execute(t_commands *command, t_data *data)
 {
 	pid_t	pid;
 	int		pfd[2];
 
+	check_env_func(command, data);
 	if (command != NULL && command->cmd != NULL)
 	{
 		pipe(pfd);
