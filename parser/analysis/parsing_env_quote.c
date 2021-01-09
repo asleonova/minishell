@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 23:34:31 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 17:28:30 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:04:52 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ void	count_dollar(t_env *tmp, char **str)
 void	parsing_env_quote(t_var *var, char **env, char **str)
 {
 	t_env *tmp;
-	(void)var;
-	(void)env;
+
 	tmp = malloc(sizeof(t_env));
 	count_dollar(tmp, str);
 	while (tmp->dollar)

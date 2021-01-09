@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 13:29:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 15:12:57 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 18:32:37 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ void	create_lexer(t_var *var, int i)
 			var->arr[i++] = var->str[var->k++];
 			var->arr[i++] = var->str[var->k++];
 		}
-		else if ((var->str[var->k] == '\'' || var->str[var->k] == '"') && \
-			(var->oq == var->str[var->k] || var->oq == ' '))
-		{
-			if (var->oq != '\'' && var->oq != '"')
-				var->oq = (var->str[var->k] == '\'') ? '\'' : '"';
-			if (var->oq == var->str[var->k])
-				var->k++;
-		}
 		else
 			var->arr[i++] = var->str[var->k++];
 	}
 	var->arr[i] = '\0';
+	printf("var->arr\t%s\n", var->arr);
 	create_list(var);
 }

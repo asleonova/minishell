@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 17:31:38 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 19:04:11 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,45 +32,78 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 
 void	my_export(t_commands *cmd, t_data *data)
 {
-	while(cmd->arg_lst)
+	while (cmd->arg_lst)
 	{
 		ft_export_update(data, cmd->arg_lst->content);
 		cmd->arg_lst = cmd->arg_lst->next;
 	}
 }
 
-void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
+void	quote_cut(t_var *var, char **str, int i, int k)
+{
+	char *new_str;
+
+	i = ft_strlen(*str);
+	new_str = malloc(i);
+	i = 0;
+	while (str[0][i])
+	{
+		if (str[0][i] == '\'' || str[0][i] == '"')
+		{
+			if (var->oq != '\'' && var->oq != '"')
+				var->oq = (str[0][i] == '\'') ? '\'' : '"';
+			if (var->oq == str[0][i])
+				i++;
+		}
+		new_str[k++] = str[0][i++];
+	}
+	new_str[k] = '\0';
+	free(*str);
+	*str = NULL;
+	*str = ft_strdup(new_str);
+	free(new_str);
+	new_str = NULL;
+}
+
+int		analysis_utils(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
-	
+
+	if (distribution(var->list->content, var, cmd, 0))
+	{
+		if (var->shielding)
+			shielding(var, &var->list->content, 0, 0);
+		if (var->r)
+			processing_fd(var, cmd);
+		if (var->q == 2)
+			parsing_env_quote(var, *env, &var->list->content);
+		if (cmd->end)
+		{
+			if (cmd->end == 2)
+				executor(cmd, data);
+			if (var->list->next)
+			{
+				cmd_initialization(tmp = malloc(sizeof(t_commands)));
+				tmp->prev = cmd;
+				cmd->next = tmp;
+				cmd = tmp;
+			}
+			else
+				return (1);
+		}
+	}
+	return (0);
+}
+
+void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
+{
 	cmd_initialization(cmd);
-	printf("content\t%s\n", var->list->content);
 	while (var->list)
 	{
-		if (distribution(var->list->content, var, cmd, 0))
-		{
-			printf("content\t%s\n", var->list->content);
-			if (var->shielding)
-				shielding(var, &var->list->content, 0, 0);
-			if (var->r)
-				processing_fd(var, cmd);
-			if (var->q == 2)
-				parsing_env_quote(var, *env, &var->list->content);
-			if (cmd->end)
-			{
-				if(cmd->end == 2)
-					executor(cmd, data);
-				if (var->list->next)
-				{
-					cmd_initialization(tmp = malloc(sizeof(t_commands)));
-					tmp->prev = cmd;
-					cmd->next = tmp;
-					cmd = tmp;
-				}
-				else
-					break ;
-			}
-		}
+		if (analysis_utils(var, cmd, data, env))
+			break ;
+		if (var->q)
+			quote_cut(var, &var->list->content, 0, 0);
 		if (var->list->content[0] == '$' && !var->np)
 			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
@@ -82,8 +115,8 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 		else
 			break ;
 	}
-	if(!ft_strcmp(cmd->cmd, "export"))
+	if (!ft_strcmp(cmd->cmd, "export"))
 		my_export(cmd, data);
-	if(cmd->end != 2)
+	if (cmd->end != 2)
 		executor(cmd, data);
 }
