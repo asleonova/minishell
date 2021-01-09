@@ -41,6 +41,7 @@ typedef struct			s_var
 	int					r;/* > = 1; >> = 2; <  = 3*/
 	int					executor;
 	int					shielding;
+	int					np;/* not_parsing */
 	char				*env;
 	int					env_start; /* env flag*/
 	int					env_end;
@@ -154,6 +155,6 @@ void	parsing_env_quote(t_var *var, char **env, char **str);
 void	parsing_env_quote(t_var *var, char **env, char **str);
 void	env_initialization(t_env *tmp);
 void	env_initialization_step(t_env *tmp);
-void	shielding(char **str);
+void	shielding(t_var *var, char **str, int i, int k);
 void	intro(void);
 #endif

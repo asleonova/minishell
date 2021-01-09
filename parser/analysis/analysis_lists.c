@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 15:03:27 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 17:31:38 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	t_commands *tmp;
 	
 	cmd_initialization(cmd);
+	printf("content\t%s\n", var->list->content);
 	while (var->list)
 	{
 		if (distribution(var->list->content, var, cmd, 0))
 		{
+			printf("content\t%s\n", var->list->content);
 			if (var->shielding)
-				shielding(&var->list->content);
+				shielding(var, &var->list->content, 0, 0);
 			if (var->r)
 				processing_fd(var, cmd);
 			if (var->q == 2)
@@ -69,7 +71,7 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 					break ;
 			}
 		}
-		if (var->list->content[0] == '$')
+		if (var->list->content[0] == '$' && !var->np)
 			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
 			write_cmd(var->list->content, cmd, 0);
@@ -85,10 +87,3 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	if(cmd->end != 2)
 		executor(cmd, data);
 }
-
-/* продумать логику функции analysis_lists
-есть ошибки при |
-ls -la | grep a
-export a=3; echo $a
-ls;
- */
