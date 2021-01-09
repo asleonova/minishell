@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:56:24 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 15:04:11 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 15:08:25 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		distribution(char *str, t_var *var, t_commands *cmd, int i)
 			var->shielding = 1;
 		i++;
 	}
-	if (var->r || cmd->end || var->q)
+	if (var->r || cmd->end || var->q || var->shielding)
 		return (1);
 	return (0);
 }
