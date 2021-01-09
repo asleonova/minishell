@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 20:23:09 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/09 15:03:27 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	{
 		if (distribution(var->list->content, var, cmd, 0))
 		{
+			if (var->shielding)
+				shielding(&var->list->content);
 			if (var->r)
 				processing_fd(var, cmd);
 			if (var->q == 2)

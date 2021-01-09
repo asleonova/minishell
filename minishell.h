@@ -40,6 +40,7 @@ typedef struct			s_var
 	int					dq;/* double quotes flag */
 	int					r;/* > = 1; >> = 2; <  = 3*/
 	int					executor;
+	int					shielding;
 	char				*env;
 	int					env_start; /* env flag*/
 	int					env_end;
@@ -153,6 +154,6 @@ void	parsing_env_quote(t_var *var, char **env, char **str);
 void	parsing_env_quote(t_var *var, char **env, char **str);
 void	env_initialization(t_env *tmp);
 void	env_initialization_step(t_env *tmp);
-
-void intro(void);
+void	shielding(char **str);
+void	intro(void);
 #endif
