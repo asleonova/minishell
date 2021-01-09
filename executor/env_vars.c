@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_vars.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/09 11:51:27 by dbliss            #+#    #+#             */
+/*   Updated: 2021/01/09 11:54:26 by dbliss           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-char *get_env_values(t_data *data, char *key)
+char		*get_env_values(t_data *data, char *key)
 {
-    int i;
-    char **tmp;
-    char *value;
+	int		i;
+	char	**tmp;
+	char	*value;
 
-    i = -1;
-    value = NULL;
-    while (data->envp[++i])
+	i = -1;
+	value = NULL;
+	while (data->envp[++i])
 	{
 		tmp = ft_split(data->envp[i], '=');
 		if (ft_strcmp(tmp[0], key) == 0)
@@ -31,9 +43,9 @@ void		add_env_var(char *var, t_data *data)
 	int		i;
 	int		len;
 
-	len = tab_len(data->envp); 
+	len = tab_len(data->envp);
 	i = 0;
-	tmp = (char**)malloc(sizeof(char *) * (len + 2)); // 1 - на новую строку, 1 - для \0
+	tmp = (char**)malloc(sizeof(char *) * (len + 2));
 	while (i < len)
 	{
 		tmp[i] = ft_strdup(data->envp[i]);
@@ -45,14 +57,14 @@ void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void	delete_env_var(char *var, t_data *data) // deletes the env var and copies the other vars to the new array 
+void		delete_env_var(char *var, t_data *data)
 {
-	char **tmp;
-	char **split;
-	int i;
-	int len;
-	int j;
-	
+	char	**tmp;
+	char	**split;
+	int		i;
+	int		len;
+	int		j;
+
 	len = tab_len(data->envp);
 	i = -1;
 	j = 0;
@@ -60,24 +72,24 @@ void	delete_env_var(char *var, t_data *data) // deletes the env var and copies t
 	while (++i < len)
 	{
 		split = ft_split(data->envp[i], '=');
-		if (ft_strcmp(split[0], var) == 0) // if we have this env var (e.g: PATH, PATH), we don't copy this var to the new array
+		if (ft_strcmp(split[0], var) == 0)
 			free_tab(split);
 		else
 		{
 			free_tab(split);
-			tmp[j++] = ft_strdup(data->envp[i]); // otherwise, we just copy the element existed
-		} 
+			tmp[j++] = ft_strdup(data->envp[i]);
+		}
 	}
 	tmp[j] = 0;
 	free_tab(data->envp);
 	data->envp = tmp;
 }
 
-void	change_env_values(char *var, t_data *data)
+void		change_env_values(char *var, t_data *data)
 {
-	char *cwd;
+	char	*cwd;
+	char	**temp;
 
-	char **temp;
 	temp = ft_split(var, '=');
 	ft_unset_env(temp[0], data);
 	free_tab(temp);
@@ -85,5 +97,4 @@ void	change_env_values(char *var, t_data *data)
 	cwd = ft_strjoin(var, cwd);
 	add_env_var(cwd, data);
 	free(cwd);
-	
 }

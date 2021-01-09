@@ -1,46 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/09 12:00:53 by dbliss            #+#    #+#             */
+/*   Updated: 2021/01/09 12:03:39 by dbliss           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-
-static void ft_print_export(t_data *data)
+static void		ft_print_export(t_data *data)
 {
-    int i;
-    char **split;
-	char *var;
+	int		i;
+	char	**split;
+	char	*var;
 
-    i = 0;
-    ft_sort_list(data);
-    while (data->envp[i])
-    {
+	i = 0;
+	ft_sort_list(data);
+	while (data->envp[i])
+	{
 		var = ft_strchr(data->envp[i], '=');
-        split = ft_split(data->envp[i], '=');
-        ft_putstr_fd("declare -x ", 1);
-        ft_putstr_fd(split[0], 1);
-        if (var)
-        {
+		split = ft_split(data->envp[i], '=');
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(split[0], 1);
+		if (var)
+		{
 			ft_putchar_fd('=', 1);
-            ft_putchar_fd('"', 1);
+			ft_putchar_fd('"', 1);
 			if (split[1])
-            	ft_putstr_fd(split[1], 1);
-            ft_putchar_fd('"', 1);
+				ft_putstr_fd(split[1], 1);
+			ft_putchar_fd('"', 1);
 		}
-        ft_putchar_fd('\n', 1);
-        free_tab(split);
-        i++;
-    }
+		ft_putchar_fd('\n', 1);
+		free_tab(split);
+		i++;
+	}
 }
 
-void		ft_unset_env(char *str, t_data *data)
+void			ft_unset_env(char *str, t_data *data)
 {
 	char	*tmp;
 
-		if ((tmp = get_env_values(data, str)) != NULL)
-		{
-			free(tmp);
-			delete_env_var(str, data);
-		}
+	if ((tmp = get_env_values(data, str)) != NULL)
+	{
+		free(tmp);
+		delete_env_var(str, data);
+	}
 }
 
-void ft_export_update(t_data *data, char *str)
+void			ft_export_update(t_data *data, char *str)
 {
 	char	**temp;
 
@@ -50,17 +61,17 @@ void ft_export_update(t_data *data, char *str)
 	add_env_var(str, data);
 }
 
-int			ft_export(t_data *data, t_commands *command)
+int				ft_export(t_data *data, t_commands *command)
 {
 	if (command->count_args == 0)
 	{
 		ft_print_export(data);
-		return(SUCCESS);
+		return (SUCCESS);
 	}
 	while (command->arg_lst)
 	{
 		ft_export_update(data, command->arg_lst->content);
 		command->arg_lst = command->arg_lst->next;
 	}
-	return(SUCCESS);
+	return (SUCCESS);
 }
