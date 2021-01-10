@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 23:34:31 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 19:04:52 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/10 14:58:29 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	unpacking_env(t_env *tmp, char **str, int j)
 				tmp->str[tmp->j++] = tmp->env[tmp->k++];
 			tmp->i = tmp->end + 1;
 		}
-		if (str[0][tmp->i] != '"')
-			tmp->str[tmp->j++] = str[0][tmp->i++];
-		else
-			tmp->i++;
+		tmp->str[tmp->j++] = str[0][tmp->i++];
 	}
 	tmp->str[tmp->j] = '\0';
 	free(*str);

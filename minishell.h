@@ -159,4 +159,5 @@ void	env_initialization_step(t_env *tmp);
 void	shielding(t_var *var, char **str, int i);
 void	intro(void);
 void	ft_free(char **str);
+void	quote_cut(t_var *var, char **str, int i, int k);
 #endif
