@@ -29,56 +29,35 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 	}
 	cmd->cmd[i] = '\0';
 }
-
-void	my_export(t_commands *cmd, t_data *data)
-{
-	while (cmd->arg_lst)
-	{
-		ft_export_update(data, cmd->arg_lst->content);
-		cmd->arg_lst = cmd->arg_lst->next;
-	}
-}
-
-int		analysis_utils(t_var *var, t_commands *cmd, t_data *data, char ***env)
+void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
 
-	if (distribution(var->list->content, var, cmd, 0))
-	{
-		if (var->shielding)
-			shielding(var, &var->list->content, 0);
-		if (var->r)
-			processing_fd(var, cmd);
-		if (var->q == 2)
-			parsing_env_quote(var, *env, &var->list->content);
-		if (cmd->end)
-		{
-			if (cmd->end == 2)
-				executor(cmd, data);
-			if (var->list->next)
-			{
-				cmd_initialization(tmp = malloc(sizeof(t_commands)));
-				tmp->prev = cmd;
-				cmd->next = tmp;
-				cmd = tmp;
-			}
-			else
-				return (1);
-		}
-	}
-	return (0);
-}
-
-void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
-{
+	(void)data;
+	tmp = NULL;
 	cmd_initialization(cmd);
 	while (var->list)
 	{
-		if (analysis_utils(var, cmd, data, env))
-			break ;
-		if (var->q)
-			quote_cut(var, &var->list->content, 0, 0);
-		if (var->list->content[0] == '$' && !var->np)
+		if (distribution(var->list->content, var, cmd, 0))
+		{
+			if (var->r)
+				processing_fd(var, cmd);
+			if (var->q == 2)
+				parsing_env_quote(var, *env, &var->list->content);
+			if (cmd->end)
+			{
+				if (var->list->next)
+				{
+					cmd_initialization(tmp = malloc(sizeof(t_commands)));
+					tmp->prev = cmd;
+					cmd->next = tmp;
+					cmd = tmp;
+				}
+				else
+					break ;
+			}
+		}
+		if (var->list->content[0] == '$')
 			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
 			write_cmd(var->list->content, cmd, 0);
@@ -89,8 +68,4 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 		else
 			break ;
 	}
-	if (!ft_strcmp(cmd->cmd, "export"))
-		my_export(cmd, data);
-	if (cmd->end != 2)
-		executor(cmd, data);
 }

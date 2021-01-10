@@ -62,6 +62,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		parser_str(var);
 		analysis_lists(var, cmd, &data, &data.envp);
+		executor(cmd, &data);
 		clear_input_list(var);
 		clear_struct(cmd);
 	}
