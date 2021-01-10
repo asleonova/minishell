@@ -156,7 +156,7 @@ void	parsing_env_quote(t_var *var, char **env, char **str);
 void	parsing_env_quote(t_var *var, char **env, char **str);
 void	env_initialization(t_env *tmp);
 void	env_initialization_step(t_env *tmp);
-void	shielding(t_var *var, char **str, int i, int k);
+void	shielding(t_var *var, char **str, int i);
 void	intro(void);
 void	ft_free(char **str);
 #endif

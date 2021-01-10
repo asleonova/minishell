@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 19:12:39 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/10 14:08:14 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ void	quote_cut(t_var *var, char **str, int i, int k)
 	i = 0;
 	while (str[0][i])
 	{
-		if (str[0][i] == '\'' || str[0][i] == '"')
+		if ((str[0][i] == '\'' || str[0][i] == '"') && \
+			str[0][i -1] != '\\')
 		{
 			if (var->oq != '\'' && var->oq != '"')
 				var->oq = (str[0][i] == '\'') ? '\'' : '"';
 			if (var->oq == str[0][i])
 				i++;
 		}
+		if (str[0][i] == '\\')
+			i++;
 		new_str[k++] = str[0][i++];
 	}
 	new_str[k] = '\0';
@@ -72,7 +75,7 @@ int		analysis_utils(t_var *var, t_commands *cmd, t_data *data, char ***env)
 	if (distribution(var->list->content, var, cmd, 0))
 	{
 		if (var->shielding)
-			shielding(var, &var->list->content, 0, 0);
+			shielding(var, &var->list->content, 0);
 		if (var->r)
 			processing_fd(var, cmd);
 		if (var->q == 2)

@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 13:29:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 18:32:37 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/10 12:53:12 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ void	create_lexer(t_var *var, int i)
 			var->arr[i++] = var->str[var->k++];
 	}
 	var->arr[i] = '\0';
-	printf("var->arr\t%s\n", var->arr);
 	create_list(var);
 }
