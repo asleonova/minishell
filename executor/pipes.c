@@ -44,6 +44,11 @@ void		execute(t_commands *cmd, t_data *data)
 	pid_t	pid;
 	int		pfd[2];
 
+	if(cmd->cmd == NULL && (cmd->fd_1 != -1 || cmd->fd_0 != -1))
+	{
+		if (cmd->next != NULL)
+			cmd = cmd->next;
+	}
 	if (cmd != NULL && cmd->cmd != NULL)
 	{
 		cmd_identifier(cmd);

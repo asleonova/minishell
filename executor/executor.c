@@ -51,7 +51,7 @@ char	**ft_list_to_array(t_commands *command)
 
 void	execute_one_func(t_commands *command, t_data *data)
 {
-	if (command->cmd != NULL)
+	if (command->cmd != NULL && command->fd_error != 1)
 	{
 		cmd_identifier(command);
 		if (command->command == bash)
@@ -66,6 +66,7 @@ void	executor(t_commands *command, t_data *data)
 	int	lst_count;
 
 	lst_count = count_list(command);
+	
 	command->save_1 = dup(1);
 	command->save_0 = dup(0);
 	if (lst_count == 1)
