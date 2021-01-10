@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/10 14:25:21 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/10 17:39:26 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,38 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 					break ;
 			}
 		}
+		// printf("CMD: %s\n", cmd->cmd);
+		// if (!ft_strcmp(cmd->cmd, "export"))
+		// {
+		// 	while (cmd->arg_lst)
+		// 	{
+		// 		ft_export_update(data, cmd->arg_lst->content);
+		// 		cmd->arg_lst = cmd->arg_lst->next;
+		// 	}
+		// }
 		if (var->list->content[0] == '$')
 			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
 			write_cmd(var->list->content, cmd, 0);
 		else if (cmd->cmd && !var->exception)
 			write_argv(var, cmd);
+		if (!ft_strcmp(cmd->cmd, "export"))
+		{
+			while (cmd->arg_lst)
+			{
+				ft_export_update(data, cmd->arg_lst->content);
+				cmd->arg_lst = cmd->arg_lst->next;
+			}
+		}
 		if (var->list->next != NULL)
 			var->list = var->list->next;
+
+			// while(cmd->arg_lst->prev)
+			// {
+			// 	printf("%s\n", cmd->arg_lst->content);
+			// 	if(cmd->arg_lst->prev)
+			// 		cmd->arg_lst =cmd->arg_lst->prev;
+			// }
 		else
 			break ;
 	}
