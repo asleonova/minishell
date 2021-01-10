@@ -49,7 +49,7 @@ void		execute(t_commands *cmd, t_data *data)
 		if (cmd->next != NULL)
 			cmd = cmd->next;
 	}
-	if (cmd != NULL && cmd->cmd != NULL)
+	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
 	{
 		cmd_identifier(cmd);
 		if ((cmd->count_args > 0 && cmd->command == export) || cmd->command == unset || cmd->command == cd)
@@ -59,7 +59,7 @@ void		execute(t_commands *cmd, t_data *data)
 		}
 	
 	}
-	if (cmd != NULL && cmd->cmd != NULL)
+	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
 	{
 		pipe(pfd);
 		pid = fork();
@@ -88,7 +88,7 @@ void		execute(t_commands *cmd, t_data *data)
 
 int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 {
-	if (command != NULL && command->cmd != NULL)
+	if (command != NULL && command->cmd != NULL && command->fd_error != 1)
 	{
 		if (command->end == 1)
 		{
@@ -110,7 +110,7 @@ int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 
 int		check_pipe(t_data *data, t_commands *command, int pfd[2])
 {
-	if (command->next != NULL && command->next->cmd != NULL)
+	if (command->next != NULL && command->next->cmd != NULL && command->fd_error != 1)
 	{
 		if (command->end != 2)
 		{
