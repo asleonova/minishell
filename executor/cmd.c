@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:30:50 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 11:30:53 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/10 18:11:13 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parse_func(t_commands *command, t_data *data)
 	else if (command->command == pwd)
 		ret = ft_pwd();
 	else if (command->command == export)
-		ret = ft_export(data, command);
+		ret = 0;
 	else if (command->command == unset)
 		ret = ft_unset(data, command);
 	else if (command->command == our_exit)
