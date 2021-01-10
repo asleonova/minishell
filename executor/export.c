@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:00:53 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/10 18:45:11 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/10 19:43:22 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int				ft_export(t_data *data, t_commands *command)
 	while (command->arg_lst)
 	{
 		ft_export_update(data, command->arg_lst->content);
+		printf("cmd -> %p", command->arg_lst);
 		command->arg_lst = command->arg_lst->next;
+		printf("cmd -> %p", command->arg_lst);
 	}
 	return (SUCCESS);
 }
