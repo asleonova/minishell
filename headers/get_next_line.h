@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:08:18 by monie             #+#    #+#             */
-/*   Updated: 2020/11/26 16:59:49 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:10:34 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,4 @@
 char	*ft_strdup_mod(const char *str, size_t n);
 int		get_next_line(int fd, char **line);
 
-# endif
+#endif
