@@ -72,7 +72,7 @@ void		execute(t_commands *cmd, t_data *data)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			//path_does_not_exist(cmd, data);
+			path_does_not_exist(cmd, data);
 			exec_first_command(cmd, data, pfd);
 		}
 		else
