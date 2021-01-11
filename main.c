@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/10 18:08:58 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 13:33:05 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int main(int argc, char **argv, char **envp)
 		}
 		parser_str(var);
 		analysis_lists(var, cmd, &data, &data.envp);
-		// printf("%d\n", cmd->fd_0);
-		// printf("%d\n", cmd->fd_1);
 		executor(cmd, &data);
 		clear_input_list(var);
 		clear_struct(cmd);

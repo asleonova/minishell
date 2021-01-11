@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 13:20:22 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 14:17:24 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 	}
 	cmd->cmd[i] = '\0';
 }
+
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
 
-	(void)data;
 	tmp = NULL;
 	cmd_initialization(cmd);
 	while (var->list)
