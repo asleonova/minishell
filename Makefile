@@ -18,6 +18,7 @@ DBLISS = ./executor/cmd.c \
 		./executor/unset.c \
 		./executor/paths.c \
 		./executor/count_lists.c \
+		./executor/cmd_check.c \
 		./signals/signals.c
 
 MONIE = ./initialization/var_initialization_clear.c  \

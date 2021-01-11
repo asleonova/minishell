@@ -66,3 +66,12 @@ void		ft_sort_list(t_data *data)
 		i++;
 	}
 }
+
+void pid_error(void)
+{
+	if (errno != 0)
+	{
+		strerror(errno);
+		exit(errno);
+	}
+}

@@ -131,7 +131,10 @@ void	execute_one_func(t_commands *command, t_data *data);
 int		execute_execve(t_commands *command, t_data *data);
 void	ft_swap(char **s1, char **s2);
 void	ft_sort_list(t_data *data);
-void		check_env_func(t_commands *cmd, t_data *data);
+void	check_env_func(t_commands *cmd, t_data *data);
+t_commands *cmd_check(t_commands *cmd, t_data *data);
+void signals_default(void);
+void signals_ignore(void);
 
 // custom errors:
 int		error_path(t_commands *command);
@@ -142,6 +145,7 @@ void	permission_denied(t_commands *command);
 int		path_no_file_or_dir(t_commands *command);
 void	path_does_not_exist(t_commands *command, t_data *data);
 int		syntax_error(void);
+void	pid_error(void);
 
 // Den: 
 void	parser_str(t_var *var);

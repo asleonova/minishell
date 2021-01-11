@@ -63,13 +63,19 @@ int			path_exist(t_commands *command, t_data *data)
 			break ;
 		}
 	}
-	if (data->envp[i] == NULL)
+	if (data->envp[i] == NULL && command->command != bash)
 		path_no_file_or_dir(command);
 	return (found);
 }
 
 void		path_does_not_exist(t_commands *command, t_data *data)
 {
-	if (!path_exist(command, data))
+	if (!path_exist(command, data) && (ft_strchr(command->cmd, '/') == NULL))
+	{
+		ft_putstr_fd("minishell: ", 1);
+		ft_putstr_fd(command->cmd, 1);
+		ft_putstr_fd(" : No such file or directory\n", 1);
+		g_error = 127;
 		exit(g_error);
+	}		
 }
