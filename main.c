@@ -36,7 +36,7 @@ void	copy_env(char **envp, t_data *data)
 void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
 	int	ret;
-
+	
 	while (1)
 	{
 		signal(SIGINT, handler);
@@ -72,5 +72,6 @@ int		main(int argc, char **argv, char **envp)
 	cmd = NULL;
 	copy_env(envp, &data);
 	loop(var, cmd, &data);
+
 	return (0);
 }
