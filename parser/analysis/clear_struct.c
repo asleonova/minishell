@@ -49,5 +49,4 @@ void	next_and_clear_args(t_commands *cmd)
 	free(cmd->arg_lst->content);
 	free(cmd->arg_lst);
 	cmd->arg_lst = tmp;
-	free(tmp);
 }
