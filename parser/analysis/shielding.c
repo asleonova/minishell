@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 15:03:34 by monie             #+#    #+#             */
-/*   Updated: 2021/01/10 14:33:01 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 14:26:14 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	shielding_utils(char **str, char *ns, int i, int j)
 	char q;
 
 	q = ' ';
-	while(str[0][i])
+	while (str[0][i])
 	{
 		if ((str[0][i] == '"' || str[0][i] == '\'') && \
 			(q == ' ' || q == str[0][i]))
@@ -37,7 +37,6 @@ void	shielding_utils(char **str, char *ns, int i, int j)
 
 void	shielding(t_var *var, char **str, int i)
 {
-	printf("shielding\t%s\n", *str);
 	char	*new_str;
 
 	i = ft_strlen(*str);
@@ -49,5 +48,4 @@ void	shielding(t_var *var, char **str, int i)
 	*str = ft_strdup(new_str);
 	free(new_str);
 	new_str = NULL;
-	printf("shielding_end\t%s\n", *str);
 }

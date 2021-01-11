@@ -6,18 +6,18 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 13:33:05 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 14:51:36 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void intro(void)
+void	intro(void)
 {
 	write(1, "minishell: ", 11);
 }
 
-void		copy_env(char **envp, t_data *data)
+void	copy_env(char **envp, t_data *data)
 {
 	int		len;
 	int		i;
@@ -33,22 +33,14 @@ void		copy_env(char **envp, t_data *data)
 	data->envp[i] = 0;
 }
 
-int main(int argc, char **argv, char **envp)
+void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
-	t_var	*var;
-	t_commands *cmd;
-	t_data	data;
-	int 	i;
-	int		ret;
-	
-	i = 1;
-	argc = 0;
-	argv = NULL;
-	copy_env(envp, &data);
-	while(i)
+	int	ret;
+
+	while (1)
 	{
 		signal(SIGINT, handler);
-        signal(SIGQUIT, handler);
+		signal(SIGQUIT, handler);
 		var = malloc(sizeof(t_var));
 		cmd = malloc(sizeof(t_commands));
 		var_initialization(var);
@@ -61,10 +53,24 @@ int main(int argc, char **argv, char **envp)
 			exit(g_error);
 		}
 		parser_str(var);
-		analysis_lists(var, cmd, &data, &data.envp);
-		executor(cmd, &data);
+		analysis_lists(var, cmd, data, &data->envp);
+		executor(cmd, data);
 		clear_input_list(var);
 		clear_struct(cmd);
 	}
-	return(0);
+}
+
+int		main(int argc, char **argv, char **envp)
+{
+	t_var		*var;
+	t_commands	*cmd;
+	t_data		data;
+
+	argc = 0;
+	argv = NULL;
+	var = NULL;
+	cmd = NULL;
+	copy_env(envp, &data);
+	loop(var, cmd, &data);
+	return (0);
 }
