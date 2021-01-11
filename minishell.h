@@ -168,5 +168,7 @@ void	shielding(t_var *var, char **str, int i);
 void	intro(void);
 void	ft_free(char **str);
 void	quote_cut(t_var *var, char **str, int i);
+void	write_argv(t_var *var, t_commands *cmd);
+void	write_cmd(char *str, t_commands *cmd, int i);
 
 #endif

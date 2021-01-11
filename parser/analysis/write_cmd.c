@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   write_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/21 17:08:18 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 19:10:34 by monie            ###   ########.fr       */
+/*   Created: 2021/01/11 18:49:32 by monie             #+#    #+#             */
+/*   Updated: 2021/01/11 18:50:35 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft.h"
+#include "../../minishell.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-
-char	*ft_strdup_mod(const char *str, size_t n);
-int		get_next_line(int fd, char **line);
-
-#endif
+void	write_cmd(char *str, t_commands *cmd, int i)
+{
+	i = ft_strlen(str);
+	cmd->cmd = malloc(i + 1);
+	i = 0;
+	while (str[i])
+	{
+		cmd->cmd[i] = str[i];
+		i++;
+	}
+	cmd->cmd[i] = '\0';
+}

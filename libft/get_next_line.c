@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:08:37 by monie             #+#    #+#             */
-/*   Updated: 2020/11/26 16:58:40 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:08:06 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				get_next_line(int fd, char **line)
 	{
 		*line = ft_strdup_mod(remain, ft_strlen(remain));
 		free_it(&remain);
-		return (666); // changed, used to be 0
+		return (666);
 	}
 	*line = ft_strdup_mod(remain, readed);
 	remain_and_free(&remain, readed);
