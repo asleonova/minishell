@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/10 18:15:08 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 13:20:22 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 					break ;
 			}
 		}
+		if (var->q)
+			quote_cut(var, &var->list->content, 0, 0);
 		if (var->list->content[0] == '$')
 			parsing_env(var, *env, &var->list->content);
 		if (!cmd->cmd && !var->exception)
