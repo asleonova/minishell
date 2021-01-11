@@ -6,7 +6,7 @@
 /*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:56:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 12:00:26 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 19:24:43 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	executor(t_commands *command, t_data *data)
 	int	lst_count;
 
 	lst_count = count_list(command);
-	
 	command->save_1 = dup(1);
 	command->save_0 = dup(0);
 	if (lst_count == 1)

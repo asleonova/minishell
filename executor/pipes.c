@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:15:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 17:29:53 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:28:13 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		execute(t_commands *cmd, t_data *data)
 	}
 }
 
-int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
+int			exec_first_command(t_commands *command, t_data *data, int pfd[2])
 {
 	if (command != NULL && command->cmd != NULL && command->fd_error != 1)
 	{
@@ -89,9 +89,10 @@ int		exec_first_command(t_commands *command, t_data *data, int pfd[2])
 	return (0);
 }
 
-int		check_pipe(t_data *data, t_commands *command, int pfd[2])
+int			check_pipe(t_data *data, t_commands *command, int pfd[2])
 {
-	if (command->next != NULL && command->next->cmd != NULL && command->fd_error != 1)
+	if (command->next != NULL && command->next->cmd != NULL
+			&& command->fd_error != 1)
 	{
 		if (command->end != 2)
 		{

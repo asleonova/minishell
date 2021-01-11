@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:08:01 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 18:08:28 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:26:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void		path_does_not_exist(t_commands *command, t_data *data)
 		ft_putstr_fd(" : No such file or directory\n", 1);
 		g_error = 127;
 		exit(g_error);
-	}		
+	}
 }

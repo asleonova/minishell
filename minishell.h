@@ -135,6 +135,7 @@ void	check_env_func(t_commands *cmd, t_data *data);
 t_commands *cmd_check(t_commands *cmd, t_data *data);
 void signals_default(void);
 void signals_ignore(void);
+void cd_zero_args(t_data *data);
 
 // custom errors:
 int		error_path(t_commands *command);
