@@ -1,3 +1,0 @@
-alias mm="make && ./minishell" && alias md="make debug" && alias mf="make fclean" && md="make debug"
-
-//export a=b b=c c=d ; echo $a $b $c
