@@ -44,41 +44,22 @@ void		execute(t_commands *cmd, t_data *data)
 	pid_t	pid;
 	int		pfd[2];
 
-	if(cmd->cmd == NULL && (cmd->fd_1 != -1 || cmd->fd_0 != -1))
-	{
-		if (cmd->next != NULL)
-			clear_struct(cmd);
-	}
-	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
-	{
-		cmd_identifier(cmd);
-		if ((cmd->count_args > 0 && cmd->command == export) || cmd->command == unset || cmd->command == cd)
-		{
-			parse_func(cmd, data);
-			clear_struct(cmd);
-		}
-	
-	}
+	cmd_check(cmd, data);
 	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
 	{
 		pipe(pfd);
 		pid = fork();
 		if (pid == -1)
-		{
-			strerror(pid);
-			exit(errno);
-		}
+			pid_error();
 		if (pid == 0)
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+			signals_default();
 			path_does_not_exist(cmd, data);
 			exec_first_command(cmd, data, pfd);
 		}
 		else
 		{
-			signal(SIGINT, SIG_IGN);
-			signal(SIGQUIT, SIG_IGN);
+			signals_ignore();
 			wait(&pid);
 			g_error = WEXITSTATUS(pid);
 			check_pipe(data, cmd, pfd);
