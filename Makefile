@@ -33,7 +33,8 @@ MONIE = ./initialization/var_initialization_clear.c  \
 		./parser/analysis/parsing_env.c \
 		./parser/analysis/parsing_env_quote.c \
 		./parser/analysis/shielding.c \
-		./parser/analysis/quote_cut.c
+		./parser/analysis/quote_cut.c \
+		./parser/analysis/parsing_errors.c
 		
 SRCS = ./main.c \
 	$(MONIE) \

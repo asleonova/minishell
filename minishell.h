@@ -141,6 +141,7 @@ int		command_not_found(char *command);
 void	permission_denied(t_commands *command);
 int		path_no_file_or_dir(t_commands *command);
 void	path_does_not_exist(t_commands *command, t_data *data);
+int		syntax_error(void);
 
 // Den: 
 void	parser_str(t_var *var);
