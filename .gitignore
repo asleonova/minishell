@@ -2,6 +2,7 @@ z.c
 # Prerequisites
 *.d
 .DS_Store
+minishell
 
 # Object files
 *.o
