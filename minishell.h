@@ -103,6 +103,7 @@ void	ft_export_update(t_data *data, char *str);
 int		ft_export(t_data *data, t_commands *command);
 int		ft_unset(t_data *data, t_commands *command);
 int		ft_pwd();
+void	ft_print_export(t_data *data);
 
 
 // executor: maybe delete some static 

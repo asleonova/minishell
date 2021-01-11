@@ -33,8 +33,10 @@ void	write_cmd(char *str, t_commands *cmd, int i)
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 {
 	t_commands *tmp;
+	int flag;
 
 	tmp = NULL;
+	flag = 0;
 	cmd_initialization(cmd);
 	while (var->list)
 	{
@@ -65,9 +67,22 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 			write_cmd(var->list->content, cmd, 0);
 		else if (cmd->cmd && !var->exception)
 			write_argv(var, cmd);
-		if (!ft_strcmp(cmd->cmd, "export"))
+		if (!ft_strcmp(cmd->cmd, "export") && var->list->next == NULL)
 		{
 			cmd->count_args = ft_lstsize(cmd->arg_lst);
+			if (cmd->count_args == 0)
+			{	
+				ft_print_export(data);	
+				flag = 1;
+			}
+
+		}
+		if (!ft_strcmp(cmd->cmd, "export") && flag == 0)
+		{
+			// cmd->count_args = ft_lstsize(cmd->arg_lst);
+			// printf("COUNT_ARGS: %d\n", cmd->count_args);
+			// if (cmd->count_args == 0 && cmd->arg_lst == NULL) 
+			// 	ft_print_export(data);
 			while (cmd->arg_lst)
 				ft_export(data, cmd);
 		}

@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void		ft_print_export(t_data *data)
+void		ft_print_export(t_data *data)
 {
 	int		i;
 	char	**split;
@@ -64,12 +64,7 @@ void			ft_export_update(t_data *data, char *str)
 int				ft_export(t_data *data, t_commands *command)
 {
 	t_list *tmp;
-	
-	if (command->count_args == 0)
-	{
-		ft_print_export(data);
-		return (SUCCESS);
-	}
+
 	while (command->arg_lst)
 	{
 		ft_export_update(data, command->arg_lst->content);
