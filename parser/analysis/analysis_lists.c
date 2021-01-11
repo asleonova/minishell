@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 17:03:39 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 18:14:15 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
 		if (distribution(var->list->content, var, cmd, 0))
 		{
 			if (var->list->content[0] == '>' || var->list->content[0] == '<')
-				printf("error");
+				syntax_error();
 			if (var->r && cmd->fd_error != 1)
 				processing_fd(var, cmd);
 			if (var->q == 2)

@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 20:56:43 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 16:44:54 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 18:16:08 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	create_str(char *str, char **content, int i)
 		i++;
 	}
 	*content = malloc(j - i + 1);
-	if (*content == NULL)
-		printf("no memmory\n");
 	j = 0;
 	while (str[i++])
 		(*content)[j++] = str[i];
