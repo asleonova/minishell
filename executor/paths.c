@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:08:01 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 12:12:28 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 18:08:28 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,17 @@ void		add_path_to_commands(t_commands *command, t_data *data)
 int			path_exist(t_commands *command, t_data *data)
 {
 	int		i;
-	char	**tmp;
 	int		found;
 
 	i = -1;
 	found = 0;
 	while (data->envp[++i])
 	{
-		tmp = ft_split(data->envp[i], '=');
-		if (ft_strcmp(tmp[0], "PATH") == 0)
+		if (ft_strncmp(data->envp[i], "PATH=", 5) == 0)
 		{
 			found = 1;
 			break ;
 		}
-		free_tab(tmp);
 	}
 	if (data->envp[i] == NULL)
 		path_no_file_or_dir(command);

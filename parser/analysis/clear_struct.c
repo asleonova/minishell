@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:23:58 by monie             #+#    #+#             */
-/*   Updated: 2021/01/07 14:22:58 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 17:41:07 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,15 @@ void	clear_struct(t_commands *cmd)
 		cmd = NULL;
 		cmd = tmp;
 	}
+}
+
+void next_and_clear_args(t_commands *cmd)
+{
+	t_list *tmp;
+	
+	tmp = cmd->arg_lst->next;
+	free(cmd->arg_lst->content);
+	free(cmd->arg_lst);
+	cmd->arg_lst = tmp;
+	free(tmp);
 }

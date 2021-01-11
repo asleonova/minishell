@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:13:46 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 12:13:57 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:42:38 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_unset(t_data *data, t_commands *command)
 			ft_unset_env(command->arg_lst->content, data);
 		else
 			error_identifier(command);
-		command->arg_lst = command->arg_lst->next;
+		next_and_clear_args(command);
 	}
 	return (SUCCESS);
 }

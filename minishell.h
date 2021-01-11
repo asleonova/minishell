@@ -150,6 +150,7 @@ void	create_lexer(t_var *var, int i);
 void	clear_input_list(t_var *var);
 void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env);
 void	clear_struct(t_commands *cmd);
+void	next_and_clear_args(t_commands *cmd);
 int		distribution(char *str, t_var *var, t_commands *cmd, int i);
 void	processing_fd(t_var *var, t_commands *cmd);
 void	parsing_env(t_var *var, char **env, char **str);
@@ -161,4 +162,5 @@ void	shielding(t_var *var, char **str, int i);
 void	intro(void);
 void	ft_free(char **str);
 void	quote_cut(t_var *var, char **str, int i);
+
 #endif

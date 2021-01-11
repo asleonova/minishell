@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:51:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 11:54:26 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:55:26 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ void		change_env_values(char *var, t_data *data)
 {
 	char	*cwd;
 	char	**temp;
+	char	*tmp;
 
 	temp = ft_split(var, '=');
 	ft_unset_env(temp[0], data);
 	free_tab(temp);
-	cwd = getcwd(NULL, 0);
-	cwd = ft_strjoin(var, cwd);
+	tmp = getcwd(NULL, 0);
+	cwd = ft_strjoin(var, tmp);
+	free(tmp);
 	add_env_var(cwd, data);
 	free(cwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:15:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 12:21:40 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:29:53 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		execute(t_commands *cmd, t_data *data)
 	if(cmd->cmd == NULL && (cmd->fd_1 != -1 || cmd->fd_0 != -1))
 	{
 		if (cmd->next != NULL)
-			cmd = cmd->next;
+			clear_struct(cmd);
 	}
 	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
 	{
@@ -55,7 +55,7 @@ void		execute(t_commands *cmd, t_data *data)
 		if ((cmd->count_args > 0 && cmd->command == export) || cmd->command == unset || cmd->command == cd)
 		{
 			parse_func(cmd, data);
-			cmd = cmd->next;
+			clear_struct(cmd);
 		}
 	
 	}
