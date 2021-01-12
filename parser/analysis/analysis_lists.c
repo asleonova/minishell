@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 12:41:19 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 13:29:47 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,42 @@ void	analysis_export(t_var *var, t_commands *cmd, t_data *data, int flag)
 	}
 }
 
-void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
+void	analysis_two(t_var *var, t_commands *cmd, char ***env)
+{
+	if (var->list->content[0] == '>' || var->list->content[0] == '<')
+		syntax_error();
+	if (var->r && cmd->fd_error != 1)
+		processing_fd(var, cmd);
+	if (var->q == 2)
+		parsing_env_quote(var, *env, &var->list->content);
+}
+
+t_commands	*analysis_three(t_commands *cmd)
 {
 	t_commands *tmp;
+	
+ 	cmd_initialization(tmp = malloc(sizeof(t_commands)));
+ 		tmp->prev = cmd;
+ 		cmd->next = tmp;
+ 		cmd = tmp;
+	return (cmd);
+}
+
+void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
+{	
 	int flag;
 
-	tmp = NULL;
 	flag = 0;
 	cmd_initialization(cmd);
 	while (var->list)
 	{
 		if (distribution(var->list->content, var, cmd, 0))
 		{
-			if (var->list->content[0] == '>' || var->list->content[0] == '<')
-				syntax_error();
-			if (var->r && cmd->fd_error != 1)
-				processing_fd(var, cmd);
-			if (var->q == 2)
-				parsing_env_quote(var, *env, &var->list->content);
+			analysis_two(var, cmd, env);
 			if (cmd->end)
 			{
 				if (var->list->next)
-				{
-					cmd_initialization(tmp = malloc(sizeof(t_commands)));
-					tmp->prev = cmd;
-					cmd->next = tmp;
-					cmd = tmp;
-				}
-				else
-					break ;
+					cmd = analysis_three(cmd);
 			}
 		}
 		analysis_one(var, cmd, env);
