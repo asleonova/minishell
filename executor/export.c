@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:00:53 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 17:44:48 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:23:50 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_print_export(t_data *data)
+void			ft_print_export(t_data *data)
 {
 	int		i;
 	char	**split;

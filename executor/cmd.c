@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:30:50 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/10 18:16:15 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/11 19:22:14 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	parse_func(t_commands *command, t_data *data)
 	else if (command->command == pwd)
 		ret = ft_pwd();
 	else if (command->command == export)
-		ret = 0; 
+		ret = 0;
 	else if (command->command == unset)
 		ret = ft_unset(data, command);
 	else if (command->command == our_exit)
 		ft_exit(command);
-	else if (command->command == env) 
+	else if (command->command == env)
 		ret = ft_env(command, data);
-	else 
+	else
 		error_path(command);
 	g_error = ret;
 }

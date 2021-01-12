@@ -6,7 +6,7 @@
 /*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:14:13 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 12:15:13 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/11 19:27:21 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		ft_sort_list(t_data *data)
 	}
 }
 
-void pid_error(void)
+void		pid_error(void)
 {
 	if (errno != 0)
 	{
