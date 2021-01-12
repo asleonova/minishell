@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 13:14:14 by monie             #+#    #+#             */
-/*   Updated: 2021/01/09 16:29:06 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 20:14:24 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	var_initialization(t_var *var)
 	var->executor = 0;
 	var->np = 0;
 	var->flag = 0;
+	var->invalid = 0;
 }
 
 void	var_clear(t_var *var)

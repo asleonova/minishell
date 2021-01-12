@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   our_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:03:57 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 19:26:09 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/12 20:19:01 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		numeric_arg(int flag)
 {
 	g_error = 255;
 	flag = 1;
-	return(flag);
+	return (flag);
 }
 
 static int		ft_exit_errors(t_commands *command)

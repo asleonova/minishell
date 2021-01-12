@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 19:40:08 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/12 20:35:19 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	copy_env(char **envp, t_data *data)
 	data->envp[i] = 0;
 }
 
-#include <stdio.h>
 void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
 	int	ret;
@@ -55,7 +54,7 @@ void	loop(t_var *var, t_commands *cmd, t_data *data)
 		}
 		parser_str(var);
 		analysis_lists(var, cmd, data, &data->envp);
-		executor(cmd, data);
+		executor(cmd, data, var);
 		clear_input_list(var);
 		clear_struct(cmd);
 	}

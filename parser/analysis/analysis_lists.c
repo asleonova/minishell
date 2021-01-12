@@ -6,12 +6,11 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 19:49:27 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 20:21:46 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-	#include <stdio.h>
 
 void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
@@ -49,7 +48,7 @@ void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
 		(var->list->next->content[0] == '>' || \
 		var->list->next->content[0] == '<'))
-		syntax_error(var, cmd);
+		syntax_error(var);
 	if (var->r && cmd->fd_error != 1)
 		processing_fd(var, cmd);
 	if (var->q == 2)
@@ -61,10 +60,6 @@ t_commands		*analysis_three(t_commands *cmd)
 	t_commands *tmp;
 
 	cmd_initialization(tmp = malloc(sizeof(t_commands)));
-	if(cmd->invalid)
-	{
-		clear_struct(cmd);
-	}
 	tmp->prev = cmd;
 	cmd->next = tmp;
 	cmd = tmp;

@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 16:29:17 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 20:31:16 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		cut_util(t_var *var, char **str, int i)
+int		cut_util_1(t_var *var, char **str, int i)
 {
 	if ((str[0][i] == '\'' || str[0][i] == '"') && \
 		str[0][i - 1] != '\\')
@@ -22,6 +22,16 @@ int		cut_util(t_var *var, char **str, int i)
 		if (var->oq == str[0][i])
 			i++;
 	}
+	return (i);
+}
+
+int		cut_util_2(char **str, int i)
+{
+	if (str[0][i] == '\\' && str[0][i + 1] == '"' && \
+			str[0][i + 1] == '"')
+		i++;
+	else if (str[0][i] == '\\' && str[0][i + 1] <= 33)
+		i++;
 	return (i);
 }
 
@@ -39,12 +49,8 @@ void	quote_cut_loop(t_var *var, char **str, char *ns, int i)
 			ns[k++] = str[0][i++];
 			i += 2;
 		}
-		i = cut_util(var, str, i);
-		if (str[0][i] == '\\' && str[0][i + 1] == '"' && \
-			str[0][i + 1] == '"')
-			i++;
-		else if (str[0][i] == '\\' && str[0][i + 1] <= 33)
-			i++;
+		i = cut_util_1(var, str, i);
+		i = cut_util_2(str, i);
 		if (str[0][i] == var->oq && str[0][i - 1] != '\\')
 		{
 			i++;

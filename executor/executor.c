@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:56:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 19:24:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/12 20:18:41 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,22 @@ void	execute_one_func(t_commands *command, t_data *data)
 	}
 }
 
-void	executor(t_commands *command, t_data *data)
+void	executor(t_commands *command, t_data *data, t_var *var)
 {
 	int	lst_count;
 
-	lst_count = count_list(command);
-	command->save_1 = dup(1);
-	command->save_0 = dup(0);
-	if (lst_count == 1)
-		execute_one_func(command, data);
-	else
-		execute(command, data);
-	dup2(command->save_0, 0);
-	dup2(command->save_1, 1);
-	close(command->save_1);
-	close(command->save_0);
+	if (!var->invalid)
+	{
+		lst_count = count_list(command);
+		command->save_1 = dup(1);
+		command->save_0 = dup(0);
+		if (lst_count == 1)
+			execute_one_func(command, data);
+		else
+			execute(command, data);
+		dup2(command->save_0, 0);
+		dup2(command->save_1, 1);
+		close(command->save_1);
+		close(command->save_0);
+	}
 }

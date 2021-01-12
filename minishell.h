@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 19:49:42 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 20:15:49 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+#include <stdio.h> //DELETE
 
 # define SUCCESS 0
 # define FAIL 1
@@ -61,6 +62,7 @@ typedef struct			s_var
 	int					error;
 	int					exception;
 	int					flag;
+	int					invalid;
 	t_list				*head;
 
 	t_list				*list;
@@ -121,7 +123,7 @@ void					parse_func(t_commands *command, t_data *data);
 void					change_env_values(char *var, t_data *data);
 char					**ft_list_to_array(t_commands *command);
 int						sysfunc_manager(t_commands *command, t_data *data);
-void					executor(t_commands *command, t_data *data);
+void					executor(t_commands *command, t_data *data, t_var *var);
 char					*get_env_values(t_data *data, char *key);
 void					add_env_var(char *var, t_data *data);
 void					delete_env_var(char *var, t_data *data);
@@ -153,7 +155,7 @@ int						command_not_found(char *command);
 void					permission_denied(t_commands *command);
 int						path_no_file_or_dir(t_commands *command);
 void					path_does_not_exist(t_commands *command, t_data *data);
-void					syntax_error(t_var *var, t_commands *cmd);
+void					syntax_error(t_var *var);
 void					pid_error(void);
 void					parser_str(t_var *var);
 void					var_initialization(t_var *var);
