@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:47:55 by monie             #+#    #+#             */
-/*   Updated: 2021/01/02 13:10:51 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:36:56 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	cmd_initialization(t_commands *cmd)
 	cmd->fd_0 = -1;
 	cmd->fd_1 = -1;
 	cmd->fd_error = 0;
+	cmd->invalid = 0;
 }

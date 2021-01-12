@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 16:02:13 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:47:25 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
 		(var->list->next->content[0] == '>' || \
 		var->list->next->content[0] == '<'))
-		syntax_error();
+		syntax_error(var, cmd);
 	if (var->r && cmd->fd_error != 1)
 		processing_fd(var, cmd);
 	if (var->q == 2)
@@ -60,6 +60,10 @@ t_commands		*analysis_three(t_commands *cmd)
 	t_commands *tmp;
 
 	cmd_initialization(tmp = malloc(sizeof(t_commands)));
+	if(cmd->invalid)
+	{
+		clear_struct(cmd);
+	}
 	tmp->prev = cmd;
 	cmd->next = tmp;
 	cmd = tmp;

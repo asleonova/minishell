@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 13:53:32 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:45:04 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int						command_not_found(char *command);
 void					permission_denied(t_commands *command);
 int						path_no_file_or_dir(t_commands *command);
 void					path_does_not_exist(t_commands *command, t_data *data);
-int						syntax_error(void);
+void					syntax_error(t_var *var, t_commands *cmd);
 void					pid_error(void);
 void					parser_str(t_var *var);
 void					var_initialization(t_var *var);
