@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 13:43:15 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/12 15:32:44 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 
 void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 {
-	if (var->list->content[0] == '>' || var->list->content[0] == '<')
+	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
+		(var->list->next->content[0] == '>' || \
+		var->list->next->content[0] == '<'))
 		syntax_error();
 	if (var->r && cmd->fd_error != 1)
 		processing_fd(var, cmd);
