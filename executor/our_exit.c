@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include <stdio.h>
+
+static int		numeric_arg(int flag)
+{
+	g_error = 255;
+	flag = 1;
+	return(flag);
+}
 
 static int		ft_exit_errors(t_commands *command)
 {
@@ -20,13 +28,17 @@ static int		ft_exit_errors(t_commands *command)
 	flag = 0;
 	ret = -1;
 	if (command->count_args > 0)
-		ret = ft_atoi(command->arg_lst->content);
-	if (ret != 0)
-		g_error = ret;
-	else
 	{
-		g_error = 255;
-		flag = 1;
+		if (ft_strcmp(command->arg_lst->content, "0") == 0)
+		{
+			g_error = 0;
+			return (flag);
+		}
+		ret = ft_atoi(command->arg_lst->content);
+		if (ret != 0)
+			g_error = ret;
+		else
+			numeric_arg(flag);
 	}
 	if (command->count_args > 1 && g_error != 255)
 	{
@@ -36,7 +48,7 @@ static int		ft_exit_errors(t_commands *command)
 	return (flag);
 }
 
-static int		error_message(t_commands *command)
+int				ft_exit(t_commands *command)
 {
 	int flag;
 
@@ -46,14 +58,7 @@ static int		error_message(t_commands *command)
 		ft_putstr_fd("Numeric argument required\n", 1);
 	else if (g_error == 1 && flag == 2)
 		ft_putstr_fd("Too many arguments\n", 1);
-	return (flag);
-}
-
-void			ft_exit(t_commands *command)
-{
-	int flag;
-
-	flag = error_message(command);
 	if (flag != 2)
 		exit(g_error);
+	return (g_error);
 }

@@ -51,7 +51,7 @@ void	parse_func(t_commands *command, t_data *data)
 	else if (command->command == unset)
 		ret = ft_unset(data, command);
 	else if (command->command == our_exit)
-		ft_exit(command);
+		ret = ft_exit(command);
 	else if (command->command == env)
 		ret = ft_env(command, data);
 	else

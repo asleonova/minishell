@@ -103,7 +103,7 @@ typedef struct			s_data
 	char				*status;
 }						t_data;
 
-void					ft_exit(t_commands *command);
+int						ft_exit(t_commands *command);
 int						ft_echo(t_commands *command);
 int						ft_cd(t_commands *command, t_data *data);
 void					free_tab(char **tab);
