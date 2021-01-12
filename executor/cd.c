@@ -42,6 +42,7 @@ int		ft_cd(t_commands *command, t_data *data)
 		{
 			cwd = getcwd(NULL, 0);
 			change_env_values("PWD=", data);
+			free(cwd);
 		}
 	}
 	return (SUCCESS);
