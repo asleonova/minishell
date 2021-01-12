@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 16:32:55 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 16:29:17 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ void	quote_cut_loop(t_var *var, char **str, char *ns, int i)
 			i++;
 		else if (str[0][i] == '\\' && str[0][i + 1] <= 33)
 			i++;
-		ns[k++] = str[0][i++];
+		if (str[0][i] == var->oq && str[0][i - 1] != '\\')
+		{
+			i++;
+			var->oq = ' ';
+		}
+		else
+			ns[k++] = str[0][i++];
 	}
 	ns[k] = '\0';
 }
