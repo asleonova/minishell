@@ -30,6 +30,7 @@ void	var_initialization(t_var *var)
 	var->str = NULL;
 	var->executor = 0;
 	var->np = 0;
+	var->flag = 0;
 }
 
 void	var_clear(t_var *var)

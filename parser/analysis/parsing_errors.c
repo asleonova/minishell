@@ -12,9 +12,10 @@
 
 #include "../../minishell.h"
 
-int	syntax_error(void)
+int	syntax_error(t_var *var)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token\n", 1);
 	g_error = 258;
+	var->flag = 0;
 	return (g_error);
 }

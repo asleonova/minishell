@@ -12,9 +12,9 @@
 
 #include "../minishell.h"
 
-int			execute_execve(t_commands *command, t_data *data)
+int execute_execve(t_commands *command, t_data *data)
 {
-	char	**argv;
+	char **argv;
 
 	if (ft_strchr(command->cmd, '/') != NULL)
 	{
@@ -39,12 +39,12 @@ int			execute_execve(t_commands *command, t_data *data)
 	return (g_error);
 }
 
-void		execute(t_commands *cmd, t_data *data)
+void execute(t_commands *cmd, t_data *data)
 {
-	pid_t	pid;
-	int		pfd[2];
+	pid_t pid;
+	int pfd[2];
 
-	cmd_check(cmd, data);
+	cmd = cmd_check(cmd, data);
 	if (cmd != NULL && cmd->cmd != NULL && cmd->fd_error != 1)
 	{
 		pipe(pfd);
@@ -67,7 +67,7 @@ void		execute(t_commands *cmd, t_data *data)
 	}
 }
 
-int			exec_first_command(t_commands *command, t_data *data, int pfd[2])
+int exec_first_command(t_commands *command, t_data *data, int pfd[2])
 {
 	if (command != NULL && command->cmd != NULL && command->fd_error != 1)
 	{
@@ -89,10 +89,9 @@ int			exec_first_command(t_commands *command, t_data *data, int pfd[2])
 	return (0);
 }
 
-int			check_pipe(t_data *data, t_commands *command, int pfd[2])
+int check_pipe(t_data *data, t_commands *command, int pfd[2])
 {
-	if (command->next != NULL && command->next->cmd != NULL
-			&& command->fd_error != 1)
+	if (command->next != NULL && command->next->cmd != NULL && command->fd_error != 1)
 	{
 		if (command->end != 2)
 		{

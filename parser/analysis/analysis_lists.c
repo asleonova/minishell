@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+	#include <stdio.h>
 
 void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
@@ -48,7 +49,7 @@ void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
 		(var->list->next->content[0] == '>' || \
 		var->list->next->content[0] == '<'))
-		syntax_error();
+		syntax_error(var);
 	if (var->r && cmd->fd_error != 1)
 		processing_fd(var, cmd);
 	if (var->q == 2)

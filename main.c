@@ -33,6 +33,7 @@ void	copy_env(char **envp, t_data *data)
 	data->envp[i] = 0;
 }
 
+#include <stdio.h>
 void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
 	int	ret;

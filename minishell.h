@@ -60,6 +60,7 @@ typedef struct			s_var
 	char				*arr;
 	int					error;
 	int					exception;
+	int					flag;
 	t_list				*head;
 
 	t_list				*list;
@@ -152,7 +153,7 @@ int						command_not_found(char *command);
 void					permission_denied(t_commands *command);
 int						path_no_file_or_dir(t_commands *command);
 void					path_does_not_exist(t_commands *command, t_data *data);
-int						syntax_error(void);
+int						syntax_error(t_var *var);
 void					pid_error(void);
 void					parser_str(t_var *var);
 void					var_initialization(t_var *var);
