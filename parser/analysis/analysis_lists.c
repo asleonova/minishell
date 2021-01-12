@@ -6,11 +6,12 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 19:47:25 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:49:27 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+	#include <stdio.h>
 
 void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {

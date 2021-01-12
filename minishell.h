@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 19:45:04 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 19:49:42 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct			s_var
 	char				*arr;
 	int					error;
 	int					exception;
+	int					flag;
 	t_list				*head;
 
 	t_list				*list;
