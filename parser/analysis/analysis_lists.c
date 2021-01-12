@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 13:29:47 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/12 13:43:15 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	analysis_one(t_var *var, t_commands *cmd, char ***env)
+void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
 	if (var->q)
 		quote_cut(var, &var->list->content, 0);
@@ -24,17 +24,18 @@ void	analysis_one(t_var *var, t_commands *cmd, char ***env)
 		write_argv(var, cmd);
 }
 
-void	analysis_export(t_var *var, t_commands *cmd, t_data *data, int flag)
+void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
+		int flag)
 {
 	if (!ft_strcmp(cmd->cmd, "export") && var->list->next == NULL)
+	{
+		cmd->count_args = ft_lstsize(cmd->arg_lst);
+		if (cmd->count_args == 0)
 		{
-			cmd->count_args = ft_lstsize(cmd->arg_lst);
-			if (cmd->count_args == 0)
-			{	
-				ft_print_export(data);	
-				flag = 1;
-			}
+			ft_print_export(data);
+			flag = 1;
 		}
+	}
 	if (!ft_strcmp(cmd->cmd, "export") && flag == 0)
 	{
 		while (cmd->arg_lst)
@@ -42,7 +43,7 @@ void	analysis_export(t_var *var, t_commands *cmd, t_data *data, int flag)
 	}
 }
 
-void	analysis_two(t_var *var, t_commands *cmd, char ***env)
+void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 {
 	if (var->list->content[0] == '>' || var->list->content[0] == '<')
 		syntax_error();
@@ -52,19 +53,20 @@ void	analysis_two(t_var *var, t_commands *cmd, char ***env)
 		parsing_env_quote(var, *env, &var->list->content);
 }
 
-t_commands	*analysis_three(t_commands *cmd)
+t_commands		*analysis_three(t_commands *cmd)
 {
 	t_commands *tmp;
-	
- 	cmd_initialization(tmp = malloc(sizeof(t_commands)));
- 		tmp->prev = cmd;
- 		cmd->next = tmp;
- 		cmd = tmp;
+
+	cmd_initialization(tmp = malloc(sizeof(t_commands)));
+	tmp->prev = cmd;
+	cmd->next = tmp;
+	cmd = tmp;
 	return (cmd);
 }
 
-void	analysis_lists(t_var *var, t_commands *cmd, t_data *data, char ***env)
-{	
+void			analysis_lists(t_var *var, t_commands *cmd, t_data *data,
+		char ***env)
+{
 	int flag;
 
 	flag = 0;
