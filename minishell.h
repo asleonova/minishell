@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 20:15:49 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:48:40 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-#include <stdio.h> //DELETE
 
 # define SUCCESS 0
 # define FAIL 1
@@ -63,6 +62,7 @@ typedef struct			s_var
 	int					exception;
 	int					flag;
 	int					invalid;
+	int					not_pack;
 	t_list				*head;
 
 	t_list				*list;

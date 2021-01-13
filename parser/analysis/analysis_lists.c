@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 20:21:46 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:48:26 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
 	if (var->q)
 		quote_cut(var, &var->list->content, 0);
-	if (var->list->content[0] == '$')
+	if (var->list->content[0] == '$' && !var->not_pack)
 		parsing_env(var, *env, &var->list->content);
 	if (!cmd->cmd && !var->exception)
 		write_cmd(var->list->content, cmd, 0);
@@ -45,6 +45,8 @@ void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 
 void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 {
+	if (var->shielding)
+		shielding(var, &var->list->content, 0);
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
 		(var->list->next->content[0] == '>' || \
 		var->list->next->content[0] == '<'))
@@ -75,6 +77,7 @@ void			analysis_lists(t_var *var, t_commands *cmd, t_data *data,
 	cmd_initialization(cmd);
 	while (var->list)
 	{
+		var->oq = ' ';
 		if (distribution(var->list->content, var, cmd, 0))
 		{
 			analysis_two(var, cmd, env);

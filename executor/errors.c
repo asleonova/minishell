@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:54:59 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/09 11:56:05 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/13 18:46:59 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	permission_denied(t_commands *command)
 		ft_putstr_fd("minishell: ", 1);
 		ft_putstr_fd(strerror(errno), 2);
 		ft_putchar_fd('\n', 1);
-		command->cmd = NULL;
 		command->fd_error = 1;
 		g_error = 1;
 	}
