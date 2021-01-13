@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 16:07:35 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:48:40 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-#include <stdio.h> //DELETE
 
 # define SUCCESS 0
 # define FAIL 1

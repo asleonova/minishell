@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:23:58 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 18:55:54 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:40:41 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	clear_arg_list(t_commands *cmd)
 	cmd->cmd = NULL;
 	while (cmd->arg_lst)
 	{
+		printf("cmd->arg_lst\t%s\n", cmd->arg_lst->content);
 		tmp = cmd->arg_lst->next;
 		free(cmd->arg_lst->content);
 		free(cmd->arg_lst);
@@ -33,6 +34,7 @@ void	clear_struct(t_commands *cmd)
 
 	while (cmd)
 	{
+		printf("cmd->cmd\t%s\n", cmd->cmd);
 		clear_arg_list(cmd);
 		tmp = cmd->next;
 		free(cmd);

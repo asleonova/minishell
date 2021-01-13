@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 17:41:35 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 18:48:26 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void			analysis_lists(t_var *var, t_commands *cmd, t_data *data,
 	while (var->list)
 	{
 		var->oq = ' ';
-		printf("var->list\t%s\n", var->list->content);
 		if (distribution(var->list->content, var, cmd, 0))
 		{
 			analysis_two(var, cmd, env);
