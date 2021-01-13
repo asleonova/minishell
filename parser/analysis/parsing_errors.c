@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <stdio.h>
 
 void	syntax_error(t_var *var)
 {

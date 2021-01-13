@@ -38,7 +38,7 @@ static int		ft_exit_errors(t_commands *command)
 		if (ret != 0)
 			g_error = ret;
 		else
-			numeric_arg(flag);
+			flag = numeric_arg(flag);
 	}
 	if (command->count_args > 1 && g_error != 255)
 	{
