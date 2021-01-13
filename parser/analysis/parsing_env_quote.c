@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 23:34:31 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 17:21:18 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 17:44:20 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	parsing_env_quote(t_var *var, char **env, char **str)
 		while (tmp->j <= tmp->i)
 			tmp->env[tmp->k++] = str[0][tmp->j++];
 		tmp->env[tmp->k] = '\0';
-		if(!var->not_pack)
+		if (!var->not_pack)
 			parsing_env(var, env, &tmp->env);
 		env_initialization_step(tmp);
 		unpacking_env(tmp, str, 1);

@@ -6,13 +6,15 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 20:31:16 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/13 17:44:05 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		cut_util_1(t_var *var, char **str, int i)
+#include "../../minishell.h"
+
+int		cut_util(t_var *var, char **str, int i)
 {
 	if ((str[0][i] == '\'' || str[0][i] == '"') && \
 		str[0][i - 1] != '\\')
@@ -49,15 +51,14 @@ void	quote_cut_loop(t_var *var, char **str, char *ns, int i)
 			ns[k++] = str[0][i++];
 			i += 2;
 		}
-		i = cut_util_1(var, str, i);
+		i = cut_util(var, str, i);
 		i = cut_util_2(str, i);
 		if (str[0][i] == var->oq && str[0][i - 1] != '\\')
 		{
 			i++;
 			var->oq = ' ';
 		}
-		else
-			ns[k++] = str[0][i++];
+		ns[k++] = str[0][i++];
 	}
 	ns[k] = '\0';
 }
