@@ -21,6 +21,7 @@ int		close_fd(int fd)
 
 void	processing_fd(t_var *var, t_commands *cmd)
 {
+	errno = 0;
 	if (var->list->next != NULL)
 	{
 		var->list = var->list->next;
