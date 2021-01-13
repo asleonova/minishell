@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:30:50 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 19:22:14 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/13 20:54:16 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	parse_func(t_commands *command, t_data *data)
 	else if (command->command == env)
 		ret = ft_env(command, data);
 	else
-		error_path(command);
+		ret = 0;
 	g_error = ret;
 }
