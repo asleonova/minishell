@@ -86,6 +86,7 @@ typedef struct			s_commands
 	int					fd_1;
 	int					end;
 	char				*cmd;
+	char				*cmd_error;
 	int					invalid;
 	t_command_names		command;
 	int					count_args;

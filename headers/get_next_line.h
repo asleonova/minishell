@@ -17,7 +17,7 @@
 # include "libft.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 2
 # endif
 
 char	*ft_strdup_mod(const char *str, size_t n);

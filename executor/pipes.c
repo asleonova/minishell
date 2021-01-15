@@ -21,17 +21,18 @@ int		execute_execve(t_commands *command, t_data *data)
 		argv = ft_list_to_array(command);
 		if (execve(argv[0], argv, data->envp) == -1)
 		{
-			command_not_found(argv[0]);
+			command_not_found(command->cmd_error);
 			exit(g_error);
 		}
 	}
 	else
 	{
+		command->cmd_error = command->cmd;
 		add_path_to_commands(command, data);
 		argv = ft_list_to_array(command);
 		if (execve(argv[0], argv, data->envp) == -1)
 		{
-			command_not_found(argv[0]);
+			command_not_found(command->cmd_error);
 			exit(g_error);
 		}
 	}
