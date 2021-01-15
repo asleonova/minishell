@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/15 16:07:28 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/15 22:32:13 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 		write_argv(var, cmd);
 }
 
-#include <stdio.h>
 void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 		int flag)
 {

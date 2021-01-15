@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/15 21:32:28 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/15 22:48:10 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,22 @@ void	quote_cut(t_var *var, char **str, int i)
 	var->j = 0;
 	while(str[0][var->i])
 	{
-		if(str[0][var->i] == '\'' || str[0][var->i] == '"')
+		if((str[0][var->i] == '\'' || str[0][var->i] == '"') && \
+			var->oq == ' ')
 		{
-			if(var->i > 0)
-				create_piece(var, str, &ns);
-			break;
+			if(var->i != var->j)
+				create_piece(var, str, &ns);	
 		}
-		var->i++;
-	}
-	var->j = var->i;
-	while(str[0][var->i])
-	{
 		if((str[0][var->i] == '\'' || str[0][var->i] == '"') && \
 			var->oq == ' ')
 			var->oq = (str[0][var->i] == '\'') ? '\'' : '"';
 		else if(str[0][var->i] == var->oq)	
 		{
 			var->i++;
+			var->oq = ' ';
 			create_piece(var, str, &ns);
+			var->j = var->i;
+			continue ;
 		}
 		var->i++;
 	}
