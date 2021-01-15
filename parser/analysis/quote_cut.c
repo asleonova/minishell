@@ -6,82 +6,60 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 17:59:19 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/15 21:32:28 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-#include "../../minishell.h"
-
-int		cut_util(t_var *var, char **str, int i)
+void	create_piece(t_var *var, char **str, char **ns)
 {
-	if ((str[0][i] == '\'' || str[0][i] == '"') && \
-		str[0][i - 1] != '\\')
-	{
-		if (var->oq != '\'' && var->oq != '"')
-			var->oq = (str[0][i] == '\'') ? '\'' : '"';
-		if (var->oq == str[0][i])
-			i++;
-	}
-	return (i);
-}
-
-int		cut_util_2(char **str, int i)
-{
-	if (str[0][i] == '\\' && str[0][i + 1] == '"' && \
-			str[0][i + 1] == '"')
-		i++;
-	else if (str[0][i] == '\\' && str[0][i + 1] <= 33)
-		i++;
-	return (i);
-}
-
-int		cut_util_3(t_var *var, char **str, int i)
-{
-	if (str[0][i] == var->oq && str[0][i - 1] != '\\')
-	{
-		var->oq = ' ';
-		i++;
-	}
-	return (i);
-}
-
-void	quote_cut_loop(t_var *var, char **str, char *ns, int i)
-{
-	int k;
-
+	char	*tmp;
+	char	*temp;
+	int		k;
+	
 	k = 0;
-	while (str[0][i])
+	tmp = malloc(var->i - var->j + 1);
+	while(var->j < var->i)
 	{
-		if (str[0][i] == '"' && str[0][i + 1] == '\\' && \
-			str[0][i + 2] == '\\' && str[0][i + 3] == '"')
-		{
-			i++;
-			ns[k++] = str[0][i++];
-			i += 2;
-		}
-		i = cut_util(var, str, i);
-		i = cut_util_2(str, i);
-		i = cut_util_3(var, str, i);
-		if (str[0][i] != '"' && str[0][i] != '\'')
-			ns[k++] = str[0][i++];
-		else
-			i++;
+		tmp[k++] = str[0][var->j++];
 	}
-	ns[k] = '\0';
+	tmp[k] = '\0';
+	printf("tmp-> %s\n", tmp);
+	temp = ft_strjoin_new(*ns, tmp, 0, 0);
+	printf("temp-> %s\n", temp);
 }
 
 void	quote_cut(t_var *var, char **str, int i)
 {
-	char *new_str;
-
-	i = ft_strlen(*str);
-	new_str = malloc(i);
-	quote_cut_loop(var, str, new_str, 0);
-	free(*str);
-	*str = NULL;
-	*str = ft_strdup(new_str);
-	free(new_str);
-	new_str = NULL;
+	char *ns;
+	ns = NULL;
+	(void)i;
+	var->i = 0;
+	var->j = 0;
+	while(str[0][var->i])
+	{
+		if(str[0][var->i] == '\'' || str[0][var->i] == '"')
+		{
+			if(var->i > 0)
+				create_piece(var, str, &ns);
+			break;
+		}
+		var->i++;
+	}
+	var->j = var->i;
+	while(str[0][var->i])
+	{
+		if((str[0][var->i] == '\'' || str[0][var->i] == '"') && \
+			var->oq == ' ')
+			var->oq = (str[0][var->i] == '\'') ? '\'' : '"';
+		else if(str[0][var->i] == var->oq)	
+		{
+			var->i++;
+			create_piece(var, str, &ns);
+		}
+		var->i++;
+	}
 }
+
+//alias mm="make && ./minishell"

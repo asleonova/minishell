@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 18:48:40 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/15 21:34:30 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <stdio.h> //adafg
 
 # define SUCCESS 0
 # define FAIL 1
@@ -181,5 +182,6 @@ void					quote_cut(t_var *var, char **str, int i);
 void					write_argv(t_var *var, t_commands *cmd);
 void					write_cmd(char *str, t_commands *cmd, int i);
 int						env_is_valid(t_commands *cmd);
+char					*ft_strjoin_new(char *s1, char *s2, int i, int j);
 
 #endif

@@ -1,0 +1,13 @@
+Makefile
+af
+executor
+headers
+initialization
+libft
+main.c
+main.o
+minishell
+minishell.dSYM
+minishell.h
+parser
+signals
