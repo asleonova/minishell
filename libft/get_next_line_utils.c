@@ -1,30 +1,79 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/21 18:57:57 by monie             #+#    #+#             */
-/*   Updated: 2020/11/26 17:00:44 by monie            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-char	*ft_strdup_mod(const char *str, size_t n)
+char		*ft_strcat(char *dest, const char *src)
 {
-	char	*res;
-	char	*check_mem;
+	int i;
+	int j;
 
-	check_mem = malloc(n * sizeof(char) + 1);
-	if (!(check_mem))
-		return (NULL);
-	res = check_mem;
-	while (n-- > 0)
+	i = 0;
+	j = 0;
+	while (dest[i])
+		i++;
+	while (src[j])
 	{
-		*check_mem++ = *(char*)str++;
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-	*check_mem = '\0';
-	return (res);
+	dest[i] = '\0';
+	return (dest);
 }
+
+// size_t		ft_strlen(const char *str)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (str[i])
+// 		i++;
+// 	return (i);
+// }
+
+int			ft_strchrn(char *s, int c)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char		*ft_strcpy(char *dst, const char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
+// char		*ft_strdup(const char *src)
+// {
+// 	char	*dest;
+// 	int		i;
+// 	int		size;
+
+// 	size = 0;
+// 	while (src[size])
+// 		size++;
+// 	if (!(dest = malloc(sizeof(*dest) * (size + 1))))
+// 		return (0);
+// 	i = 0;
+// 	while (src[i])
+// 	{
+// 		dest[i] = src[i];
+// 		i++;
+// 	}
+// 	dest[i] = '\0';
+// 	return (dest);
+// }
