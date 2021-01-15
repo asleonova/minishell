@@ -47,7 +47,7 @@ void	parse_func(t_commands *command, t_data *data)
 	else if (command->command == pwd)
 		ret = ft_pwd();
 	else if (command->command == export)
-		ret = 0;
+		ret = data->status;
 	else if (command->command == unset)
 		ret = ft_unset(data, command);
 	else if (command->command == our_exit)

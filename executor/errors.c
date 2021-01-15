@@ -21,9 +21,11 @@ int		error_path(t_commands *command)
 	return (g_error);
 }
 
-int		error_identifier(t_commands *command)
+int		error_identifier(t_commands *command, char *cmd)
 {
-	ft_putstr_fd("minishell: unset: `", 1);
+	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd(cmd, 1);
+	ft_putstr_fd(": `", 1);
 	ft_putstr_fd(command->arg_lst->content, 1);
 	ft_putstr_fd("\' : not a valid identifier\n", 1);
 	g_error = 1;

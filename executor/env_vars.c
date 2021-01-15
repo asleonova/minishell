@@ -37,6 +37,24 @@ char		*get_env_values(t_data *data, char *key)
 	return (value);
 }
 
+int		env_is_valid(t_commands *cmd)
+{
+	int		i;
+
+	i = 0;
+	if (ft_strncmp(cmd->arg_lst->content, "=", 1) == 0)
+		return (FAIL);
+	if (ft_isdigit(cmd->arg_lst->content[i]) == 1)
+		return (FAIL);
+	while (cmd->arg_lst->content[i] && cmd->arg_lst->content[i] != '=')
+	{
+		if (ft_isalnum(cmd->arg_lst->content[i]) == 0)
+			return (FAIL);
+		i++;
+	}
+	return (SUCCESS);
+}
+
 void		add_env_var(char *var, t_data *data)
 {
 	char	**tmp;

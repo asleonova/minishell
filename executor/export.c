@@ -63,10 +63,22 @@ void			ft_export_update(t_data *data, char *str)
 
 int				ft_export(t_data *data, t_commands *command)
 {
+	int valid;
+	data->status = 0;
 	while (command->arg_lst)
 	{
-		ft_export_update(data, command->arg_lst->content);
-		next_and_clear_args(command);
+		valid = env_is_valid(command);
+		if (valid != FAIL)
+			ft_export_update(data, command->arg_lst->content);
+		else
+		{
+			error_identifier(command, command->cmd);
+			data->status = 1;
+		}			
+	next_and_clear_args(command);
 	}
-	return (SUCCESS);
+	if (valid == FAIL)
+		return(FAIL);
+	else
+		return (SUCCESS);
 }

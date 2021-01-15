@@ -103,7 +103,7 @@ typedef struct			s_data
 	char				**envp;
 	char				*path;
 	char				*home;
-	char				*status;
+	int					status;
 }						t_data;
 
 int						ft_exit(t_commands *command);
@@ -149,7 +149,7 @@ void					signals_default(void);
 void					signals_ignore(void);
 void					cd_zero_args(t_data *data);
 int						error_path(t_commands *command);
-int						error_identifier(t_commands *command);
+int						error_identifier(t_commands *command, char *cmd);
 int						error_no_file_or_dir(t_commands *command);
 int						command_not_found(char *command);
 void					permission_denied(t_commands *command);
@@ -180,5 +180,6 @@ void					ft_free(char **str);
 void					quote_cut(t_var *var, char **str, int i);
 void					write_argv(t_var *var, t_commands *cmd);
 void					write_cmd(char *str, t_commands *cmd, int i);
+int						env_is_valid(t_commands *cmd);
 
 #endif

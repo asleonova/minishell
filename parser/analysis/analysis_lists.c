@@ -24,6 +24,7 @@ void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 		write_argv(var, cmd);
 }
 
+#include <stdio.h>
 void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 		int flag)
 {

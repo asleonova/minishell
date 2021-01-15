@@ -14,13 +14,20 @@
 
 int	ft_unset(t_data *data, t_commands *command)
 {
+	int valid;
 	while (command->arg_lst)
 	{
-		if (ft_strchr(command->arg_lst->content, '=') == NULL)
+		valid = env_is_valid(command);
+		if (ft_strchr(command->arg_lst->content, '=') == NULL && valid != FAIL)
 			ft_unset_env(command->arg_lst->content, data);
 		else
-			error_identifier(command);
+		{
+			valid = FAIL;
+			error_identifier(command, command->cmd);
+		}
 		next_and_clear_args(command);
 	}
+	if (valid == FAIL)
+		return (FAIL);
 	return (SUCCESS);
 }
