@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:49:38 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 19:14:52 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 19:24:32 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int		get_next_line(int fd, char **line)
 	int				n;
 	char			*tmp;
 
-	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd >= MAX_FD)
-		return (-1);
 	while ((last_read = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
 		if (!last_read && line_left[0][0] == '\0')
