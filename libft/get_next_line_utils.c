@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 18:49:10 by monie             #+#    #+#             */
+/*   Updated: 2021/01/16 18:49:18 by monie            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-char		*ft_strcat(char *dest, const char *src)
+char		*ft_strcat_gnl(char *dest, const char *src)
 {
 	int i;
 	int j;
@@ -19,17 +31,7 @@ char		*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-// size_t		ft_strlen(const char *str)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (str[i])
-// 		i++;
-// 	return (i);
-// }
-
-int			ft_strchrn(char *s, int c)
+int			ft_strchrn_gnl(char *s, int c)
 {
 	int i;
 
@@ -43,7 +45,7 @@ int			ft_strchrn(char *s, int c)
 	return (-1);
 }
 
-char		*ft_strcpy(char *dst, const char *src)
+char		*ft_strcpy_gnl(char *dst, const char *src)
 {
 	int i;
 
@@ -56,24 +58,3 @@ char		*ft_strcpy(char *dst, const char *src)
 	dst[i] = '\0';
 	return (dst);
 }
-
-// char		*ft_strdup(const char *src)
-// {
-// 	char	*dest;
-// 	int		i;
-// 	int		size;
-
-// 	size = 0;
-// 	while (src[size])
-// 		size++;
-// 	if (!(dest = malloc(sizeof(*dest) * (size + 1))))
-// 		return (0);
-// 	i = 0;
-// 	while (src[i])
-// 	{
-// 		dest[i] = src[i];
-// 		i++;
-// 	}
-// 	dest[i] = '\0';
-// 	return (dest);
-// }

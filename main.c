@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 16:44:49 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:59:33 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	loop(t_var *var, t_commands *cmd, t_data *data)
 			ft_putstr_fd("exit\n", 1);
 			exit(g_error);
 		}
-		// if (ret == -1)
-		// 	break ; 
 		parser_str(var);
 		analysis_lists(var, cmd, data, &data->envp);
 		executor(cmd, data, var);

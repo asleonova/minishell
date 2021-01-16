@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 18:49:38 by monie             #+#    #+#             */
+/*   Updated: 2021/01/16 19:14:52 by monie            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-char		*ft_strjoin_gnl(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char *s3;
 
@@ -13,21 +25,21 @@ char		*ft_strjoin_gnl(char *s1, char *s2)
 	{
 		if (!(s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 			return (0);
-		ft_strcpy(s3, s1);
+		ft_strcpy_gnl(s3, s1);
 		free(s1);
-		ft_strcat(s3, s2);
+		ft_strcat_gnl(s3, s2);
 	}
 	return (s3);
 }
 
-int			output(char **line_left, char **line, int last_read)
+int		output(char **line_left, char **line, int last_read)
 {
 	int		n;
 	char	*tmp;
 
 	if (last_read < 0)
 		return (-1);
-	if (*line_left && (n = ft_strchrn(*line_left, '\n')) >= 0)
+	if (*line_left && (n = ft_strchrn_gnl(*line_left, '\n')) >= 0)
 	{
 		(*line_left)[n] = '\0';
 		*line = ft_strdup(*line_left);
@@ -46,7 +58,7 @@ int			output(char **line_left, char **line, int last_read)
 	return (0);
 }
 
-int			get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
 	static char		*line_left[MAX_FD];
 	char			buf[BUFFER_SIZE + 1];
@@ -58,13 +70,13 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	while ((last_read = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
-        if (!last_read && line_left[0][0] == '\0')
-            return (666);
-        else if (!last_read)
+		if (!last_read && line_left[0][0] == '\0')
+			return (666);
+		else if (!last_read)
 			ft_putstr_fd("  \b\b", 1);
 		buf[last_read] = '\0';
 		line_left[fd] = ft_strjoin_gnl(line_left[fd], buf);
-		if ((n = ft_strchrn(line_left[fd], '\n')) >= 0)
+		if ((n = ft_strchrn_gnl(line_left[fd], '\n')) >= 0)
 		{
 			(line_left[fd])[n] = '\0';
 			*line = ft_strdup(line_left[fd]);

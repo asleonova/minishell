@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:00:53 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 19:23:50 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/16 18:47:18 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void			ft_export_update(t_data *data, char *str)
 int				ft_export(t_data *data, t_commands *command)
 {
 	int valid;
+
 	data->status = 0;
 	while (command->arg_lst)
 	{
@@ -74,11 +75,11 @@ int				ft_export(t_data *data, t_commands *command)
 		{
 			error_identifier(command, command->cmd);
 			data->status = 1;
-		}			
-	next_and_clear_args(command);
+		}
+		next_and_clear_args(command);
 	}
 	if (valid == FAIL)
-		return(FAIL);
+		return (FAIL);
 	else
 		return (SUCCESS);
 }

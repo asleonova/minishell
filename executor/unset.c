@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:13:46 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 17:42:38 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:36:29 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_unset(t_data *data, t_commands *command)
 {
 	int valid;
+
 	while (command->arg_lst)
 	{
 		valid = env_is_valid(command);
