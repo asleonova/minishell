@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 15:56:23 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 16:28:49 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct			s_var
 	int					flag;
 	int					invalid;
 	int					not_pack;
-	int					fq; 
+	char				fq; 
 	t_list				*head;
 
 	t_list				*list;

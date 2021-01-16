@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 16:00:12 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 16:42:52 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	tmp = malloc(var->i - var->j + 1);
 	while(var->j < var->i)
 	{
-		if(str[0][var->j] == '\'' || str[0][var->j] == '"')
+		if((str[0][var->j] == '\'' || str[0][var->j] == '"') && \
+			(var->fq == ' ' || var->fq == str[0][var->j]))
 		{
-			var->fq = (str[0][var->j] == '\'') ? 1 : 2;
+			if(var->fq == ' ')
+				var->fq = (str[0][var->j] == '\'') ? '\'' : '"';
 			var->j++;
 		}
 		else
@@ -31,7 +33,7 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	}
 	tmp[k] = '\0';
 	*ns = ft_strjoin_new(*ns, tmp, 0, 0);
-	if(var->fq == 2)
+	if(var->fq == '"')
 	{
 		parsing_env_quote(var, *env, ns);
 		shielding(var, ns, 0);
@@ -69,5 +71,3 @@ void	quote_cut(t_var *var, char **str, char ***env)
 	free(*str);
 	*str = ns;
 }
-
-//alias mm="make && ./minishell
