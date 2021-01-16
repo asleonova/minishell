@@ -1,84 +1,78 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/21 17:08:37 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 19:08:06 by monie            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-static void		free_it(char **str)
+char		*ft_strjoin_gnl(char *s1, char *s2)
 {
-	free(*str);
-	*str = NULL;
+	char *s3;
+
+	s3 = 0;
+	if (!(s1) && !(s2))
+		return (NULL);
+	else if (!(s1) || !(s2))
+		return (!(s1) ? ft_strdup(s2) : ft_strdup(s1));
+	else if (s1 && s2)
+	{
+		if (!(s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
+			return (0);
+		ft_strcpy(s3, s1);
+		free(s1);
+		ft_strcat(s3, s2);
+	}
+	return (s3);
 }
 
-static void		remain_and_free(char **remain, int readed)
+int			output(char **line_left, char **line, int last_read)
 {
+	int		n;
+	char	*tmp;
+
+	if (last_read < 0)
+		return (-1);
+	if (*line_left && (n = ft_strchrn(*line_left, '\n')) >= 0)
+	{
+		(*line_left)[n] = '\0';
+		*line = ft_strdup(*line_left);
+		tmp = ft_strdup(*line_left + n + 1);
+		free(*line_left);
+		*line_left = tmp;
+		return (1);
+	}
+	else if (*line_left)
+	{
+		*line = *line_left;
+		*line_left = 0;
+		return (0);
+	}
+	*line = ft_strdup("");
+	return (0);
+}
+
+int			get_next_line(int fd, char **line)
+{
+	static char		*line_left[MAX_FD];
+	char			buf[BUFFER_SIZE + 1];
+	int				last_read;
+	int				n;
 	char			*tmp;
 
-	readed++;
-	tmp = ft_strdup_mod(*remain + readed, ft_strlen(*remain + readed));
-	free(*remain);
-	*remain = ft_strdup_mod(tmp, ft_strlen(tmp));
-	free_it(&tmp);
-}
-
-static int		find_n(char **remain, int fd)
-{
-	char			*buf;
-	char			*tmp;
-	char			*n;
-	ssize_t			i;
-
-	while (!(n = ft_strchr(*remain, '\n')))
-	{
-		buf = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if ((i = read(fd, buf, BUFFER_SIZE)) < 0)
-		{
-			free_it(&buf);
-			return (-2);
-		}
-		buf[i] = '\0';
-		if (i == 0)
-		{
-			free_it(&buf);
-			return (-1);
-		}
-		tmp = *remain;
-		*remain = ft_strjoin(*remain, buf);
-		free_it(&tmp);
-		free_it(&buf);
-	}
-	return (n - *remain);
-}
-
-int				get_next_line(int fd, char **line)
-{
-	static char		*remain;
-	int				readed;
-
-	if (fd < 0 || BUFFER_SIZE < 1 || !line)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd >= MAX_FD)
 		return (-1);
-	if (!remain)
-		remain = ft_strdup_mod("", 0);
-	if ((readed = find_n(&remain, fd)) == -2)
+	while ((last_read = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
-		free_it(&remain);
-		return (-1);
+        if (!last_read && line_left[0][0] == '\0')
+            return (666);
+        else if (!last_read)
+			ft_putstr_fd("  \b\b", 1);
+		buf[last_read] = '\0';
+		line_left[fd] = ft_strjoin_gnl(line_left[fd], buf);
+		if ((n = ft_strchrn(line_left[fd], '\n')) >= 0)
+		{
+			(line_left[fd])[n] = '\0';
+			*line = ft_strdup(line_left[fd]);
+			tmp = ft_strdup(line_left[fd] + n + 1);
+			free(line_left[fd]);
+			line_left[fd] = tmp;
+			return (1);
+		}
 	}
-	if (readed == -1)
-	{
-		*line = ft_strdup_mod(remain, ft_strlen(remain));
-		free_it(&remain);
-		return (666);
-	}
-	*line = ft_strdup_mod(remain, readed);
-	remain_and_free(&remain, readed);
-	return (1);
+	return (output(&line_left[fd], line, last_read));
 }

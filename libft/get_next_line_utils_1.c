@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_initialization.c                               :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/20 15:47:55 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 20:06:44 by monie            ###   ########.fr       */
+/*   Created: 2020/07/21 18:57:57 by monie             #+#    #+#             */
+/*   Updated: 2020/11/26 17:00:44 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "get_next_line.h"
 
-void	cmd_initialization(t_commands *cmd)
+char	*ft_strdup_mod(const char *str, size_t n)
 {
-	cmd->cmd = NULL;
-	cmd->arg_lst = NULL;
-	cmd->end = 0;
-	cmd->next = NULL;
-	cmd->prev = NULL;
-	cmd->fd_0 = -1;
-	cmd->fd_1 = -1;
-	cmd->fd_error = 0;
-	cmd->cmd_error = NULL;
+	char	*res;
+	char	*check_mem;
+
+	check_mem = malloc(n * sizeof(char) + 1);
+	if (!(check_mem))
+		return (NULL);
+	res = check_mem;
+	while (n-- > 0)
+	{
+		*check_mem++ = *(char*)str++;
+	}
+	*check_mem = '\0';
+	return (res);
 }

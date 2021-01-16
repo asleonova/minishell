@@ -52,6 +52,8 @@ void	loop(t_var *var, t_commands *cmd, t_data *data)
 			ft_putstr_fd("exit\n", 1);
 			exit(g_error);
 		}
+		// if (ret == -1)
+		// 	break ; 
 		parser_str(var);
 		analysis_lists(var, cmd, data, &data->envp);
 		executor(cmd, data, var);
