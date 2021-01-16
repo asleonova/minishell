@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 13:45:17 by monie             #+#    #+#             */
-/*   Updated: 2021/01/15 21:34:30 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 15:56:23 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct			s_var
 	int					flag;
 	int					invalid;
 	int					not_pack;
+	int					fq; 
 	t_list				*head;
 
 	t_list				*list;
@@ -172,13 +173,12 @@ int						distribution(char *str, t_var *var, \
 void					processing_fd(t_var *var, t_commands *cmd);
 void					parsing_env(t_var *var, char **env, char **str);
 void					parsing_env_quote(t_var *var, char **env, char **str);
-void					parsing_env_quote(t_var *var, char **env, char **str);
 void					env_initialization(t_env *tmp);
 void					env_initialization_step(t_env *tmp);
 void					shielding(t_var *var, char **str, int i);
 void					intro(void);
 void					ft_free(char **str);
-void					quote_cut(t_var *var, char **str, int i);
+void					quote_cut(t_var *var, char **str, char ***env);
 void					write_argv(t_var *var, t_commands *cmd);
 void					write_cmd(char *str, t_commands *cmd, int i);
 int						env_is_valid(t_commands *cmd);

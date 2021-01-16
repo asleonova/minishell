@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/15 22:32:13 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 16:00:55 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
 	if (var->q)
-		quote_cut(var, &var->list->content, 0);
+		quote_cut(var, &var->list->content, env);
 	if (var->list->content[0] == '$' && !var->not_pack)
 		parsing_env(var, *env, &var->list->content);
 	if (ft_strcmp(cmd->cmd, "export") == 0)
@@ -47,6 +47,7 @@ void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 
 void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 {
+	(void)env;
 	if (var->shielding)
 		shielding(var, &var->list->content, 0);
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
@@ -55,8 +56,6 @@ void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 		syntax_error(var);
 	if (var->r && cmd->fd_error != 1)
 		processing_fd(var, cmd);
-	if (var->q == 2)
-		parsing_env_quote(var, *env, &var->list->content);
 }
 
 t_commands		*analysis_three(t_commands *cmd)
