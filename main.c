@@ -47,16 +47,11 @@ void	loop(t_var *var, t_commands *cmd, t_data *data)
 		var_initialization(var);
 		cmd_initialization(cmd);
 		intro();
-		// var->str = ft_strdup("");
 		ret = get_next_line(0, &var->str);
 		if (ret == 666)
 		{
 			ft_putstr_fd("exit\n", 1);
-			//sleep(10);
-			clear_input_list(var);
-			clear_struct(cmd);
 			exit(g_error);
-
 		}
 		if (ret == -1)
 			break ;
