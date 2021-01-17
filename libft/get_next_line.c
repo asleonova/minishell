@@ -58,10 +58,10 @@ int			get_next_line(int fd, char **line)
 		return (-1);
 	while ((last_read = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
+        if (!*line_left)
+            *line_left = ft_strdup("");
         if (!last_read && line_left[0][0] == '\0')
             return (666);
-        else if (!last_read)
-			ft_putstr_fd("  \b\b", 1);
 		buf[last_read] = '\0';
 		line_left[fd] = ft_strjoin_gnl(line_left[fd], buf);
 		if ((n = ft_strchrn(line_left[fd], '\n')) >= 0)
@@ -72,7 +72,7 @@ int			get_next_line(int fd, char **line)
 			free(line_left[fd]);
 			line_left[fd] = tmp;
 			return (1);
-		}
+        }
 	}
 	return (output(&line_left[fd], line, last_read));
 }

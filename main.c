@@ -32,6 +32,7 @@ void	copy_env(char **envp, t_data *data)
 	}
 	data->envp[i] = 0;
 }
+#include <stdio.h>
 
 void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
@@ -46,14 +47,19 @@ void	loop(t_var *var, t_commands *cmd, t_data *data)
 		var_initialization(var);
 		cmd_initialization(cmd);
 		intro();
+		// var->str = ft_strdup("");
 		ret = get_next_line(0, &var->str);
 		if (ret == 666)
 		{
 			ft_putstr_fd("exit\n", 1);
+			//sleep(10);
+			clear_input_list(var);
+			clear_struct(cmd);
 			exit(g_error);
+
 		}
-		// if (ret == -1)
-		// 	break ; 
+		if (ret == -1)
+			break ;
 		parser_str(var);
 		analysis_lists(var, cmd, data, &data->envp);
 		executor(cmd, data, var);
@@ -74,5 +80,6 @@ int		main(int argc, char **argv, char **envp)
 	cmd = NULL;
 	copy_env(envp, &data);
 	loop(var, cmd, &data);
+	free_tab(data.envp);
 	return (0);
 }
