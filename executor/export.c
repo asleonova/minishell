@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 12:00:53 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/16 18:47:18 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 16:57:33 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void			ft_print_export(t_data *data)
+void	ft_print_export(t_data *data)
 {
 	int		i;
 	char	**split;
@@ -40,7 +40,7 @@ void			ft_print_export(t_data *data)
 	}
 }
 
-void			ft_unset_env(char *str, t_data *data)
+void	ft_unset_env(char *str, t_data *data)
 {
 	char	*tmp;
 
@@ -51,7 +51,7 @@ void			ft_unset_env(char *str, t_data *data)
 	}
 }
 
-void			ft_export_update(t_data *data, char *str)
+void	ft_export_update(t_data *data, char *str)
 {
 	char	**temp;
 
@@ -61,7 +61,7 @@ void			ft_export_update(t_data *data, char *str)
 	add_env_var(str, data);
 }
 
-int				ft_export(t_data *data, t_commands *command)
+int		ft_export(t_data *data, t_commands *command)
 {
 	int valid;
 

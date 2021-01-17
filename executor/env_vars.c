@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:51:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/16 18:46:56 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 16:57:59 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_env_values(t_data *data, char *key)
 
 int		env_is_valid(t_commands *cmd)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (ft_strncmp(cmd->arg_lst->content, "=", 1) == 0)
