@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/17 14:32:29 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 20:32:43 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void			analysis_one(t_var *var, t_commands *cmd, char ***env)
 {
-	if (ft_strchr(var->list->content, '"') || \
-		ft_strchr(var->list->content, '\''))
+	if ((ft_strchr(var->list->content, '"') || \
+		ft_strchr(var->list->content, '\'')) && \
+		var->list->content[1] != '\0')
 		quote_cut(var, &var->list->content, env);
 	if (var->list->content[0] == '$' && !var->not_pack)
 		parsing_env(var, *env, &var->list->content);
