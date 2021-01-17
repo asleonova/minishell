@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 18:49:38 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 19:24:32 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 15:17:37 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
-	char *s3;
+	char	*s3;
 
 	s3 = 0;
 	if (!(s1) && !(s2))
@@ -68,10 +68,10 @@ int		get_next_line(int fd, char **line)
 
 	while ((last_read = read(fd, buf, BUFFER_SIZE)) != -1)
 	{
-        if (!*line_left)
-            *line_left = ft_strdup("");
-        if (!last_read && line_left[0][0] == '\0')
-            return (666);
+		if (!*line_left)
+			*line_left = ft_strdup("");
+		if (!last_read && line_left[0][0] == '\0')
+			return (666);
 		buf[last_read] = '\0';
 		line_left[fd] = ft_strjoin_gnl(line_left[fd], buf);
 		if ((n = ft_strchrn_gnl(line_left[fd], '\n')) >= 0)
@@ -82,7 +82,7 @@ int		get_next_line(int fd, char **line)
 			free(line_left[fd]);
 			line_left[fd] = tmp;
 			return (1);
-        }
+		}
 	}
 	return (output(&line_left[fd], line, last_read));
 }

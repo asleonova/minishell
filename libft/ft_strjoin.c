@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 22:53:04 by dbliss            #+#    #+#             */
-/*   Updated: 2020/05/16 01:22:16 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/01/17 15:18:08 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, const char *src)
 {
 	int i;
 	int j;
@@ -31,7 +31,7 @@ char		*ft_strcat(char *dest, const char *src)
 	return (dest);
 }
 
-char		*ft_strcpy(char *dst, const char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
 	int i;
 
@@ -45,7 +45,7 @@ char		*ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char *s3;
 

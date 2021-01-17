@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/16 18:59:33 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 15:21:08 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	copy_env(char **envp, t_data *data)
 	}
 	data->envp[i] = 0;
 }
-#include <stdio.h>
 
 void	loop(t_var *var, t_commands *cmd, t_data *data)
 {
