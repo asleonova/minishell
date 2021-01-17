@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:51:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/01/11 17:55:26 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:46:56 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char		*get_env_values(t_data *data, char *key)
+char	*get_env_values(t_data *data, char *key)
 {
 	int		i;
 	char	**tmp;
@@ -39,7 +39,7 @@ char		*get_env_values(t_data *data, char *key)
 
 int		env_is_valid(t_commands *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (ft_strncmp(cmd->arg_lst->content, "=", 1) == 0)
@@ -55,7 +55,7 @@ int		env_is_valid(t_commands *cmd)
 	return (SUCCESS);
 }
 
-void		add_env_var(char *var, t_data *data)
+void	add_env_var(char *var, t_data *data)
 {
 	char	**tmp;
 	int		i;
@@ -75,7 +75,7 @@ void		add_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void		delete_env_var(char *var, t_data *data)
+void	delete_env_var(char *var, t_data *data)
 {
 	char	**tmp;
 	char	**split;
@@ -103,7 +103,7 @@ void		delete_env_var(char *var, t_data *data)
 	data->envp = tmp;
 }
 
-void		change_env_values(char *var, t_data *data)
+void	change_env_values(char *var, t_data *data)
 {
 	char	*cwd;
 	char	**temp;

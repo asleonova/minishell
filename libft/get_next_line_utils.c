@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/16 18:49:10 by monie             #+#    #+#             */
+/*   Updated: 2021/01/16 18:49:18 by monie            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int			ft_strchrn(char *s, int c)
@@ -14,15 +26,4 @@ int			ft_strchrn(char *s, int c)
 	return (-1);
 }
 
-void		free_line(char **tab)
-{
-	int	i;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}

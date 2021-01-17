@@ -6,82 +6,74 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/13 17:59:19 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:08:14 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-#include "../../minishell.h"
-
-int		cut_util(t_var *var, char **str, int i)
+void	create_piece(t_var *var, char **str, char **ns, char ***env)
 {
-	if ((str[0][i] == '\'' || str[0][i] == '"') && \
-		str[0][i - 1] != '\\')
-	{
-		if (var->oq != '\'' && var->oq != '"')
-			var->oq = (str[0][i] == '\'') ? '\'' : '"';
-		if (var->oq == str[0][i])
-			i++;
-	}
-	return (i);
-}
-
-int		cut_util_2(char **str, int i)
-{
-	if (str[0][i] == '\\' && str[0][i + 1] == '"' && \
-			str[0][i + 1] == '"')
-		i++;
-	else if (str[0][i] == '\\' && str[0][i + 1] <= 33)
-		i++;
-	return (i);
-}
-
-int		cut_util_3(t_var *var, char **str, int i)
-{
-	if (str[0][i] == var->oq && str[0][i - 1] != '\\')
-	{
-		var->oq = ' ';
-		i++;
-	}
-	return (i);
-}
-
-void	quote_cut_loop(t_var *var, char **str, char *ns, int i)
-{
-	int k;
+	char	*tmp;
+	int		k;
 
 	k = 0;
-	while (str[0][i])
+	var->fq = ' ';
+	tmp = malloc(var->i - var->j + 1);
+	while (var->j < var->i)
 	{
-		if (str[0][i] == '"' && str[0][i + 1] == '\\' && \
-			str[0][i + 2] == '\\' && str[0][i + 3] == '"')
+		if ((str[0][var->j] == '\'' || str[0][var->j] == '"') && \
+			(var->fq == ' ' || var->fq == str[0][var->j]))
 		{
-			i++;
-			ns[k++] = str[0][i++];
-			i += 2;
+			if (var->fq == ' ')
+				var->fq = (str[0][var->j] == '\'') ? '\'' : '"';
+			var->j++;
 		}
-		i = cut_util(var, str, i);
-		i = cut_util_2(str, i);
-		i = cut_util_3(var, str, i);
-		if (str[0][i] != '"' && str[0][i] != '\'')
-			ns[k++] = str[0][i++];
 		else
-			i++;
+			tmp[k++] = str[0][var->j++];
 	}
-	ns[k] = '\0';
+	tmp[k] = '\0';
+	*ns = ft_strjoin_new(*ns, tmp, 0, 0);
+	if (var->fq == '"')
+	{
+		parsing_env_quote(var, *env, ns);
+		shielding(var, ns, 0);
+	}
 }
 
-void	quote_cut(t_var *var, char **str, int i)
+void	q(t_var *var, char ***env, char **str, char **ns)
 {
-	char *new_str;
+	if ((str[0][var->i] == '\'' || str[0][var->i] == '"') && \
+		var->oq == ' ')
+	{
+		if (var->i != var->j)
+			create_piece(var, str, ns, env);
+	}
+}
 
-	i = ft_strlen(*str);
-	new_str = malloc(i);
-	quote_cut_loop(var, str, new_str, 0);
+void	quote_cut(t_var *var, char **str, char ***env)
+{
+	char *ns;
+
+	ns = NULL;
+	var->i = 0;
+	var->j = 0;
+	while (str[0][var->i])
+	{
+		q(var, env, str, &ns);
+		if ((str[0][var->i] == '\'' || str[0][var->i] == '"') && \
+			var->oq == ' ')
+			var->oq = (str[0][var->i] == '\'') ? '\'' : '"';
+		else if (str[0][var->i] == var->oq)
+		{
+			var->i++;
+			var->oq = ' ';
+			create_piece(var, str, &ns, env);
+			var->j = var->i;
+			continue ;
+		}
+		var->i++;
+	}
 	free(*str);
-	*str = NULL;
-	*str = ft_strdup(new_str);
-	free(new_str);
-	new_str = NULL;
+	*str = ns;
 }

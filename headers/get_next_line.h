@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:08:18 by monie             #+#    #+#             */
-/*   Updated: 2021/01/11 19:10:34 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:48:07 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strjoin_gnl(char *s1, char *s2);
 int				output(char **line_left, char **line, int last_read);
 int				get_next_line(int fd, char **line);
-void		    free_line(char **tab);
 
 # ifndef MAX_FD
 #  define MAX_FD 256

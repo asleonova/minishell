@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:55:41 by monie             #+#    #+#             */
-/*   Updated: 2021/01/12 20:35:19 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/16 18:59:33 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int		main(int argc, char **argv, char **envp)
 	t_commands	*cmd;
 	t_data		data;
 
-	argc = 0;
-	argv = NULL;
+	(void)argc;
+	(void)argv;
 	var = NULL;
 	cmd = NULL;
 	copy_env(envp, &data);
