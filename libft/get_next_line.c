@@ -25,9 +25,9 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	{
 		if (!(s3 = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 			return (0);
-		ft_strcpy_gnl(s3, s1);
+		ft_strcpy(s3, s1);
 		free(s1);
-		ft_strcat_gnl(s3, s2);
+		ft_strcat(s3, s2);
 	}
 	return (s3);
 }

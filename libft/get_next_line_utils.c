@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int			ft_strchrn(char *s, int c)
+int			ft_strchrn_gnl(char *s, int c)
 {
 	int i;
 

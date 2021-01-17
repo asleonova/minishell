@@ -21,7 +21,7 @@
 # endif
 
 char			*ft_strcat(char *dest, const char *src);
-int				ft_strchrn(char *s, int c);
+int				ft_strchrn_gnl(char *s, int c);
 char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strjoin_gnl(char *s1, char *s2);
 int				output(char **line_left, char **line, int last_read);
