@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/17 15:20:15 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/17 20:43:04 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	if (var->fq == '"')
 	{
 		parsing_env_quote(var, *env, ns);
-		shielding(var, ns, 0);
+		//shielding(var, ns, 0);
 	}
 }
 
