@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 15:03:34 by monie             #+#    #+#             */
-/*   Updated: 2021/01/18 12:49:32 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/18 15:17:48 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void		shielding_utils(t_var *var, char **str, char *ns, int i)
 	while (str[0][i])
 	{
 		i = shielding_utils_1(var, str, i);
+		if ((str[0][i] == '\\' && str[0][i + 1] == '\\') && \
+			(var->fq == ' ' || var->fq == '"'))
+			i++;
+		if (str[0][i] == '\\' && (str[0][i + 1] >= 33 && \
+			str[0][i + 1] <= 122 ))
+			i++;
 		ns[j++] = str[0][i++];
 	}
 	ns[j] = '\0';
@@ -39,7 +45,6 @@ void		shielding(t_var *var, char **str, int i)
 {
 	char	*new_str;
 
-	var->not_pack = 0;
 	i = ft_strlen(*str);
 	new_str = malloc(i + 1);
 	var->np = 0;
