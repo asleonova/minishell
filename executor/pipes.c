@@ -16,12 +16,13 @@ int		execute_execve(t_commands *command, t_data *data)
 {
 	char **argv;
 
+	command->cmd_error = command->cmd;
 	if (ft_strchr(command->cmd, '/') != NULL)
 	{
 		argv = ft_list_to_array(command);
 		if (execve(argv[0], argv, data->envp) == -1)
 		{
-			command_not_found(argv[0]);
+			command_not_found(command->cmd_error);
 			exit(g_error);
 		}
 	}
@@ -31,7 +32,7 @@ int		execute_execve(t_commands *command, t_data *data)
 		argv = ft_list_to_array(command);
 		if (execve(argv[0], argv, data->envp) == -1)
 		{
-			command_not_found(argv[0]);
+			command_not_found(command->cmd_error);
 			exit(g_error);
 		}
 	}
