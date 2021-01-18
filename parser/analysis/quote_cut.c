@@ -6,11 +6,20 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/18 15:19:23 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/18 16:06:25 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	create_piece_one(t_var *var, char **str, char **ns, char ***env)
+{
+	if (var->fq == '"')
+	{
+		parsing_env_quote(var, *env, ns);
+		shielding(var, ns, 0);
+	}
+}
 
 void	create_piece(t_var *var, char **str, char **ns, char ***env)
 {
@@ -19,7 +28,6 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 
 	k = 0;
 	var->fq = ' ';
-	printf("%s\n", *str);
 	tmp = malloc(var->i - var->j + 1);
 	while (var->j < var->i)
 	{
@@ -37,12 +45,7 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	}
 	tmp[k] = '\0';
 	*ns = ft_strjoin_new(*ns, tmp, 0, 0);
-	printf("%s\n", *ns);
-	if (var->fq == '"')
-	{
-		parsing_env_quote(var, *env, ns);
-		shielding(var, ns, 0);
-	}
+	create_piece_one(var, str, ns, env);
 }
 
 void	quote_cut_add(t_var *var, char ***env, char **str, char **ns)
