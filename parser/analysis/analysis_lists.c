@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 21:10:50 by monie             #+#    #+#             */
-/*   Updated: 2021/01/17 20:32:43 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/18 12:07:17 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void			analysis_export(t_var *var, t_commands *cmd, t_data *data,
 void			analysis_two(t_var *var, t_commands *cmd, char ***env)
 {
 	(void)env;
-	if (var->shielding)
+	if (var->shielding && ft_strchr(var->list->content, '"') && \
+		ft_strchr(var->list->content, '\''))
 		shielding(var, &var->list->content, 0);
 	if ((var->list->content[0] == '>' || var->list->content[0] == '<') && \
 		(var->list->next->content[0] == '>' || \

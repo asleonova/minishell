@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/17 20:43:04 by monie            ###   ########.fr       */
+/*   Updated: 2021/01/18 12:13:45 by monie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 		{
 			if (var->fq == ' ')
 				var->fq = (str[0][var->j] == '\'') ? '\'' : '"';
+			if (var->fq == '\'')
+				var->not_pack = 1;
 			var->j++;
 		}
 		else
@@ -37,7 +39,7 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	if (var->fq == '"')
 	{
 		parsing_env_quote(var, *env, ns);
-		//shielding(var, ns, 0);
+		shielding(var, ns, 0);
 	}
 }
 
