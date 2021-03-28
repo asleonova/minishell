@@ -1,5 +1,5 @@
 # minishell
-**_rewriting a simple shell_**
+**_Rewriting a simple shell_**
 
 This project is an attempt ti recode our own little bash. A program capable of parsing a prompt and launching executables with arguments, along with a few built-in functions.
 
