@@ -4,7 +4,7 @@
 This project is an attempt ti recode our own little bash. A program capable of parsing a prompt and launching executables with arguments, along with a few built-in functions.
 
 <p align="center">
-  <img src="https://drive.google.com/file/d/1y9Gr_Gntlomhm8UdkRTbcJYEIRxlQNp0/view?usp=sharing.png" width="100%" />
+  <img src="http://coding-girl.ru/wp-content/uploads/2021/03/minishell.png" width="100%" />
 </p>
 
 
