@@ -6,13 +6,13 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 14:24:05 by monie             #+#    #+#             */
-/*   Updated: 2021/01/18 16:06:25 by monie            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:58:27 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	create_piece_one(t_var *var, char **str, char **ns, char ***env)
+void	create_piece_one(t_var *var, char **ns, char ***env)
 {
 	if (var->fq == '"')
 	{
@@ -45,7 +45,7 @@ void	create_piece(t_var *var, char **str, char **ns, char ***env)
 	}
 	tmp[k] = '\0';
 	*ns = ft_strjoin_new(*ns, tmp, 0, 0);
-	create_piece_one(var, str, ns, env);
+	create_piece_one(var, ns, env);
 }
 
 void	quote_cut_add(t_var *var, char ***env, char **str, char **ns)

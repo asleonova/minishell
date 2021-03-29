@@ -6,7 +6,7 @@
 /*   By: monie <monie@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 15:03:34 by monie             #+#    #+#             */
-/*   Updated: 2021/01/18 16:03:44 by monie            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:54:33 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void		shielding(t_var *var, char **str, int i)
 	i = ft_strlen(*str);
 	new_str = malloc(i + 1);
 	var->np = 0;
-	printf("str-> %s\n", *str);
 	shielding_utils(var, str, new_str, 0);
 	free(*str);
 	*str = NULL;
 	*str = ft_strdup(new_str);
-	printf("str-> %s\n", *str);
 	free(new_str);
 	new_str = NULL;
 }
